@@ -15,11 +15,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO Customers VALUES(@PaymentMethodID, @PaymentMethod)";
+            var sql = "INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
             command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
-
+            command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
@@ -30,7 +30,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Customers SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
+            var sql = "UPRATE PaymentMethods SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.PaymentMethodID);
             command.Parameters.AddWithValue("@customerAccountNumber", model.PaymentMethod);
@@ -89,7 +89,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
 
-            var sql = "SELECT * FROM Customers";
+            var sql = "SELECT * FROM PaymentMethods";
 
             SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
