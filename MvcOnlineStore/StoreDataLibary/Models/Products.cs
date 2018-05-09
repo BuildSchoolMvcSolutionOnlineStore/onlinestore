@@ -8,7 +8,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models
 {
     public class Products
     {
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
         public int CategoryID { get; set; }
         public string ProductName { get; set;}
         public int Stock { get; set; }
