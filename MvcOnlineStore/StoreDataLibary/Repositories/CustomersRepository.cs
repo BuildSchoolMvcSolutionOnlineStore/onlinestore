@@ -12,9 +12,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         string serviceIP = "192.168.40.21";
         public void Create(Customer model)
         {
-
             SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
             var sql = "INSERT INTO Customers VALUES(@CustomerID ,@CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@customerID", model.CustomerID);
@@ -32,7 +31,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         public void Update(Customer model)
         {
             SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
             var sql = "UPRATE Customers SET @CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail WHERE CustomerID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.CustomerID);
@@ -50,7 +49,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         public void Delete(Customer model)
         {
             SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
             var sql = "Delete From Customers WHERE CustomerID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
@@ -64,7 +63,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
             var sql = "SELECT * FROM Customers WHERE CustomerID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
@@ -98,7 +97,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         public IEnumerable<Customer> GetAll()
         {
             SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
 
             var sql = "SELECT * FROM Customers";
 
