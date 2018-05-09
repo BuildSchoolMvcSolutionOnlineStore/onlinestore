@@ -6,14 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildSchool.MvcSolution.OnlineStore.CustomerRepository
+namespace BuildSchool.MvcSolution.OnlineStore.Repository
 {
     public class CustomerRepository
     {
+        string serviceIP = "192.168.40.21";
         public void Create(Customer model)
         {
+
             SqlConnection connection = new SqlConnection(
-               "data source=ASUS-X455L; database=Shopping; integrated security=true");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
             var sql = "INSERT INTO Customers VALUES(@CustomerID ,@CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@customerID", model.CustomerID);
@@ -31,7 +33,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.CustomerRepository
         public void Update(Customer model)
         {
             SqlConnection connection = new SqlConnection(
-                "data source=.;database=shopping; user id=; password=; integrated secur");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
             var sql = "UPRATE Customers SET @CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail WHERE CustomerID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.CustomerID);
@@ -49,7 +51,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.CustomerRepository
         public void Delete(Customer model)
         {
             SqlConnection connection = new SqlConnection(
-               "data source=.;database=shopping; user id=; password=; integrated secur");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
             var sql = "Delete From Customers WHERE CustomerID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
@@ -63,7 +65,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.CustomerRepository
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
-                "data source=ASUS-X455L; database=Shopping; integrated security=true");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
             var sql = "SELECT * FROM Customers WHERE CustomerID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
@@ -97,7 +99,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.CustomerRepository
         public IEnumerable<Customer> GetAll()
         {
             SqlConnection connection = new SqlConnection(
-               "data source=.;database=shopping; user id=; password=; integrated secur");
+                "Server=" + serviceIP + ";Database=Shopping;User Id=liouli;Password = 1226;");
+
             var sql = "SELECT * FROM Customers";
 
             SqlCommand command = new SqlCommand(sql, connection);
