@@ -65,15 +65,21 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             var result = command.ExecuteScalar();
             connection.Open();
             var reader = command.ExecuteReader();
+            var properties = typeof(Managers).GetProperties();
             var Managers = new Managers();
             while(reader.Read())
             {
-                Managers.ManagerID=Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ManagersID")));
-                Managers.ManagerName = reader.GetOrdinal("ManagerName").ToString();
-                Managers.ManagerAccountNumber = reader.GetOrdinal("ManagerAccountNumber").ToString();
-                Managers.ManagerPassword = reader.GetOrdinal("ManagerPassword").ToString();
-                Managers.ManagerMail = reader.GetOrdinal("ManagerMail").ToString();
+                for(var i=0;i<reader.FieldCount;i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
 
+                    if(!reader.IsDBNull(i))
+                    property.SetValue(Managers, reader.GetValue(i));
+                   
+                }
             }
             reader.Close();
             return Managers;
@@ -87,10 +93,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
             var reader = command.ExecuteReader();
             var managerslist = new List<Managers>();
-
+            var Managers = new Managers();
             while (reader.Read())
             {
-                var Managers = new Managers();
                 Managers.ManagerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ManagersID")));
                 Managers.ManagerName = reader.GetOrdinal("ManagerName").ToString();
                 Managers.ManagerAccountNumber = reader.GetOrdinal("ManagerAccountNumber").ToString();
