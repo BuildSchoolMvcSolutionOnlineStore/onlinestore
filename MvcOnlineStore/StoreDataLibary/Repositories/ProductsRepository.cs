@@ -62,40 +62,44 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
+
         public Products FindById(string ProductID)
-        //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+
             var sql = "SELECT * FROM Products WHERE ProductID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
             command.Parameters.AddWithValue("@id", ProductID);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var products = new Products();
+            var properties = typeof(Products).GetProperties();
+
+            Products product = null;
 
             while (reader.Read())
             {
-                products.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
-                products.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
-                products.ProductName = reader.GetValue(reader.GetOrdinal("ProductName")).ToString();
-                products.Stock = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Stock")));
-                products.UnitPrice = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("UnitPrice")));
-                products.Size = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Size")));
-                products.Color = reader.GetValue(reader.GetOrdinal("Color")).ToString();
-                products.Instructions = reader.GetValue(reader.GetOrdinal("Instructions")).ToString();
+                product = new Products();
+                for (var i = 0; i<reader.FieldCount;i++)
+                {
+                    var filedName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+
+                    if (property == null)
+                        continue;
+
+                    if(!reader.IsDBNull(i))
+                        property.SetValue(product, reader.GetValue(i));
+                }
             }
 
             reader.Close();
 
-            return products;
+            return product;
         }
         public IEnumerable<Products> GetAll()
         {
@@ -108,19 +112,25 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            Products product = null;
             var productlist = new List<Products>();
+            var properties = typeof(Products).GetProperties();
 
             while (reader.Read())
             {
-                var product = new Products();
-                product.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
-                product.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
-                product.ProductName = reader.GetValue(reader.GetOrdinal("ProductName")).ToString();
-                product.Stock = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Stock")));
-                product.UnitPrice = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("UnitPrice")));
-                product.Size = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Size")));
-                product.Color = reader.GetValue(reader.GetOrdinal("Color")).ToString();
-                product.Instructions = reader.GetValue(reader.GetOrdinal("Instructions")).ToString();
+                product = new Products();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var filedName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+
+                    if (property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(product, reader.GetValue(i));
+                }
+                productlist.Add(product);
             }
 
             reader.Close();
