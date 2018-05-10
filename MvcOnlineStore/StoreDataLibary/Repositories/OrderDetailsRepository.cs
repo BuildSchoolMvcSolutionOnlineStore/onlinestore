@@ -55,7 +55,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public OrderDetails FindById(string orederId)
+        public OrderDetails FindById(string orderId)
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
@@ -64,7 +64,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", orederId);
+            command.Parameters.AddWithValue("@id", orderId);
 
             var result = command.ExecuteScalar();//純量值
             //如果查詢資料是NULL的話
@@ -72,15 +72,21 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            var properties = typeof(OrderDetails).GetProperties();
             var orderDetail = new OrderDetails();
 
             while (reader.Read())
             {
-                orderDetail.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();//每個get都是欄位序號
-                orderDetail.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
-                orderDetail.Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")));
-                orderDetail.Discount = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Discount")));
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
 
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(orderDetail, reader.GetValue(i));
+                }
             }
 
             reader.Close();
