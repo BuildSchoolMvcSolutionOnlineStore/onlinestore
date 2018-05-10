@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -75,23 +76,26 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader();
-            var customer = new Customer();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Customer).GetProperties();
+            Customer customer = null;
 
             while (reader.Read())
             {
-                customer.CustomerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CustomerID")));//每個get都是欄位序號
-                customer.CustomerAccountNumber = reader.GetValue(reader.GetOrdinal("CustomerAccountNumber")).ToString();
-                customer.CustomerPassword = reader.GetValue(reader.GetOrdinal("CustomerPassword")).ToString();
-                customer.CustomerName = reader.GetValue(reader.GetOrdinal("CustomerName")).ToString();
-                customer.Telephone = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Telephone")));
-                customer.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
-                customer.CustomerMail = reader.GetValue(reader.GetOrdinal("CustomerMail")).ToString();
-                
+                customer = new Customer();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if(property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(customer, reader.GetValue(i));
+                }           
             }
 
             reader.Close();
-
             return customer;
         }
         public IEnumerable<Customer> GetAll()

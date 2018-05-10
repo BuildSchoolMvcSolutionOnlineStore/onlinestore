@@ -1,6 +1,7 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -66,18 +67,26 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader();
-            var categories = new Categories();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Categories).GetProperties();
+            Categories categories = null;
 
             while (reader.Read())
             {
-                categories.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
-                categories.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
+                categories = new Categories();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
 
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(categories, reader.GetValue(i));
+                }
             }
 
             reader.Close();
-
             return categories;
         }
         public IEnumerable<Categories> GetAll()

@@ -1,6 +1,7 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -55,7 +56,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public OrderDetails FindById(string orederId)
+        public OrderDetails FindById(string orderId)
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
@@ -64,28 +65,34 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", orederId);
+            command.Parameters.AddWithValue("@id", orderId);
 
             var result = command.ExecuteScalar();//純量值
             //如果查詢資料是NULL的話
             //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader();
-            var orderDetail = new OrderDetails();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(OrderDetails).GetProperties();
+            OrderDetails orderDetails = null;
 
             while (reader.Read())
             {
-                orderDetail.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();//每個get都是欄位序號
-                orderDetail.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
-                orderDetail.Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")));
-                orderDetail.Discount = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Discount")));
+                orderDetails = new OrderDetails();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
 
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(orderDetails, reader.GetValue(i));
+                }
             }
 
             reader.Close();
-
-            return orderDetail;
+            return orderDetails;
         }
         public IEnumerable<OrderDetails> GetAll()
         {
