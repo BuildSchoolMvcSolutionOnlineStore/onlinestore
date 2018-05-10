@@ -15,7 +15,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO Customers VALUES(@OrderID ,@ProductID,@Quantity,@Discount)";
+            var sql = "INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@orederID", model.OrderID);
             command.Parameters.AddWithValue("@productID", model.ProductID);
@@ -30,7 +30,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Customers SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id";
+            var sql = "UPRATE OrderDetails SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@orederID", model.OrderID);
             command.Parameters.AddWithValue("@productID", model.ProductID);
@@ -46,7 +46,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From Customers WHERE OrderID = @id";
+            var sql = "Delete From OrderDetails WHERE OrderID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -60,7 +60,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM Customers WHERE OrderID = @id";
+            var sql = "SELECT * FROM OrderDetails WHERE OrderID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
