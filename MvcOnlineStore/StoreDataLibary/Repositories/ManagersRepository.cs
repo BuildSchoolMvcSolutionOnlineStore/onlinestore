@@ -66,23 +66,25 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
             var reader = command.ExecuteReader();
             var properties = typeof(Managers).GetProperties();
-            var Managers = new Managers();
-            while(reader.Read())
-            {
-                for(var i=0;i<reader.FieldCount;i++)
-                {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                    if (property == null)
-                        continue;
+            Managers manager = null;
 
-                    if(!reader.IsDBNull(i))
-                    property.SetValue(Managers, reader.GetValue(i));
-                   
-                }
+            while (reader.Read())
+            {
+                manager = DbReaderModelBinder<Managers>.Bind(reader);
+                //for(var i=0;i<reader.FieldCount;i++)
+                //{
+                //    var fieldName = reader.GetName(i);
+                //    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                //    if (property == null)
+                //        continue;
+
+                //    if(!reader.IsDBNull(i))
+                //    property.SetValue(Managers, reader.GetValue(i));
+
+                //}
             }
             reader.Close();
-            return Managers;
+            return manager;
         }
         public IEnumerable<Managers> GetAll()
         {
@@ -93,15 +95,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
             var reader = command.ExecuteReader();
             var managerslist = new List<Managers>();
-            
+            Managers manager = null;
             while (reader.Read())
             {
-                var manager = new Managers();
-                manager.ManagerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ManagerID")));
-                manager.ManagerName = reader.GetOrdinal("ManagerName").ToString();
-                manager.ManagerAccountNumber = reader.GetOrdinal("ManagerAccountNumber").ToString();
-                manager.ManagerPassword = reader.GetOrdinal("ManagerPassword").ToString();
-                manager.ManagerMail = reader.GetOrdinal("ManagerMail").ToString();
+                manager = DbReaderModelBinder<Managers>.Bind(reader);
                 managerslist.Add(manager);
             }
             reader.Close();
