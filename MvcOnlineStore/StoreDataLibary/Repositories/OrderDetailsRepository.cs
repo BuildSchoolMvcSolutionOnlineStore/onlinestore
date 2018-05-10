@@ -127,7 +127,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             reader.Close();
 
             return orderDetails;
-            //123
         }
     }
 }
