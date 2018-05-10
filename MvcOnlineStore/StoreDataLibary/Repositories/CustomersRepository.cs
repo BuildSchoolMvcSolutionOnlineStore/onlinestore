@@ -22,7 +22,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.Parameters.AddWithValue("@customerName", model.CustomerName);
             command.Parameters.AddWithValue("@telephone", model.Telephone);
             command.Parameters.AddWithValue("@address", model.Address);
-            command.Parameters.AddWithValue("@customerID", model.CustomerID);
+            command.Parameters.AddWithValue("@CustomerMail", model.CustomerMail);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
@@ -40,7 +40,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.Parameters.AddWithValue("@customerName", model.CustomerName);
             command.Parameters.AddWithValue("@telephone", model.Telephone);
             command.Parameters.AddWithValue("@address", model.Address);
-            command.Parameters.AddWithValue("@customerID", model.CustomerID);
+            command.Parameters.AddWithValue("@CustomerMail", model.CustomerMail);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
@@ -87,7 +87,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                 customer.Telephone = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Telephone")));
                 customer.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
                 customer.CustomerMail = reader.GetValue(reader.GetOrdinal("CustomerMail")).ToString();
-
+                
             }
 
             reader.Close();

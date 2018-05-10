@@ -23,7 +23,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.Parameters.AddWithValue("@ShippedDate",model.ShippedDate);
             command.Parameters.AddWithValue("@PaymentMethodID",model.PaymentMethodID);
             command.Parameters.AddWithValue("@DeliveryMethodID",model.DeliveryMethodID);
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
 
 
             connection.Open();//連線打開
@@ -43,7 +42,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.Parameters.AddWithValue("@ShippedDate", model.ShippedDate);
             command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
             command.Parameters.AddWithValue("@DeliveryMethodID", model.DeliveryMethodID);
-            command.Parameters.AddWithValue("@OrderID", model.OrderID);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
