@@ -103,15 +103,24 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            OrderDetails orderDetail = null;
             var orderDetails = new List<OrderDetails>();
+            var properties = typeof(OrderDetails).GetProperties();
 
             while (reader.Read())
             {
-                var orderDetail = new OrderDetails();
-                orderDetail.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();
-                orderDetail.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
-                orderDetail.Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")));
-                orderDetail.Discount = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Discount")));
+                orderDetail = new OrderDetails();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var filedName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+
+                    if (property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(orderDetail, reader.GetValue(i));
+                }
                 orderDetails.Add(orderDetail);
             }
 
