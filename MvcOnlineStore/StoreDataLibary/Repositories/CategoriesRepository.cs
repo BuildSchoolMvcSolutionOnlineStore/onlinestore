@@ -62,12 +62,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             command.Parameters.AddWithValue("@id", CategoryID);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var reader = command.ExecuteReader();
             var properties = typeof(Categories).GetProperties();
             Categories categories = null;
 
@@ -100,13 +97,25 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            Categories categories = null;
             var categorylist = new List<Categories>();
+            var properties = typeof(Categories).GetProperties();
 
             while (reader.Read())
             {
-                var category = new Categories();
-                category.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
-                category.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
+                categories = new Categories();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+
+                    if (property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(categories, reader.GetValue(i));
+                }
+                categorylist.Add(categories);
             }
 
             reader.Close();

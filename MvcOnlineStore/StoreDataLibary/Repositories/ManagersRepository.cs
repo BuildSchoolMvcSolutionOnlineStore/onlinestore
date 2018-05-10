@@ -62,7 +62,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             var sql = "SELECT * FROM Managers WHERE ManagerID=@id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", ManagerID);
-            var result = command.ExecuteScalar();
+            
             connection.Open();
             var reader = command.ExecuteReader();
             var properties = typeof(Managers).GetProperties();
@@ -93,15 +93,16 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
             var reader = command.ExecuteReader();
             var managerslist = new List<Managers>();
-            var Managers = new Managers();
+            
             while (reader.Read())
             {
-                Managers.ManagerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ManagersID")));
-                Managers.ManagerName = reader.GetOrdinal("ManagerName").ToString();
-                Managers.ManagerAccountNumber = reader.GetOrdinal("ManagerAccountNumber").ToString();
-                Managers.ManagerPassword = reader.GetOrdinal("ManagerPassword").ToString();
-                Managers.ManagerMail = reader.GetOrdinal("ManagerMail").ToString();
-
+                var manager = new Managers();
+                manager.ManagerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ManagerID")));
+                manager.ManagerName = reader.GetOrdinal("ManagerName").ToString();
+                manager.ManagerAccountNumber = reader.GetOrdinal("ManagerAccountNumber").ToString();
+                manager.ManagerPassword = reader.GetOrdinal("ManagerPassword").ToString();
+                manager.ManagerMail = reader.GetOrdinal("ManagerMail").ToString();
+                managerslist.Add(manager);
             }
             reader.Close();
             return managerslist;
