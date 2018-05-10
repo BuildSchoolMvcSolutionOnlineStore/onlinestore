@@ -83,18 +83,20 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             while (reader.Read())
             {
-                product = new Products();
-                for (var i = 0; i<reader.FieldCount;i++)
-                {
-                    var filedName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+                product = DbReaderModelBinder<Products>.Bind(reader);
+                //product = new Products();
 
-                    if (property == null)
-                        continue;
+                //for (var i = 0; i<reader.FieldCount;i++)
+                //{
+                //    var filedName = reader.GetName(i);
+                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
 
-                    if(!reader.IsDBNull(i))
-                        property.SetValue(product, reader.GetValue(i));
-                }
+                //    if (property == null)
+                //        continue;
+
+                //    if(!reader.IsDBNull(i))
+                //        property.SetValue(product, reader.GetValue(i));
+                //}
             }
 
             reader.Close();
@@ -118,18 +120,18 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             while (reader.Read())
             {
-                product = new Products();
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    var filedName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+                product = DbReaderModelBinder<Products>.Bind(reader);
+                //for (var i = 0; i < reader.FieldCount; i++)
+                //{
+                //    var filedName = reader.GetName(i);
+                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
 
-                    if (property == null)
-                        continue;
+                //    if (property == null)
+                //        continue;
 
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(product, reader.GetValue(i));
-                }
+                //    if (!reader.IsDBNull(i))
+                //        property.SetValue(product, reader.GetValue(i));
+                //}
                 productlist.Add(product);
             }
 
