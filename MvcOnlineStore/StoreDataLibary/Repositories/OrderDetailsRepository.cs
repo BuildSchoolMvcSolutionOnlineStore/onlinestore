@@ -109,18 +109,18 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             while (reader.Read())
             {
-                orderDetail = new OrderDetails();
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    var filedName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == filedName);
+                orderDetail = DbReaderModelBinder<OrderDetails>.Bind(reader);
+                //for (var i = 0; i < reader.FieldCount; i++)
+                //{
+                //    var filedName = reader.GetName(i);
+                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
 
-                    if (property == null)
-                        continue;
+                //    if (property == null)
+                //        continue;
 
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(orderDetail, reader.GetValue(i));
-                }
+                //    if (!reader.IsDBNull(i))
+                //        property.SetValue(orderDetail, reader.GetValue(i));
+                //}
                 orderDetails.Add(orderDetail);
             }
 
