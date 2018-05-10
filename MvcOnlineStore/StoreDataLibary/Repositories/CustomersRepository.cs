@@ -71,9 +71,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             command.Parameters.AddWithValue("@id", customerId);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
             var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -109,23 +106,29 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var customers = new List<Customer>();
+            Customer customer = null;
+            var customerlist = new List<Customer>();
+            var properties = typeof(Customer).GetProperties();
 
             while (reader.Read())
             {
-                var customer = new Customer();
-                customer.CustomerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CustomerID")));
-                customer.CustomerAccountNumber = reader.GetValue(reader.GetOrdinal("CustomerAccountNumber")).ToString();
-                customer.CustomerPassword = reader.GetValue(reader.GetOrdinal("CustomerPassword")).ToString();
-                customer.CustomerName = reader.GetValue(reader.GetOrdinal("CustomerName")).ToString();
-                customer.Telephone = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Telephone")));
-                customer.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
-                customer.CustomerMail = reader.GetValue(reader.GetOrdinal("CustomerMail")).ToString();
+                customer = new Customer();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(customer, reader.GetValue(i));
+                }
+                customerlist.Add(customer);
             }
 
             reader.Close();
 
-            return customers;
+            return customerlist;
         }
     }
 }
