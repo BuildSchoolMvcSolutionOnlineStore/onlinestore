@@ -1,6 +1,7 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -71,12 +72,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
             var properties = typeof(OrderDetails).GetProperties();
-            var orderDetail = new OrderDetails();
+            OrderDetails orderDetails = null;
 
             while (reader.Read())
             {
+                orderDetails = new OrderDetails();
                 for (var i = 0; i < reader.FieldCount; i++)
                 {
                     var fieldName = reader.GetName(i);
@@ -85,13 +87,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                         continue;
 
                     if (!reader.IsDBNull(i))
-                        property.SetValue(orderDetail, reader.GetValue(i));
+                        property.SetValue(orderDetails, reader.GetValue(i));
                 }
             }
 
             reader.Close();
-
-            return orderDetail;
+            return orderDetails;
         }
         public IEnumerable<OrderDetails> GetAll()
         {
