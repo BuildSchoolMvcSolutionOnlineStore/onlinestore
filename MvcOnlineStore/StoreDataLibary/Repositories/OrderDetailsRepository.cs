@@ -8,60 +8,63 @@ using System.Threading.Tasks;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
-    public class PaymentMethodsRepository
+    class OrderDetailsRepository
     {
         string serviceIP = "192.168.40.21";
-        public void Create(PaymentMethods model)
+        public void Create(OrderDetails model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)";
+            var sql = "INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)";
             SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
+            command.Parameters.AddWithValue("@orederID", model.OrderID);
+            command.Parameters.AddWithValue("@productID", model.ProductID);
+            command.Parameters.AddWithValue("@quantity", model.Quantity);
+            command.Parameters.AddWithValue("@discount", model.Discount);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-
-        public void Update(PaymentMethods model)
+        public void Update(OrderDetails model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE PaymentMethods SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
+            var sql = "UPRATE OrderDetails SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
+            command.Parameters.AddWithValue("@orederID", model.OrderID);
+            command.Parameters.AddWithValue("@productID", model.ProductID);
+            command.Parameters.AddWithValue("@quantity", model.Quantity);
+            command.Parameters.AddWithValue("@discount", model.Discount);
+
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Delete(PaymentMethods model)
+        public void Delete(OrderDetails model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From PaymentMethods WHERE PaymentMethodID = @id";
+            var sql = "Delete From OrderDetails WHERE OrderID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
+            command.Parameters.AddWithValue("@id", model.OrderID);
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-
-        public PaymentMethods FindById(int PaymentMethodId)
+        public OrderDetails FindById(string orederId)
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id";
+            var sql = "SELECT * FROM OrderDetails WHERE OrderID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", PaymentMethodId);
+            command.Parameters.AddWithValue("@id", orederId);
 
             var result = command.ExecuteScalar();//純量值
             //如果查詢資料是NULL的話
@@ -69,42 +72,46 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethods = new PaymentMethods();
+            var orderDetail = new OrderDetails();
 
             while (reader.Read())
             {
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                orderDetail.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();//每個get都是欄位序號
+                orderDetail.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
+                orderDetail.Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")));
+                orderDetail.Discount = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Discount")));
 
             }
 
             reader.Close();
 
-            return paymentMethods;
+            return orderDetail;
         }
-        public IEnumerable<PaymentMethods> GetAll()
+        public IEnumerable<OrderDetails> GetAll()
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
 
-            var sql = "SELECT * FROM PaymentMethods";
+            var sql = "SELECT * FROM OrderDetails";
 
             SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethodlist = new List<PaymentMethods>();
+            var orderDetails = new List<OrderDetails>();
 
             while (reader.Read())
             {
-                var paymentMethods = new PaymentMethods();
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                var orderDetail = new OrderDetails();
+                orderDetail.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();
+                orderDetail.ProductID = reader.GetValue(reader.GetOrdinal("ProductID")).ToString();
+                orderDetail.Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")));
+                orderDetail.Discount = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Discount")));
             }
 
             reader.Close();
 
-            return paymentMethodlist;
+            return orderDetails;
         }
     }
 }

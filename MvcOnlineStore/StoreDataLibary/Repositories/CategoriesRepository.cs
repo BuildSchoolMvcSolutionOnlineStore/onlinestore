@@ -8,60 +8,58 @@ using System.Threading.Tasks;
 
 namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
-    public class PaymentMethodsRepository
+    public class CategoriesRepository
     {
         string serviceIP = "192.168.40.21";
-        public void Create(PaymentMethods model)
+        public void Create(Categories model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)";
+            var sql = "INSERT INTO Categories VALUES(@CategoryID, @CategoryName)";
             SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
+            command.Parameters.AddWithValue("@PaymentMethodID", model.CategoryID);
+            command.Parameters.AddWithValue("@PaymentMethod", model.CategoryName);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-
-        public void Update(PaymentMethods model)
+        public void Update(Categories model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE PaymentMethods SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
+            var sql = "UPRATE Categories SET @CategoryName WHERE CategoryID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
+            command.Parameters.AddWithValue("@id", model.CategoryID);
+            command.Parameters.AddWithValue("@PaymentMethod", model.CategoryName);
 
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Delete(PaymentMethods model)
+        public void Delete(Categories model)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From PaymentMethods WHERE PaymentMethodID = @id";
+            var sql = "Delete From Categories WHERE CategoryID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
+            command.Parameters.AddWithValue("@id", model.CategoryID);
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-
-        public PaymentMethods FindById(int PaymentMethodId)
+        public Categories FindById(int CategoryID)
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id";
+            var sql = "SELECT * FROM Categories WHERE CategoryID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", PaymentMethodId);
+            command.Parameters.AddWithValue("@id", CategoryID);
 
             var result = command.ExecuteScalar();//純量值
             //如果查詢資料是NULL的話
@@ -69,42 +67,42 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethods = new PaymentMethods();
+            var categories = new Categories();
 
             while (reader.Read())
             {
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                categories.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
+                categories.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
 
             }
 
             reader.Close();
 
-            return paymentMethods;
+            return categories;
         }
-        public IEnumerable<PaymentMethods> GetAll()
+        public IEnumerable<Categories> GetAll()
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
 
-            var sql = "SELECT * FROM PaymentMethods";
+            var sql = "SELECT * FROM Categories";
 
             SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethodlist = new List<PaymentMethods>();
+            var categorylist = new List<Categories>();
 
             while (reader.Read())
             {
-                var paymentMethods = new PaymentMethods();
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                var category = new Categories();
+                category.CategoryID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CategoryID")));
+                category.CategoryName = reader.GetValue(reader.GetOrdinal("CategoryName")).ToString();
             }
 
             reader.Close();
 
-            return paymentMethodlist;
+            return categorylist;
         }
     }
 }
