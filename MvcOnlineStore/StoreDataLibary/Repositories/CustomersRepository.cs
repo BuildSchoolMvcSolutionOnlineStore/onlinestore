@@ -76,18 +76,21 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            var properties = typeof(Customer).GetProperties();
             var customer = new Customer();
 
             while (reader.Read())
             {
-                customer.CustomerID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("CustomerID")));//每個get都是欄位序號
-                customer.CustomerAccountNumber = reader.GetValue(reader.GetOrdinal("CustomerAccountNumber")).ToString();
-                customer.CustomerPassword = reader.GetValue(reader.GetOrdinal("CustomerPassword")).ToString();
-                customer.CustomerName = reader.GetValue(reader.GetOrdinal("CustomerName")).ToString();
-                customer.Telephone = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Telephone")));
-                customer.Address = reader.GetValue(reader.GetOrdinal("Address")).ToString();
-                customer.CustomerMail = reader.GetValue(reader.GetOrdinal("CustomerMail")).ToString();
-                
+                for(var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if(property == null)
+                        continue;
+
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(customer, reader.GetValue(i));
+                }           
             }
 
             reader.Close();
