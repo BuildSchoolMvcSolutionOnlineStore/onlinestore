@@ -1,6 +1,6 @@
 ﻿namespace BuildSchool.MvcSolution.OnlineStore.Models.Models
 {
-    class OrderDetails
+    public class OrderDetails
     {
         public string OrderID { get; set; }
         public string ProductID { get; set; }
