@@ -15,10 +15,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO Customers VALUES(@CustomerID ,@CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)";
+            var sql = "INSERT INTO Customers VALUES(@CustomerID,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@customerID", model.CustomerID);
-            command.Parameters.AddWithValue("@customerAccountNumber", model.CustomerAccountNumber);
             command.Parameters.AddWithValue("@customerPassword", model.CustomerPassword);
             command.Parameters.AddWithValue("@customerName", model.CustomerName);
             command.Parameters.AddWithValue("@telephone", model.Telephone);
@@ -33,10 +32,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Customers SET @CustomerAccountNumber,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail WHERE CustomerID = @id";
+            var sql = "UPRATE Customers SET @CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail WHERE CustomerID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.CustomerID);
-            command.Parameters.AddWithValue("@customerAccountNumber", model.CustomerAccountNumber);
             command.Parameters.AddWithValue("@customerPassword", model.CustomerPassword);
             command.Parameters.AddWithValue("@customerName", model.CustomerName);
             command.Parameters.AddWithValue("@telephone", model.Telephone);

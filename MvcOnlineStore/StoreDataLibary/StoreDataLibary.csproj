@@ -58,6 +58,7 @@
     <Compile Include="Repositories\OrdersRepository.cs" />
     <Compile Include="Repositories\PaymentMethodsRepository.cs" />
     <Compile Include="Repositories\ProductsRepository.cs" />
+    <Compile Include="Repositories\SqlConnectionString.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,11 +14,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerAccountNumber,@ManagerPassword,@ManagerMail)";
+            var sql = "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@ManagerID", model.ManagerID);
             command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
-            command.Parameters.AddWithValue("@ManagerAccountNumber", model.ManagerAccountNumber);
             command.Parameters.AddWithValue("@ManagerPassword", model.ManagerPassword);
             command.Parameters.AddWithValue("@ManagerMail", model.ManagerMail);
 
@@ -31,11 +30,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Managers SET @ManagerName,@ManagerAccountNumber,@ManagerPassword,@ManagerMail WHERE ManagerID=@id";
+            var sql = "UPRATE Managers SET @ManagerName,@ManagerPassword,@ManagerMail WHERE ManagerID=@id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.ManagerID);
             command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
-            command.Parameters.AddWithValue("@ManagerAccountNumber", model.ManagerAccountNumber);
             command.Parameters.AddWithValue("@ManagerPassword", model.ManagerPassword);
             command.Parameters.AddWithValue("@ManagerMail", model.ManagerMail);
 

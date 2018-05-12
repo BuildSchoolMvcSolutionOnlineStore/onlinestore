@@ -10,11 +10,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class ProductsRepository
     {
-        string serviceIP = "192.168.40.21";
-        public void Create(Products model)
+        public void CreateProduct(Products model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@ProductID", model.ProductID);
@@ -30,11 +28,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Update(Products model)
+        public void UpdateProduct(Products model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Products SET @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions WHERE PaymentMethodID = @id";
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
+            var sql = "UPDATE Products SET " +
+                "CategoryID = @CategoryID,ProductName = @ProductName,Stock = @Stock,UnitPrice = @UnitPrice," +
+                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.ProductID);
             command.Parameters.AddWithValue("@CategoryID", model.CategoryID);
@@ -49,24 +48,22 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Delete(Products model)
+        public void DeleteProduct(String ProductID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From Products WHERE ProductID = @id";
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
+            var sql = "DELETE FROM Products WHERE ProductID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", model.ProductID);
+            command.Parameters.AddWithValue("@id", ProductID);
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
 
-        public Products FindById(string ProductID)
+        public Products FindProductByProductId(string ProductID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
             var sql = "SELECT * FROM Products WHERE ProductID = @id";
 
@@ -84,29 +81,15 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             while (reader.Read())
             {
                 product = DbReaderModelBinder<Products>.Bind(reader);
-                //product = new Products();
-
-                //for (var i = 0; i<reader.FieldCount;i++)
-                //{
-                //    var filedName = reader.GetName(i);
-                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
-
-                //    if (property == null)
-                //        continue;
-
-                //    if(!reader.IsDBNull(i))
-                //        property.SetValue(product, reader.GetValue(i));
-                //}
             }
 
             reader.Close();
 
             return product;
         }
-        public IEnumerable<Products> GetAll()
+        public IEnumerable<Products> GetAllProducts()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
             var sql = "SELECT * FROM Products";
 
@@ -121,17 +104,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             while (reader.Read())
             {
                 product = DbReaderModelBinder<Products>.Bind(reader);
-                //for (var i = 0; i < reader.FieldCount; i++)
-                //{
-                //    var filedName = reader.GetName(i);
-                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
-
-                //    if (property == null)
-                //        continue;
-
-                //    if (!reader.IsDBNull(i))
-                //        property.SetValue(product, reader.GetValue(i));
-                //}
                 productlist.Add(product);
             }
 
