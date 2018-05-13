@@ -53,7 +53,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public DeliveryMethods FindProductByDeliveryMethodID(string DeliveryMethodID)
+        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(string DeliveryMethodID)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
