@@ -53,49 +53,36 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public DeliveryMethods FindById(int DeliveryMethodID)
-        //單筆資料查詢
+        public DeliveryMethods FindProductByDeliveryMethodID(string DeliveryMethodID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM DeliveryMethods WHERE DeliveryMethodID = @id";
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
+
+            var sql = "SELECT * FROM Products WHERE ProductID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
             command.Parameters.AddWithValue("@id", DeliveryMethodID);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var reader = command.ExecuteReader();
             var properties = typeof(DeliveryMethods).GetProperties();
-            DeliveryMethods DeliveryMethods =null;
+
+            DeliveryMethods deliveryMethods = null;
 
             while (reader.Read())
             {
-                DeliveryMethods = new DeliveryMethods();
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                    if (property == null)
-                        continue;
-
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(DeliveryMethods, reader.GetValue(i));
-                }
+                deliveryMethods = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
             }
 
             reader.Close();
 
-            return DeliveryMethods;
+            return deliveryMethods;
         }
-        public IEnumerable<DeliveryMethods> GetAll()
+
+        public IEnumerable<DeliveryMethods> GetAllDeliveryMethods()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
             var sql = "SELECT * FROM DeliveryMethods";
 
@@ -103,19 +90,19 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var deliveryMethods = new List<DeliveryMethods>();
+            DeliveryMethods deliveryMethods = null;
+            var deliveryMethodslist = new List<DeliveryMethods>();
+            var properties = typeof(DeliveryMethods).GetProperties();
 
             while (reader.Read())
             {
-                var DeliveryMethods = new DeliveryMethods();
-                DeliveryMethods.DeliveryMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("DeliveryMethodID")));
-                DeliveryMethods.DeliveryMethod = reader.GetValue(reader.GetOrdinal("DeliveryMethod")).ToString();
-                DeliveryMethods.Freight = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Freight")));
+                deliveryMethods = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
+                deliveryMethodslist.Add(deliveryMethods);
             }
 
             reader.Close();
 
-            return deliveryMethods;
+            return deliveryMethodslist;
         }
     }
 }
