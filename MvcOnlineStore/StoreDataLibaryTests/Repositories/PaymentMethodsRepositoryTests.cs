@@ -60,5 +60,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             var text = repository.FindPaymentMethodsByPaymentMethodsId(4);
             Assert.IsTrue(text == null);
         }
+
+        [TestMethod()]
+        public void FindTopByPaymentMethodIDTest()
+        {
+            var repository = new PaymentMethodsRepository();
+            var list = repository.FindTopByPaymentMethodID();
+            Assert.IsTrue(list != null);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,97 +12,84 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class DeliveryMethodsRepository
     {
-        //string serviceIP = "192.168.40.21";
         public void CreateDeliveryMethod(DeliveryMethods model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "INSERT INTO DeliveryMethods VALUES(@DeliveryMethodID, @DeliveryMethod, @Freight)";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@DeliveryMethodID", model.DeliveryMethodID);
-            command.Parameters.AddWithValue("@DeliveryMethod", model.DeliveryMethod);
-            command.Parameters.AddWithValue("@Freight", model.Freight);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                    "INSERT INTO DeliveryMethods VALUES(@DeliveryMethodID, @DeliveryMethod, @Freight)",
+                new
+                {
+                    DeliveryMethodID = model.DeliveryMethodID,
+                    DeliveryMethod = model.DeliveryMethod,
+                    Freight = model.Freight
+                });
+            }
         }
+
         public void UpdateDeliveryMethod(DeliveryMethods model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPDATE DeliveryMethods SET " + "DeliveryMethod = @DeliveryMethod, Freight = @Freight WHERE DeliveryMethodID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.DeliveryMethodID);
-            command.Parameters.AddWithValue("@DeliveryMethod", model.DeliveryMethod);
-            command.Parameters.AddWithValue("@Freight", model.Freight);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                    "UPDATE DeliveryMethods SET " + "DeliveryMethod = @DeliveryMethod, Freight = @Freight WHERE DeliveryMethodID = @id",
+                new
+                {
+                    id = model.DeliveryMethodID,
+                    DeliveryMethod = model.DeliveryMethod,
+                    Freight = model.Freight
+                });
+            }
         }
+
         public void DeleteDeliveryMethod(int DeliveryMethodID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From DeliveryMethods WHERE DeliveryMethodID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", DeliveryMethodID);
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
-        }
-        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(int DeliveryMethodID)
-        {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-
-            var sql = "SELECT * FROM DeliveryMethods WHERE DeliveryMethodID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", DeliveryMethodID);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            var properties = typeof(DeliveryMethods).GetProperties();
-
-            DeliveryMethods deliveryMethod = null;
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                deliveryMethod = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
+                connection.Execute(
+                    "Delete From DeliveryMethods WHERE DeliveryMethodID = @id",
+                new
+                {
+                    id = DeliveryMethodID
+                });
             }
+        }
 
-            reader.Close();
+        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(int DeliveryMethodID)
+        {          
+            DeliveryMethods deliveryMethod = null;
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var deliveryMethods = connection.Query<DeliveryMethods>(
+                    "SELECT * FROM DeliveryMethods WHERE DeliveryMethodID = @id",
+                    new
+                    {
+                        id = DeliveryMethodID
+                    });
 
+                foreach (var item in deliveryMethods)
+                {
+                    if (item.DeliveryMethodID != 0)
+                        deliveryMethod = item;
+                }
+            }
             return deliveryMethod;
         }
 
         public IEnumerable<DeliveryMethods> GetAllDeliveryMethods()
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-
-            var sql = "SELECT * FROM DeliveryMethods";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            DeliveryMethods deliveryMethod = null;
-            var deliveryMethodslist = new List<DeliveryMethods>();
-            var properties = typeof(DeliveryMethods).GetProperties();
-
-            while (reader.Read())
+            var deliveryMethodlist = new List<DeliveryMethods>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                deliveryMethod = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
-                deliveryMethodslist.Add(deliveryMethod);
+                var deliveryMethods = connection.Query<DeliveryMethods>(
+                    "SELECT * FROM DeliveryMethods");
+
+                foreach (var item in deliveryMethods)
+                {
+                    deliveryMethodlist.Add(item);
+                }
             }
-
-            reader.Close();
-
-            return deliveryMethodslist;
+            return deliveryMethodlist;
         }
     }
 }

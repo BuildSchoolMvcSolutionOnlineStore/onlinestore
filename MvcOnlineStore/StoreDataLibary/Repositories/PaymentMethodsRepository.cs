@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,90 +13,91 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
     {
         public void CreatePaymentMethods(PaymentMethods model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute("INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)",
+                    new
+                    {
+                        PaymentMethodID = model.PaymentMethodID,
+                        PaymentMethod = model.PaymentMethod
+                    });
+            }
 
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
         }
 
         public void UpdatePaymentMethods(PaymentMethods model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "UPDATE PaymentMethods SET PaymentMethod = @PaymentMethod WHERE PaymentMethodID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute("UPDATE PaymentMethods SET PaymentMethod = @PaymentMethod WHERE PaymentMethodID = @id",
+                    new
+                    {
+                        id = model.PaymentMethodID,
+                        PaymentMethod = model.PaymentMethod
+                    });
+            }
         }
         public void DeletePaymentMethods(int PaymentMethodID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "Delete From PaymentMethods WHERE PaymentMethodID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", PaymentMethodID);
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute("Delete From PaymentMethods WHERE PaymentMethodID = @id",
+                    new
+                    {
+                        id = PaymentMethodID
+                    });
+            }
         }
 
-        public PaymentMethods FindPaymentMethodsByPaymentMethodsId(int PaymentMethodId)
+        public PaymentMethods FindPaymentMethodsByPaymentMethodsId(int PaymentMethodID)
         //單筆資料查詢
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", PaymentMethodId);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            var properties = typeof(PaymentMethods).GetProperties();
-            PaymentMethods paymentMethods = null;
-
-
-            while (reader.Read())
+            PaymentMethods paymentMethod = null;
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
+                var paymentMethods = connection.Query <PaymentMethods> ("SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id",
+                    new
+                    {
+                        id = PaymentMethodID
+                    });
 
+                foreach (var item in paymentMethods)
+                {
+                    if (item.PaymentMethodID != 0)
+                        paymentMethod = item;
+                }
             }
-
-            reader.Close();
-
-            return paymentMethods;
+            return paymentMethod;
         }
         public IEnumerable<PaymentMethods> GetAllPaymentMethods()
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-
-            var sql = "SELECT * FROM PaymentMethods";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            PaymentMethods paymentMethods = null;
             var paymentMethodlist = new List<PaymentMethods>();
-            var properties = typeof(PaymentMethods).GetProperties();
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
-                paymentMethodlist.Add(paymentMethods);
+                var products = connection.Query<PaymentMethods>(
+                    "SELECT * FROM Products");
+
+                foreach (var item in products)
+                {
+                    paymentMethodlist.Add(item);
+                }
             }
+            return paymentMethodlist;
+        }
 
-            reader.Close();
+        public IEnumerable<PaymentMethods> FindTopByPaymentMethodID()
+        {
+            var paymentMethodlist = new List<PaymentMethods>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var paymentMethods = connection.Query<PaymentMethods>(
+                    "select p.PaymentMethod from PaymentMethods as p inner join Orders as o on  p.PaymentMethodID = o.PaymentMethodID group by p.PaymentMethod order by count(*) desc");
 
+                foreach (var item in paymentMethods)
+                {
+                    paymentMethodlist.Add(item);
+                }
+            }
             return paymentMethodlist;
         }
     }
