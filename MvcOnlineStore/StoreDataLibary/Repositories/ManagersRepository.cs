@@ -14,6 +14,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)";
+
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@ManagerID", model.ManagerID);
             command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
