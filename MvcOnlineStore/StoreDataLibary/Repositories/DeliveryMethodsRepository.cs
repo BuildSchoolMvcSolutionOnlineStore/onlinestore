@@ -92,27 +92,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             return deliveryMethodlist;
         }
 
-        //public DeliveryMethods FindTopByDeliveryMethodID(string DeliveryMethod)
-        //{
-        //    DeliveryMethods deliveryMethod = null;
-        //    using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
-        //    {
-        //        var deliveryMethods = connection.Query<DeliveryMethods>(
-        //            "SELECT TOP 1 d.DeliveryMethod FROM DeliveryMethods d INNER JOIN Orders o ON d.DeliveryMethodID = o.DeliveryMethodID GROUP BY d.DeliveryMethod ORDER BY COUNT(*) DESC",
-        //            new
-        //            {
-        //                del = deliveryMethod
-        //            });
-
-        //        foreach (var item in deliveryMethods)
-        //        {
-        //                if (item.DeliveryMethodID != 0)
-        //                    deliveryMethod = item;
-        //        }
-        //    }
-        //    return deliveryMethod;
-        //}
-
         public string FindTopByDeliveryMethodID()
         {
             string deliveryMethod = null;
