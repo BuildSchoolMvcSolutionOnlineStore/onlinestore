@@ -1,6 +1,7 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -71,25 +72,27 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             command.Parameters.AddWithValue("@id",orderId);
 
-            var result = command.ExecuteScalar();
-
             connection.Open();
 
-            var reader = command.ExecuteReader();
-            var orders = new Orders();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(Orders).GetProperties();
+            Orders orders = null;
 
             while(reader.Read())
             {
-                orders.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();
-                orders.CustomerID = Convert.ToInt32(reader.GetOrdinal("CustomerID"));
-                orders.OrderDate = Convert.ToDateTime(reader.GetOrdinal("OrderDate"));
-                orders.ShippedDate = Convert.ToDateTime(reader.GetOrdinal("ShippedDate"));
-                orders.PaymentMethodID = Convert.ToInt32(reader.GetOrdinal("PaymentMethodID"));
-                orders.DeliveryMethodID = Convert.ToInt32(reader.GetOrdinal("DeliveryMethodID"));
+                orders = new Orders();
+                for(var i = 0 ; i < reader.FieldCount ; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(orders, reader.GetValue(i));
+                }
             }
 
             reader.Close();
-
             return orders;
         }
 
@@ -103,17 +106,23 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            Orders orders = null;
             var orderslist = new List<Orders>();
+            var properties = typeof(Orders).GetProperties();
 
             while (reader.Read())
             {
-                var orders = new Orders();
-                orders.OrderID = reader.GetValue(reader.GetOrdinal("OrderID")).ToString();
-                orders.CustomerID = Convert.ToInt32(reader.GetOrdinal("CustomerID"));
-                orders.OrderDate = Convert.ToDateTime(reader.GetOrdinal("OrderDate"));
-                orders.ShippedDate = Convert.ToDateTime(reader.GetOrdinal("ShippedDate"));
-                orders.PaymentMethodID = Convert.ToInt32(reader.GetOrdinal("PaymentMethodID"));
-                orders.DeliveryMethodID = Convert.ToInt32(reader.GetOrdinal("DeliveryMethodID"));
+                orders = new Orders();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(orders, reader.GetValue(i));
+                }
+                orderslist.Add(orders);
             }
 
             reader.Close();
