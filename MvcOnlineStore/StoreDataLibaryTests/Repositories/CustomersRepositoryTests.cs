@@ -31,14 +31,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void CreateTest()
         {
             var repository = new CustomersRepository();
-            var model = new Customer();
+            var model = new Customers();
             model.CustomerID = "Test";
             model.CustomerPassword = "1234";
             model.CustomerName = "Testabc";
             model.Telephone = 0900000000;
             model.Address = "CHU";
             model.CustomerMail = "Testabc@gmail.com";
-            repository.Create(model);
+            repository.CreateCustomer(model);
             var text = repository.FindById("Test");
             Assert.IsTrue(text != null);
         }
@@ -48,11 +48,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         {
             var repository = new CustomersRepository();
             var Oldmodel = repository.FindById("Test");
-            Oldmodel.CustomerName = "客戶修改";
+            Oldmodel.CustomerName = "asdfsdg";
             repository.Update(Oldmodel);
 
             var Newmodel = repository.FindById("Test");
-            Assert.IsTrue(Newmodel.CustomerName == "客戶修改");
+            Assert.IsTrue(Newmodel.CustomerName == "asdfsdg");
         }
 
         [TestMethod()]
