@@ -26,7 +26,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         public void UpdatePaymentMethods(PaymentMethods model)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "UPRATE PaymentMethods SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
+            var sql = "UPDATE PaymentMethods SET PaymentMethod = @PaymentMethod WHERE PaymentMethodID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.PaymentMethodID);
             command.Parameters.AddWithValue("@PaymentMethod", model.PaymentMethod);
@@ -35,14 +35,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void DeletePaymentMethods(PaymentMethods model)
+        public void DeletePaymentMethods(int PaymentMethodID)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "Delete From PaymentMethods WHERE PaymentMethodID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", model.PaymentMethodID);
+            command.Parameters.AddWithValue("@id", PaymentMethodID);
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
