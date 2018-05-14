@@ -13,15 +13,19 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
     public class PaymentMethodsRepositoryTests
     {
         [TestMethod()]
-        public void CreatePaymentMethodsTest()
+        public void FindPaymentMethodsByPaymentMethodsIdTest()
         {
             var repository = new PaymentMethodsRepository();
-            var model = new PaymentMethods();
-            model.PaymentMethodID = 5;
-            model.PaymentMethod = "付款方法測試";
-            repository.CreatePaymentMethods(model);
-            var text = repository.FindPaymentMethodsByPaymentMethodsId(5);
+            var text = repository.FindPaymentMethodsByPaymentMethodsId(1);
             Assert.IsTrue(text != null);
+        }
+
+        [TestMethod()]
+        public void GetAllPaymentMethodsTest()
+        {
+            var repository = new PaymentMethodsRepository();
+            var list = repository.GetAllPaymentMethods();
+            Assert.IsTrue(list.Count() > 0);
         }
     }
 }

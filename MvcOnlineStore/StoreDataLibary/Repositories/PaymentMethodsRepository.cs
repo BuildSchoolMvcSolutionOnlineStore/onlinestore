@@ -58,18 +58,16 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             command.Parameters.AddWithValue("@id", PaymentMethodId);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethods = new PaymentMethods();
+            var properties = typeof(PaymentMethods).GetProperties();
+            PaymentMethods paymentMethods = null;
+
 
             while (reader.Read())
             {
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
 
             }
 
@@ -87,13 +85,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            PaymentMethods paymentMethods = null;
             var paymentMethodlist = new List<PaymentMethods>();
-
+            var properties = typeof(PaymentMethods).GetProperties();
             while (reader.Read())
             {
-                var paymentMethods = new PaymentMethods();
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
+                paymentMethodlist.Add(paymentMethods);
             }
 
             reader.Close();
