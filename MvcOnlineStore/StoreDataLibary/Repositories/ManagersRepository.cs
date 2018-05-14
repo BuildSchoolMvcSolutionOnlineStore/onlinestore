@@ -51,7 +51,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public Managers FindById(int ManagerID)
+        public Managers FindById(string ManagerID)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "SELECT * FROM Managers WHERE ManagerID=@id";
