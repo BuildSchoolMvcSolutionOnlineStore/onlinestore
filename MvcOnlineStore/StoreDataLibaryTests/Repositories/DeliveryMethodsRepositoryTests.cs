@@ -61,5 +61,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             var text = repository.FindDeliveryMethodByDeliveryMethodID(5);
             Assert.IsTrue(text == null);
         }
+
+        [TestMethod()]
+        public void FindTopByDeliveryMethodIDTest()
+        {
+            var repository = new DeliveryMethodsRepository();
+            var list = repository.FindTopByDeliveryMethodID();
+            Assert.IsTrue(list != null);
+        }
     }
 }
