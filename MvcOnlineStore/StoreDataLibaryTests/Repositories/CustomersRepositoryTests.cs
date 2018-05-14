@@ -12,23 +12,23 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
     public class CustomersRepositoryTests
     {
         [TestMethod()]
-        public void FindByIdTest()
+        public void Customers_FindByIdTest()
         {
             var repository = new CustomersRepository();
-            var text = repository.FindById("Alice5278");
+            var text = repository.FindCustomerByCustomerId("Jhon8868");
             Assert.IsTrue(text != null);
         }
 
         [TestMethod()]
-        public void GetAllTest()
+        public void Customers_GetAllTest()
         {
             var repository = new CustomersRepository();
-            var list = repository.GetAll();
+            var list = repository.GetAllCustomers();
             Assert.IsTrue(list.Count() > 0);
         }
 
         [TestMethod()]
-        public void CreateTest()
+        public void Customers_1_CreateTest()
         {
             var repository = new CustomersRepository();
             var model = new Customers();
@@ -39,28 +39,28 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             model.Address = "CHU";
             model.CustomerMail = "Testabc@gmail.com";
             repository.CreateCustomer(model);
-            var text = repository.FindById("Test");
+            var text = repository.FindCustomerByCustomerId("Test");
             Assert.IsTrue(text != null);
         }
 
         [TestMethod()]
-        public void UpdateTest()
+        public void Customers_2_UpdateTest()
         {
             var repository = new CustomersRepository();
-            var Oldmodel = repository.FindById("Test");
+            var Oldmodel = repository.FindCustomerByCustomerId("Test");
             Oldmodel.CustomerName = "asdfsdg";
-            repository.Update(Oldmodel);
+            repository.UpdateCustomer(Oldmodel);
 
-            var Newmodel = repository.FindById("Test");
+            var Newmodel = repository.FindCustomerByCustomerId("Test");
             Assert.IsTrue(Newmodel.CustomerName == "asdfsdg");
         }
 
         [TestMethod()]
-        public void DeleteTest()
+        public void Customers_3_DeleteTest()
         {
             var repository = new CustomersRepository();
-            repository.Delete("Test");
-            var text = repository.FindById("Test");
+            repository.DeleteCustomer("Test");
+            var text = repository.FindCustomerByCustomerId("Test");
             Assert.IsTrue(text == null);
         }
     }
