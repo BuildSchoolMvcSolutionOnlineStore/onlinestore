@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,103 +13,90 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
     {
         public void CreateProduct(Products model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions)";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@ProductID", model.ProductID);
-            command.Parameters.AddWithValue("@CategoryID", model.CategoryID);
-            command.Parameters.AddWithValue("@ProductName", model.ProductName);
-            command.Parameters.AddWithValue("@Stock", model.Stock);
-            command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
-            command.Parameters.AddWithValue("@Size", model.Size);
-            command.Parameters.AddWithValue("@Color", model.Color);
-            command.Parameters.AddWithValue("@Instructions", model.Instructions);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions)",
+                new
+                {
+                    ProductID = model.ProductID,
+                    CategoryID = model.CategoryID,
+                    ProductName = model.ProductName,
+                    Stock = model.Stock,
+                    UnitPrice = model.UnitPrice,
+                    Size = model.Size,
+                    Color = model.Color,
+                    Instructions = model.Instructions
+                });
+            }
         }
         public void UpdateProduct(Products model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "UPDATE Products SET " +
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "UPDATE Products SET " +
                 "CategoryID = @CategoryID,ProductName = @ProductName,Stock = @Stock,UnitPrice = @UnitPrice," +
-                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.ProductID);
-            command.Parameters.AddWithValue("@CategoryID", model.CategoryID);
-            command.Parameters.AddWithValue("@ProductName", model.ProductName);
-            command.Parameters.AddWithValue("@Stock", model.Stock);
-            command.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
-            command.Parameters.AddWithValue("@Size", model.Size);
-            command.Parameters.AddWithValue("@Color", model.Color);
-            command.Parameters.AddWithValue("@Instructions", model.Instructions);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @id",
+                new
+                {
+                    id = model.ProductID,
+                    CategoryID = model.CategoryID,
+                    ProductName = model.ProductName,
+                    Stock = model.Stock,
+                    UnitPrice = model.UnitPrice,
+                    Size = model.Size,
+                    Color = model.Color,
+                    Instructions = model.Instructions
+                });
+            }
         }
         public void DeleteProduct(String ProductID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "DELETE FROM Products WHERE ProductID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", ProductID);
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "DELETE FROM Products WHERE ProductID = @id",
+                new
+                {
+                    id = ProductID
+                });
+            }
         }
 
         public Products FindProductByProductId(string ProductID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-
-            var sql = "SELECT * FROM Products WHERE ProductID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", ProductID);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            var properties = typeof(Products).GetProperties();
-
             Products product = null;
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                product = DbReaderModelBinder<Products>.Bind(reader);
+                var products = connection.Query<Products>(
+                    "SELECT * FROM Products WHERE ProductID = @id",
+                    new
+                    {
+                        id = ProductID
+                    });
+                
+                foreach(var item in products)
+                {
+                    if(item.ProductID != null)
+                        product = item;
+                }
             }
-
-            reader.Close();
-
             return product;
         }
         public IEnumerable<Products> GetAllProducts()
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-
-            var sql = "SELECT * FROM Products";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            Products product = null;
             var productlist = new List<Products>();
-            var properties = typeof(Products).GetProperties();
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                product = DbReaderModelBinder<Products>.Bind(reader);
-                productlist.Add(product);
+                var products = connection.Query<Products>(
+                    "SELECT * FROM Products");
+
+                foreach (var item in products)
+                {
+                    productlist.Add(item);
+                }
             }
-
-            reader.Close();
-
             return productlist;
         }
     }
