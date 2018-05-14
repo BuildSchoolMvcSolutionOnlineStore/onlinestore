@@ -29,7 +29,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE DeliveryMethods SET" + "@DeliveryMethod, @Freight WHERE DeliveryMethodID = @id";
+            var sql = "UPRATE DeliveryMethods SET" + "DeliveryMethod = @DeliveryMethod, Freight = @Freight WHERE DeliveryMethodID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.DeliveryMethodID);
             command.Parameters.AddWithValue("@DeliveryMethod", model.DeliveryMethod);
@@ -39,7 +39,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void DeleteDeliveryMethod(string DeliveryMethodID)
+        public void DeleteDeliveryMethod(int DeliveryMethodID)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
@@ -52,7 +52,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(string DeliveryMethodID)
+        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(int DeliveryMethodID)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
