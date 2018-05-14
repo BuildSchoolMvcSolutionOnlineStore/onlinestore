@@ -29,7 +29,8 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         public void Update(Customer model)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "UPRATE Customers SET @CustomerPassword=CustomerPassword,@CustomerName=CustomerName,@Telephone=Telephone,@Address=Address,@CustomerMail=CustomerMail WHERE CustomerID = @id";
+            var sql = "UPDATE Customers SET " +
+                "CustomerPassword = @CustomerPassword,CustomerName = @CustomerName,Telephone = @Telephone,Address = @Address,CustomerMail = @CustomerMail WHERE CustomerID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.CustomerID);
             command.Parameters.AddWithValue("@CustomerPassword", model.CustomerPassword);

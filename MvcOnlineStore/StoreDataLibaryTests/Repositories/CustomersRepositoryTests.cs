@@ -48,11 +48,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         {
             var repository = new CustomersRepository();
             var Oldmodel = repository.FindById("Test");
-            Oldmodel.CustomerName = "客戶修改";
+            Oldmodel.CustomerName = "asdfsdg";
             repository.Update(Oldmodel);
 
             var Newmodel = repository.FindById("Test");
-            Assert.IsTrue(Newmodel.CustomerName == "客戶修改");
+            Assert.IsTrue(Newmodel.CustomerName == "asdfsdg");
         }
 
         [TestMethod()]
