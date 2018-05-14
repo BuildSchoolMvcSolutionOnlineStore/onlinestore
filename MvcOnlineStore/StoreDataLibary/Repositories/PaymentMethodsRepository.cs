@@ -10,11 +10,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class PaymentMethodsRepository
     {
-        string serviceIP = "192.168.40.21";
-        public void Create(PaymentMethods model)
+        public void CreatePaymentMethods(PaymentMethods model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
@@ -25,10 +23,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Close();//關閉結束
         }
 
-        public void Update(PaymentMethods model)
+        public void UpdatePaymentMethods(PaymentMethods model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "UPRATE PaymentMethods SET @PaymentMethodID, @PaymentMethod WHERE PaymentMethodID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.PaymentMethodID);
@@ -38,10 +35,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Delete(PaymentMethods model)
+        public void DeletePaymentMethods(PaymentMethods model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "Delete From PaymentMethods WHERE PaymentMethodID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
@@ -52,29 +48,26 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Close();//關閉結束
         }
 
-        public PaymentMethods FindById(int PaymentMethodId)
+        public PaymentMethods FindPaymentMethodsByPaymentMethodsId(int PaymentMethodId)
         //單筆資料查詢
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
             command.Parameters.AddWithValue("@id", PaymentMethodId);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var paymentMethods = new PaymentMethods();
+            var properties = typeof(PaymentMethods).GetProperties();
+            PaymentMethods paymentMethods = null;
+
 
             while (reader.Read())
             {
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
 
             }
 
@@ -82,10 +75,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             return paymentMethods;
         }
-        public IEnumerable<PaymentMethods> GetAll()
+        public IEnumerable<PaymentMethods> GetAllPaymentMethods()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
             var sql = "SELECT * FROM PaymentMethods";
 
@@ -93,13 +85,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            PaymentMethods paymentMethods = null;
             var paymentMethodlist = new List<PaymentMethods>();
-
+            var properties = typeof(PaymentMethods).GetProperties();
             while (reader.Read())
             {
-                var paymentMethods = new PaymentMethods();
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                paymentMethods = DbReaderModelBinder<PaymentMethods>.Bind(reader);
+                paymentMethodlist.Add(paymentMethods);
             }
 
             reader.Close();

@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
 {
     [TestClass()]
-    public class ManagersRepositoryTests
+    public class DeliveryMethodsRepositoryTests
     {
         [TestMethod()]
-        public void FindByIdTest()
+        public void FindDeliveryMethodByDeliveryMethodIDTest()
         {
-            var repository = new ManagersRepository();
-            var text = repository.FindById("MA001");
+            var repository = new DeliveryMethodsRepository();
+            var text = repository.FindDeliveryMethodByDeliveryMethodID("1");
             Assert.IsTrue(text != null);
         }
 
         [TestMethod()]
-        public void GetAllTest()
+        public void GetAllDeliveryMethodsTest()
         {
-            var repository = new ManagersRepository();
-            var list = repository.GetAll();
+            var repository = new DeliveryMethodsRepository();
+            var list = repository.GetAllDeliveryMethods();
             Assert.IsTrue(list.Count() > 0);
         }
     }
