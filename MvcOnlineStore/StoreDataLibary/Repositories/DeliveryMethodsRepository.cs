@@ -11,11 +11,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class DeliveryMethodsRepository
     {
-        string serviceIP = "192.168.40.21";
-        public void Create(DeliveryMethods model)
+        //string serviceIP = "192.168.40.21";
+        public void CreateDeliveryMethod(DeliveryMethods model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO DeliveryMethods VALUES(@DeliveryMethodID, @DeliveryMethod, @Freight)";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@DeliveryMethodID", model.DeliveryMethodID);
@@ -26,11 +25,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Update(DeliveryMethods model)
+        public void UpdateDeliveryMethod(DeliveryMethods model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE DeliveryMethods SET @DeliveryMethod, @Freight WHERE DeliveryMethodID = @id";
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
+            //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            var sql = "UPRATE DeliveryMethods SET" + "@DeliveryMethod, @Freight WHERE DeliveryMethodID = @id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.DeliveryMethodID);
             command.Parameters.AddWithValue("@DeliveryMethod", model.DeliveryMethod);
@@ -40,15 +39,15 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Delete(DeliveryMethods model)
+        public void DeleteDeliveryMethod(string DeliveryMethodID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
+            //"Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
             var sql = "Delete From DeliveryMethods WHERE DeliveryMethodID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@id", model.DeliveryMethodID);
+            command.Parameters.AddWithValue("@id", DeliveryMethodID);
             connection.Open();//連線打開
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
@@ -57,7 +56,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
-            var sql = "SELECT * FROM Products WHERE ProductID = @id";
+            var sql = "SELECT * FROM DeliveryMethods WHERE DeliveryMethodID = @id";
 
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -68,16 +67,16 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             var reader = command.ExecuteReader();
             var properties = typeof(DeliveryMethods).GetProperties();
 
-            DeliveryMethods deliveryMethods = null;
+            DeliveryMethods deliveryMethod = null;
 
             while (reader.Read())
             {
-                deliveryMethods = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
+                deliveryMethod = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
             }
 
             reader.Close();
 
-            return deliveryMethods;
+            return deliveryMethod;
         }
 
         public IEnumerable<DeliveryMethods> GetAllDeliveryMethods()
@@ -90,14 +89,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            DeliveryMethods deliveryMethods = null;
+            DeliveryMethods deliveryMethod = null;
             var deliveryMethodslist = new List<DeliveryMethods>();
             var properties = typeof(DeliveryMethods).GetProperties();
 
             while (reader.Read())
             {
-                deliveryMethods = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
-                deliveryMethodslist.Add(deliveryMethods);
+                deliveryMethod = DbReaderModelBinder<DeliveryMethods>.Bind(reader);
+                deliveryMethodslist.Add(deliveryMethod);
             }
 
             reader.Close();
