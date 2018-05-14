@@ -85,21 +85,20 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             return paymentMethodlist;
         }
 
-        public string FindTopByPaymentMethodID()
-        //單筆資料查詢
+        public IEnumerable<PaymentMethods> FindTopByPaymentMethodID()
         {
-            string paymentMethod = null;
+            var paymentMethodlist = new List<PaymentMethods>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var paymentMethods = connection.Query<PaymentMethods>(
-                    "select top 1 p.PaymentMethod from PaymentMethods as p inner join Orders as o on  p.PaymentMethodID = o.PaymentMethodID group by p.PaymentMethod order by count(*) desc");
+                    "select p.PaymentMethod from PaymentMethods as p inner join Orders as o on  p.PaymentMethodID = o.PaymentMethodID group by p.PaymentMethod order by count(*) desc");
 
                 foreach (var item in paymentMethods)
                 {
-                    paymentMethod = item.PaymentMethod;
+                    paymentMethodlist.Add(item);
                 }
             }
-            return paymentMethod;
+            return paymentMethodlist;
         }
     }
 }
