@@ -1,6 +1,7 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -63,19 +64,24 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
             command.Parameters.AddWithValue("@id", PaymentMethodId);
 
-            var result = command.ExecuteScalar();//純量值
-            //如果查詢資料是NULL的話
-            //if (result == DBNull.Value)
             connection.Open();
 
-            var reader = command.ExecuteReader();
-            var paymentMethods = new PaymentMethods();
+            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+            var properties = typeof(PaymentMethods).GetProperties();
+            PaymentMethods paymentMethods = null;
 
             while (reader.Read())
             {
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
-
+                paymentMethods = new PaymentMethods();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(paymentMethods, reader.GetValue(i));
+                }
             }
 
             reader.Close();
@@ -93,14 +99,25 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
+            PaymentMethods paymentMethods = null;
             var paymentMethodlist = new List<PaymentMethods>();
+            var properties = typeof(PaymentMethods).GetProperties();
 
             while (reader.Read())
             {
-                var paymentMethods = new PaymentMethods();
-                paymentMethods.PaymentMethodID = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("PaymentMethodID")));//每個get都是欄位序號
-                paymentMethods.PaymentMethod = reader.GetValue(reader.GetOrdinal("PaymentMethod")).ToString();
+                paymentMethods = new PaymentMethods();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
+                    if (property == null)
+                        continue;
+                    if (!reader.IsDBNull(i))
+                        property.SetValue(paymentMethods, reader.GetValue(i));
+                }
+                paymentMethodlist.Add(paymentMethods);
             }
+
 
             reader.Close();
 

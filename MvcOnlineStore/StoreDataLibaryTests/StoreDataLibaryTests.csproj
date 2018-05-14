@@ -56,6 +56,8 @@
     <Compile Include="Repositories\OrderDetailsRepositoryTests.cs" />
     <Compile Include="Repositories\CategoriesRepositoryTests.cs" />
     <Compile Include="Repositories\CustomersRepositoryTests.cs" />
+    <Compile Include="Repositories\OrdersRepositoryTests.cs" />
+    <Compile Include="Repositories\PaymentMethodsRepositoryTests.cs" />
     <Compile Include="Repositories\ProductsRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
