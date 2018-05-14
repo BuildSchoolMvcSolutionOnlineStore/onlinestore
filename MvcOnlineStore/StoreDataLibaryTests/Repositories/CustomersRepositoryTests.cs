@@ -12,19 +12,64 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
     public class CustomersRepositoryTests
     {
         [TestMethod()]
-        public void FindByIdTest()
+        public void Customers_FindByIdTest()
         {
             var repository = new CustomersRepository();
-            var text = repository.FindById("1");
+            var text = repository.FindCustomerByCustomerId("Jhon8868");
             Assert.IsTrue(text != null);
         }
 
         [TestMethod()]
-        public void GetAllTest()
+        public void Customers_GetAllTest()
         {
             var repository = new CustomersRepository();
-            var list = repository.GetAll();
+            var list = repository.GetAllCustomers();
             Assert.IsTrue(list.Count() > 0);
+        }
+
+        [TestMethod()]
+        public void Customers_1_CreateTest()
+        {
+            var repository = new CustomersRepository();
+            var model = new Customers();
+            model.CustomerID = "Test0";
+            model.CustomerPassword = "1234";
+            model.DeliveryMethod = "Testabc";
+            model.Telephone = 0900000000;
+            model.Address = "CHU";
+            model.CustomerMail = "Testabc@gmail.com";
+            repository.CreateCustomer(model);
+            var text = repository.FindCustomerByCustomerId("Test0");
+            Assert.IsTrue(text != null);
+        }
+
+        [TestMethod()]
+        public void Customers_2_UpdateTest()
+        {
+            var repository = new CustomersRepository();
+            var Oldmodel = repository.FindCustomerByCustomerId("Test0");
+            Oldmodel.DeliveryMethod = "asdfsdg";
+            repository.UpdateCustomer(Oldmodel);
+
+            var Newmodel = repository.FindCustomerByCustomerId("Test0");
+            Assert.IsTrue(Newmodel.DeliveryMethod == "asdfsdg");
+        }
+
+        [TestMethod()]
+        public void Customers_3_DeleteTest()
+        {
+            var repository = new CustomersRepository();
+            repository.DeleteCustomer("Test0");
+            var text = repository.FindCustomerByCustomerId("Test0");
+            Assert.IsTrue(text == null);
+        }
+
+        [TestMethod()]
+        public void FindTopAmountByCustomerIdTest()
+        {
+            var repository = new CustomersRepository();
+            var list = repository.FindTopAmountByCustomerId();
+            Assert.IsTrue(list != null);
         }
     }
 }

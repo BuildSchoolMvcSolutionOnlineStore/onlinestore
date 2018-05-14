@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Categories.cs" />
-    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
     <Compile Include="Models\Managers.cs" />
     <Compile Include="Models\OrderDetails.cs" />
@@ -58,6 +61,10 @@
     <Compile Include="Repositories\OrdersRepository.cs" />
     <Compile Include="Repositories\PaymentMethodsRepository.cs" />
     <Compile Include="Repositories\ProductsRepository.cs" />
+    <Compile Include="Repositories\SqlConnectionString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
