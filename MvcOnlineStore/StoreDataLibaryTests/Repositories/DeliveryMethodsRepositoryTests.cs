@@ -53,13 +53,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             Assert.IsTrue(Newmodel.DeliveryMethod == "OK");
         }
 
-        //[TestMethod()]
-        //public void DeliveryMethods_3_DeleteDeliveryMethodTest()
-        //{
-        //    var repository = new DeliveryMethodsRepository();
-        //    repository.DeleteDeliveryMethod(5);
-        //    var text = repository.FindDeliveryMethodByDeliveryMethodID(5);
-        //    Assert.IsTrue(text == null);
-        //}
+        [TestMethod()]
+        public void DeliveryMethods_3_DeleteDeliveryMethodTest()
+        {
+            var repository = new DeliveryMethodsRepository();
+            repository.DeleteDeliveryMethod(5);
+            var text = repository.FindDeliveryMethodByDeliveryMethodID(5);
+            Assert.IsTrue(text == null);
+        }
     }
 }
