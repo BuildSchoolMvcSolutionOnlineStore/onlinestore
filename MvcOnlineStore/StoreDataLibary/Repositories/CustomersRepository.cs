@@ -94,5 +94,19 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             }
             return customerlist;
         }
+        public string FindTopAmountByCustomerId()
+        //單筆資料查詢
+        {
+            string customer = null;
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var TopAmounts = connection.Query<Customers>("SELECT Top 1 c.CustomerName,SUM(p.UnitPrice*od.Quantity-od.Discount) AS Total FROM Customers c INNER JOIN Orders o ON c.CustomerID=o.CustomerID INNER JOIN OrderDetails od on o.OrderID=od.OrderID INNER JOIN Products p ON od.ProductID=p.ProductID GROUP BY c.CustomerName ORDER By Total DESC ");
+                foreach (var item in TopAmounts)
+                {
+                    customer = item.CustomerName;
+                }
+            }
+            return customer;
+        }
     }
 }

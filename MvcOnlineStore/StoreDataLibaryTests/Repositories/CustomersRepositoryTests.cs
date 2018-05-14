@@ -48,11 +48,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         {
             var repository = new CustomersRepository();
             var Oldmodel = repository.FindCustomerByCustomerId("Test");
-            Oldmodel.CustomerName = "asdfsdg";
+            Oldmodel.CustomerName = "fjhdf";
             repository.UpdateCustomer(Oldmodel);
 
             var Newmodel = repository.FindCustomerByCustomerId("Test");
-            Assert.IsTrue(Newmodel.CustomerName == "asdfsdg");
+            Assert.IsTrue(Newmodel.CustomerName == "fjhdf");
         }
 
         [TestMethod()]
@@ -62,6 +62,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             repository.DeleteCustomer("Test");
             var text = repository.FindCustomerByCustomerId("Test");
             Assert.IsTrue(text == null);
+        }
+
+        [TestMethod()]
+        public void FindTopAmountByCustomerIdTest()
+        {
+            var repository = new CustomersRepository();
+            var list = repository.FindTopAmountByCustomerId();
+            Assert.IsTrue(list != null);
         }
     }
 }
