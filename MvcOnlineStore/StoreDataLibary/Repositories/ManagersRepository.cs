@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,98 +13,92 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         
         public void Create(Managers model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)";
 
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@ManagerID", model.ManagerID);
-            command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
-            command.Parameters.AddWithValue("@ManagerPassword", model.ManagerPassword);
-            command.Parameters.AddWithValue("@ManagerMail", model.ManagerMail);
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)",
+                new
+                {
+                    ManagerID = model.ManagerID,
+                    ManagerName = model.ManagerName,
+                    ManagerPassword = model.ManagerPassword,
+                    ManagerMail = model.ManagerMail,
 
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+                });
+            }
+
+
         }
 
         public void Update(Managers model)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "UPRATE Managers SET @ManagerName,@ManagerPassword,@ManagerMail WHERE ManagerID=@id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.ManagerID);
-            command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
-            command.Parameters.AddWithValue("@ManagerPassword", model.ManagerPassword);
-            command.Parameters.AddWithValue("@ManagerMail", model.ManagerMail);
 
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "UPDATE Managers SET " +
+                "ManagerName = @ManagerName,ManagerPassword = @ManagerPassword,ManagerMail = @ManagerMail WHERE ManagerID=@id",
+                new
+                {
+                    id = model.ManagerID,
+                    ManagerName = model.ManagerName,
+                    ManagerPassword = model.ManagerPassword,
+                    ManagerMail = model.ManagerMail,
+
+                });
+            }
+
         }
-        public void Delete(Managers model)
+        public void Delete(string ManagerID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "Delete FROM Managers WHERE ManagerID=@id";
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", model.ManagerID);
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "DELETE FROM Managers WHERE ManagerID = @id",
+                new
+                {
+                    id = ManagerID
+                });
+            }
         }
         public Managers FindById(string ManagerID)
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "SELECT * FROM Managers WHERE ManagerID=@id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", ManagerID);
-            
-            connection.Open();
-            var reader = command.ExecuteReader();
-            var properties = typeof(Managers).GetProperties();
             Managers manager = null;
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                manager = DbReaderModelBinder<Managers>.Bind(reader);
-                //for(var i=0;i<reader.FieldCount;i++)
-                //{
-                //    var fieldName = reader.GetName(i);
-                //    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                //    if (property == null)
-                //        continue;
+                var managers = connection.Query<Managers>(
+                    "SELECT * FROM Managers WHERE ManagerID = @id",
+                    new
+                    {
+                        id = ManagerID
+                    });
 
-                //    if(!reader.IsDBNull(i))
-                //    property.SetValue(Managers, reader.GetValue(i));
-
-                //}
+                foreach (var item in managers)
+                {
+                    if (item.ManagerID != null)
+                        manager = item;
+                }
             }
-            reader.Close();
             return manager;
         }
         public IEnumerable<Managers> GetAll()
         {
-            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
-            var sql = "SELECT * FROM Managers";
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-            var reader = command.ExecuteReader();
-            var managerslist = new List<Managers>();
-            Managers manager = null;
-            while (reader.Read())
+            var managerlist = new List<Managers>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                manager = DbReaderModelBinder<Managers>.Bind(reader);
-                managerslist.Add(manager);
+                var managers = connection.Query<Managers>(
+                    "SELECT * FROM Managers");
+
+                foreach (var item in managers)
+                {
+                    managerlist.Add(item);
+                }
             }
-            reader.Close();
-            return managerslist;
+            return managerlist;
 
         }
-
-
-
-
-
 
     }
 }
