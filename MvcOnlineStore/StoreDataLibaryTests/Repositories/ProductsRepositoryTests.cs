@@ -65,5 +65,29 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             var text = repository.FindProductByProductId("Test001");
             Assert.IsTrue(text == null);
         }
+
+        [TestMethod()]
+        public void Products_GetProductsByProductNameTest()
+        {
+            var repository = new ProductsRepository();
+            var list = repository.GetProductsByProductName("光");
+            Assert.IsTrue(list.Count() > 0);
+        }
+
+        [TestMethod()]
+        public void Products_FindTopProductByQuantityTest()
+        {
+            var repository = new ProductsRepository();
+            var list = repository.FindTopProductByQuantity();
+            Assert.IsTrue(list.Count() == 3);
+        }
+
+        [TestMethod()]
+        public void Products_OrderByUnitPriceTest()
+        {
+            var repository = new ProductsRepository();
+            var list = repository.GetAllProducts();
+            Assert.IsTrue(list.Count() > 0);
+        }
     }
 }

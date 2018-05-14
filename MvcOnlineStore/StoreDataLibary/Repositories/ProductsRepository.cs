@@ -99,5 +99,57 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             }
             return productlist;
         }
+        public IEnumerable<Products> GetProductsByProductName(string selectString)
+        {
+            var productlist = new List<Products>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var products = connection.Query<Products>(
+                    "SELECT * FROM Products WHERE ProductName LIKE '%'+@str+'%'",
+                    new
+                    {
+                        str = selectString
+                    });
+
+                foreach (var item in products)
+                {
+                    productlist.Add(item);
+                }
+            }
+            return productlist;
+        }
+        public IEnumerable<Products> FindTopProductByQuantity()
+        {
+            var productlist = new List<Products>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var products = connection.Query<Products>(
+                    "SELECT TOP 3 p.ProductID FROM Products p " +
+                    "INNER JOIN OrderDetails od ON od.ProductID = p.ProductID "+
+                    "GROUP BY p.ProductID "+
+                    "ORDER BY Count(od.Quantity) DESC ");
+
+                foreach (var item in products)
+                {
+                    productlist.Add(item);
+                }
+            }
+            return productlist;
+        }
+        public IEnumerable<Products> OrderByUnitPrice()
+        {
+            var productlist = new List<Products>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var products = connection.Query<Products>(
+                    "SELECT * FROM Products ORDER BY UnitPrice ");
+
+                foreach (var item in products)
+                {
+                    productlist.Add(item);
+                }
+            }
+            return productlist;
+        }
     }
 }
