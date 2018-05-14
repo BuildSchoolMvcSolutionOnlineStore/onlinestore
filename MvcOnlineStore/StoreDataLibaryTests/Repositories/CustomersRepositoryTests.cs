@@ -32,14 +32,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         {
             var repository = new CustomersRepository();
             var model = new Customers();
-            model.CustomerID = "Test";
+            model.CustomerID = "Test0";
             model.CustomerPassword = "1234";
             model.CustomerName = "Testabc";
             model.Telephone = 0900000000;
             model.Address = "CHU";
             model.CustomerMail = "Testabc@gmail.com";
             repository.CreateCustomer(model);
-            var text = repository.FindCustomerByCustomerId("Test");
+            var text = repository.FindCustomerByCustomerId("Test0");
             Assert.IsTrue(text != null);
         }
 
@@ -47,20 +47,20 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void Customers_2_UpdateTest()
         {
             var repository = new CustomersRepository();
-            var Oldmodel = repository.FindCustomerByCustomerId("Test");
-            Oldmodel.CustomerName = "fjhdf";
+            var Oldmodel = repository.FindCustomerByCustomerId("Test0");
+            Oldmodel.CustomerName = "asdfsdg";
             repository.UpdateCustomer(Oldmodel);
 
-            var Newmodel = repository.FindCustomerByCustomerId("Test");
-            Assert.IsTrue(Newmodel.CustomerName == "fjhdf");
+            var Newmodel = repository.FindCustomerByCustomerId("Test0");
+            Assert.IsTrue(Newmodel.CustomerName == "asdfsdg");
         }
 
         [TestMethod()]
         public void Customers_3_DeleteTest()
         {
             var repository = new CustomersRepository();
-            repository.DeleteCustomer("Test");
-            var text = repository.FindCustomerByCustomerId("Test");
+            repository.DeleteCustomer("Test0");
+            var text = repository.FindCustomerByCustomerId("Test0");
             Assert.IsTrue(text == null);
         }
 
