@@ -31,14 +31,14 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void CreateTest()
         {
             var repository = new CustomersRepository();
-            var model = new Customer();
+            var model = new Customers();
             model.CustomerID = "Test";
             model.CustomerPassword = "1234";
             model.CustomerName = "Testabc";
             model.Telephone = 0900000000;
             model.Address = "CHU";
             model.CustomerMail = "Testabc@gmail.com";
-            repository.Create(model);
+            repository.CreateCustomer(model);
             var text = repository.FindById("Test");
             Assert.IsTrue(text != null);
         }

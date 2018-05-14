@@ -10,7 +10,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class CustomersRepository
     {
-        public void Create(Customer model)
+        public void CreateCustomer(Customers model)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO Customers VALUES(@CustomerID,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)";
@@ -26,7 +26,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public void Update(Customer model)
+        public void Update(Customers model)
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "UPDATE Customers SET " +
@@ -56,7 +56,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();//執行指令
             connection.Close();//關閉結束
         }
-        public Customer FindById(string CustomerId)
+        public Customers FindById(string CustomerId)
         //單筆資料查詢
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
@@ -69,18 +69,18 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            var properties = typeof(Customer).GetProperties();
-            Customer customer = null;
+            var properties = typeof(Customers).GetProperties();
+            Customers customer = null;
 
             while (reader.Read())
             {
-                customer = DbReaderModelBinder<Customer>.Bind(reader); 
+                customer = DbReaderModelBinder<Customers>.Bind(reader); 
             }
 
             reader.Close();
             return customer;
         }
-        public IEnumerable<Customer> GetAll()
+        public IEnumerable<Customers> GetAll()
         {
             SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
 
@@ -90,13 +90,13 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             connection.Open();
 
             var reader = command.ExecuteReader();
-            Customer customer = null;
-            var customerlist = new List<Customer>();
-            var properties = typeof(Customer).GetProperties();
+            Customers customer = null;
+            var customerlist = new List<Customers>();
+            var properties = typeof(Customers).GetProperties();
 
             while (reader.Read())
             {
-                customer = DbReaderModelBinder<Customer>.Bind(reader);
+                customer = DbReaderModelBinder<Customers>.Bind(reader);
                 customerlist.Add(customer);
             }
 
