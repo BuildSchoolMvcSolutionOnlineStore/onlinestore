@@ -9,12 +9,12 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class ManagersRepository
     {
-        string serviceIP = "192.168.40.21";
+        
         public void Create(Managers model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)";
+
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@ManagerID", model.ManagerID);
             command.Parameters.AddWithValue("@ManagerName", model.ManagerName);
@@ -28,8 +28,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
         public void Update(Managers model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "UPRATE Managers SET @ManagerName,@ManagerPassword,@ManagerMail WHERE ManagerID=@id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", model.ManagerID);
@@ -43,8 +42,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         }
         public void Delete(Managers model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "Delete FROM Managers WHERE ManagerID=@id";
             SqlCommand command = new SqlCommand(sql, connection);
 
@@ -53,10 +51,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public Managers FindById(int ManagerID)
+        public Managers FindById(string ManagerID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "SELECT * FROM Managers WHERE ManagerID=@id";
             SqlCommand command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", ManagerID);
@@ -86,8 +83,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         }
         public IEnumerable<Managers> GetAll()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
+            SqlConnection connection = new SqlConnection(SqlConnectionString.ConnectionString);
             var sql = "SELECT * FROM Managers";
             SqlCommand command = new SqlCommand(sql, connection);
             connection.Open();
@@ -103,6 +99,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             return managerslist;
 
         }
+
+
+
+
+
 
     }
 }

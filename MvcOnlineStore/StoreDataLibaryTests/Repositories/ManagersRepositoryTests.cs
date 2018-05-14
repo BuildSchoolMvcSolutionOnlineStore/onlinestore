@@ -15,7 +15,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void FindByIdTest()
         {
             var repository = new ManagersRepository();
-            var text = repository.FindById(1);
+            var text = repository.FindById("MA001");
             Assert.IsTrue(text != null);
         }
 

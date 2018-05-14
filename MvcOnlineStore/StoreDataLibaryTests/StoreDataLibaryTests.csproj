@@ -52,10 +52,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DeliveryMethodsRepositoryTests.cs" />
     <Compile Include="Repositories\ManagersRepositoryTests.cs" />
     <Compile Include="Repositories\OrderDetailsRepositoryTests.cs" />
     <Compile Include="Repositories\CategoriesRepositoryTests.cs" />
     <Compile Include="Repositories\CustomersRepositoryTests.cs" />
+    <Compile Include="Repositories\PaymentMethodsRepositoryTests.cs" />
     <Compile Include="Repositories\ProductsRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
