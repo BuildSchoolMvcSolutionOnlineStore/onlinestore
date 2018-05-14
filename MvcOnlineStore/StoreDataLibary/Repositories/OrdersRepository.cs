@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,122 +12,79 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class OrdersRepository
     {
-        string serviceIP = "192.168.40.21";
-        public void Create(Orders model)
+        public void CreateOrders(Orders model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO Orders VALUES(@OrderID ,@CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID)";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@OrderID",model.OrderID);
-            command.Parameters.AddWithValue("@CustomerID",model.CustomerID);
-            command.Parameters.AddWithValue("@OrderDate",model.OrderDate);
-            command.Parameters.AddWithValue("@ShippedDate",model.ShippedDate);
-            command.Parameters.AddWithValue("@PaymentMethodID",model.PaymentMethodID);
-            command.Parameters.AddWithValue("@DeliveryMethodID",model.DeliveryMethodID);
-
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
-        }
-
-        public void Update(Orders model)
-        {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE Orders SET @CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID WHERE OrderID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", model.OrderID);
-            command.Parameters.AddWithValue("@CustomerID", model.CustomerID);
-            command.Parameters.AddWithValue("@OrderDate", model.OrderDate);
-            command.Parameters.AddWithValue("@ShippedDate", model.ShippedDate);
-            command.Parameters.AddWithValue("@PaymentMethodID", model.PaymentMethodID);
-            command.Parameters.AddWithValue("@DeliveryMethodID", model.DeliveryMethodID);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
-        }
-
-        public void Delete(Orders model)
-        {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From Orders WHERE OrderID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id",model.OrderID);
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
-        }
-
-        public Orders FindById(string orderId)
-        {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM Orders WHERE OrdersID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id",orderId);
-
-            connection.Open();
-
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var properties = typeof(Orders).GetProperties();
-            Orders orders = null;
-
-            while(reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                orders = new Orders();
-                for(var i = 0 ; i < reader.FieldCount ; i++)
+                connection.Execute("INSERT INTO Orders VALUES(@OrderID ,@CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID)",
+                    model);
+            }
+        }
+
+        public void UpdateOrders(Orders model)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                "UPRATE Orders SET @CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID WHERE OrderID = @id",
+                new
                 {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                    if (property == null)
-                        continue;
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(orders, reader.GetValue(i));
+                    id = model.OrderID,
+                    OrderID = model.OrderID,
+                    CustomerID = model.CustomerID,
+                    OrderDate = model.OrderDate,
+                    ShippedDate = model.ShippedDate,
+                    PaymentMethodID = model.PaymentMethodID,
+                    DeliveryMethodID = model.DeliveryMethodID
+                });
+            }
+        }
+
+        public void DeleteOrders(string OrderID)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                    "Delete From Orders WHERE OrderID = @id",
+                    new
+                    {
+                        id = OrderID
+                    });
+            }
+        }
+
+        public Orders FindOrdersByOrderId(string OrderId)
+        {
+            Orders order = null;
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var orders = connection.Query<Orders>(
+                    "SELECT * FROM Orders WHERE OrdersID = @id",
+                    new
+                    {
+                        id = OrderId
+                    });
+                foreach(var item in orders)
+                {
+                    if (item.OrderID != null)
+                        order = item;
                 }
             }
-
-            reader.Close();
-            return orders;
+            return order;
         }
 
-        public IEnumerable<Orders> GetAll()
+        public IEnumerable<Orders> GetAllOrders()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM Orders";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            Orders orders = null;
             var orderslist = new List<Orders>();
-            var properties = typeof(Orders).GetProperties();
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                orders = new Orders();
-                for (var i = 0; i < reader.FieldCount; i++)
+                var orders = connection.Query<Orders>(
+                    "SELECT * FROM Orders");
+                foreach(var item in orders)
                 {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                    if (property == null)
-                        continue;
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(orders, reader.GetValue(i));
+                    orderslist.Add(item);
                 }
-                orderslist.Add(orders);
             }
-
-            reader.Close();
-
             return orderslist;
         }
     }

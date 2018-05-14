@@ -15,7 +15,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void FindByIdTest()
         {
             var repository = new OrdersRepository();
-            var text = repository.FindById("1");
+            var text = repository.FindOrdersByOrderId("1");
             Assert.IsTrue(text != null);
         }
 
@@ -23,7 +23,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void GetAllTest()
         {
             var repository = new OrdersRepository();
-            var list = repository.GetAll();
+            var list = repository.GetAllOrders();
             Assert.IsTrue(list.Count()>0);
         }
     }
