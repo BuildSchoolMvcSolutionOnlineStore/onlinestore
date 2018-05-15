@@ -27,8 +27,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
                 });
             }
-
-
         }
 
         public void Update(Managers model)
