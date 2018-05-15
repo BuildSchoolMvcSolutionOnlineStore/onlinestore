@@ -1,4 +1,5 @@
 ﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,39 +12,29 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 {
     public class OrderDetailsRepository
     {
-        string serviceIP = "192.168.40.21";
-        public void Create(OrderDetails model)
+        public void CreateOrderDeta(OrderDetails model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@orederID", model.OrderID);
-            command.Parameters.AddWithValue("@productID", model.ProductID);
-            command.Parameters.AddWithValue("@quantity", model.Quantity);
-            command.Parameters.AddWithValue("@discount", model.Discount);
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute("INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)",model);
+            }
         }
-        public void Update(OrderDetails model)
+        public void UpdateOrderDeta(OrderDetails model)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "UPRATE OrderDetails SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id";
-            SqlCommand command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@orederID", model.OrderID);
-            command.Parameters.AddWithValue("@productID", model.ProductID);
-            command.Parameters.AddWithValue("@quantity", model.Quantity);
-            command.Parameters.AddWithValue("@discount", model.Discount);
-
-
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute("UPRATE OrderDetails SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id",
+                    new
+                    {
+                        id = model.OrderID,
+                        OrderID = model.OrderID,
+                        ProductID = model.ProductID,
+                        Quantity = model.Quantity,
+                        Discount = model.Discount
+                    });
+            }
         }
-        public void Delete(OrderDetails model)
+        public void DeleteOrderData(string OrderId)
         {
             SqlConnection connection = new SqlConnection(
                 "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
