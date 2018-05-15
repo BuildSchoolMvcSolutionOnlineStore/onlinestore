@@ -34,90 +34,47 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                     });
             }
         }
-        public void DeleteOrderData(string OrderId)
+        public void DeleteOrderDeta(string OrderID)
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "Delete From OrderDetails WHERE OrderID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", model.OrderID);
-            connection.Open();//連線打開
-            command.ExecuteNonQuery();//執行指令
-            connection.Close();//關閉結束
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                connection.Execute(
+                    "Delete From OrderDetails WHERE OrderID = @id",
+                    new
+                    {
+                        id = OrderID
+                    });
+            }
         }
-        public OrderDetails FindById(string orderId)
+        public OrderDetails FindOrderDetaByOrderId(string OrderId)
         //單筆資料查詢
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-            var sql = "SELECT * FROM OrderDetails WHERE OrderID = @id";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            command.Parameters.AddWithValue("@id", orderId);
-
-            
-            connection.Open();
-
-            var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-            var properties = typeof(OrderDetails).GetProperties();
             OrderDetails orderDetails = null;
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                orderDetails = new OrderDetails();
-                for (var i = 0; i < reader.FieldCount; i++)
+                var orderdeta = connection.Query<OrderDetails>(
+                    "SELECT * FROM OrderDetails WHERE OrderID = @id",
+                    new
+                    {
+                        id = OrderId
+                    });
+                foreach(var item in orderdeta)
                 {
-                    var fieldName = reader.GetName(i);
-                    var property = properties.FirstOrDefault(p => p.Name == fieldName);
-                    if (property == null)
-                        continue;
-
-                    if (!reader.IsDBNull(i))
-                        property.SetValue(orderDetails, reader.GetValue(i));
+                    if(item.OrderID != null)
+                    {
+                        orderDetails = item;
+                    }
                 }
             }
-
-            reader.Close();
             return orderDetails;
         }
-        public IEnumerable<OrderDetails> GetAll()
+        public IEnumerable<OrderDetails> GetAllOrderDeta()
         {
-            SqlConnection connection = new SqlConnection(
-                "Server=" + serviceIP + ";Database=Shopping;User Id=linker;Password = 19960705;");
-
-            var sql = "SELECT * FROM OrderDetails";
-
-            SqlCommand command = new SqlCommand(sql, connection);
-            connection.Open();
-
-            var reader = command.ExecuteReader();
-            OrderDetails orderDetail = null;
-            var orderDetails = new List<OrderDetails>();
-            var properties = typeof(OrderDetails).GetProperties();
-
-            while (reader.Read())
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                orderDetail = DbReaderModelBinder<OrderDetails>.Bind(reader);
-                //for (var i = 0; i < reader.FieldCount; i++)
-                //{
-                //    var filedName = reader.GetName(i);
-                //    var property = properties.FirstOrDefault(p => p.Name == filedName);
-
-                //    if (property == null)
-                //        continue;
-
-                //    if (!reader.IsDBNull(i))
-                //        property.SetValue(orderDetail, reader.GetValue(i));
-                //}
-                orderDetails.Add(orderDetail);
+                var orderdeta = connection.Query<OrderDetails>("SELECT * FROM OrderDetails");
+                return orderdeta;
             }
-
-            reader.Close();
-
-            return orderDetails;
         }
     }
 }
