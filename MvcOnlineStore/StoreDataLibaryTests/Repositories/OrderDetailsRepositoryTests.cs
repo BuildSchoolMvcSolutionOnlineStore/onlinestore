@@ -16,7 +16,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void FindOrderDetaByOrderId()
         {
             var repository = new OrderDetailsRepository();
-            var text = repository.FindOrderDetaByOrderId("D001");
+            var text = repository.FindOrderDetaByOrderId("DE001");
             Assert.IsTrue(text != null);
         }
 
@@ -29,38 +29,38 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         }
 
         [TestMethod()]
-        public void CreateOrderDetaTest()
+        public void OrderDeta_1_CreateOrderDetaTest()
         {
             var repository = new OrderDetailsRepository();
             var model = new OrderDetails
             {
-                OrderID = "Test78",
-                ProductID = "PID78",
+                OrderID = "DE005",
+                ProductID = "A003",
                 Quantity = 100,
                 Discount = 0.5
             };
             repository.CreateOrderDeta(model);
-            var Newmodel = repository.FindOrderDetaByOrderId("Test78");
+            var Newmodel = repository.FindOrderDetaByOrderId("DE005");
             Assert.IsTrue(Newmodel != null);
         }
 
         [TestMethod()]
-        public void UpdateOrderDetaTest()
+        public void OrderDeta_2_UpdateOrderDetaTest()
         {
             var repository = new OrderDetailsRepository();
-            var Orderdeta = repository.FindOrderDetaByOrderId("Test78");
+            var Orderdeta = repository.FindOrderDetaByOrderId("DE005");
             Orderdeta.Quantity = 500;
             repository.UpdateOrderDeta(Orderdeta);
-            var Newmodel = repository.FindOrderDetaByOrderId("Test78");
+            var Newmodel = repository.FindOrderDetaByOrderId("DE005");
             Assert.IsTrue(Newmodel.Quantity == 500);
         }
 
         [TestMethod()]
-        public void DeleteOrderDetaTest()
+        public void OrderDeta_3_DeleteOrderDetaTest()
         {
             var repository = new OrderDetailsRepository();
-            repository.DeleteOrderDeta("Test78");
-            var Nowmodel = repository.FindOrderDetaByOrderId("Test78");
+            repository.DeleteOrderDeta("DE005");
+            var Nowmodel = repository.FindOrderDetaByOrderId("DE005");
             Assert.IsTrue(Nowmodel == null);
         }
     }

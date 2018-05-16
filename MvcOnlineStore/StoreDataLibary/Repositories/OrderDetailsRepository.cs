@@ -23,15 +23,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                connection.Execute("UPRATE OrderDetails SET @OrderID ,@ProductID,@Quantity,@Discount WHERE orderID = @id",
-                    new
-                    {
-                        id = model.OrderID,
-                        OrderID = model.OrderID,
-                        ProductID = model.ProductID,
-                        Quantity = model.Quantity,
-                        Discount = model.Discount
-                    });
+                connection.Execute("UPDATE OrderDetails SET OrderID = @OrderID , ProductID = @ProductID, Quantity = @Quantity, Discount =@Discount WHERE OrderID = @OrderID AND ProductID = @ProductID", model);
             }
         }
         public void DeleteOrderDeta(string OrderID)

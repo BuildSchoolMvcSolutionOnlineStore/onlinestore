@@ -16,7 +16,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                connection.Execute("INSERT INTO Orders VALUES(@OrderID ,@CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID)",
+                connection.Execute("INSERT INTO Orders VALUES(@OrderID ,@CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID,@Status)",
                     model);
             }
         }
@@ -26,17 +26,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute(
-                "UPRATE Orders SET @CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID WHERE OrderID = @id",
-                new
-                {
-                    id = model.OrderID,
-                    OrderID = model.OrderID,
-                    CustomerID = model.CustomerID,
-                    OrderDate = model.OrderDate,
-                    ShippedDate = model.ShippedDate,
-                    PaymentMethodID = model.PaymentMethodID,
-                    DeliveryMethodID = model.DeliveryMethodID
-                });
+                "UPDATE Orders SET CustomerID = @CustomerID, OrderDate = @OrderDate, ShippedDate = @ShippedDate, PaymentMethodID = @PaymentMethodID, DeliveryMethodID = @DeliveryMethodID, Status = @Status WHERE OrderID = @OrderID", model);
             }
         }
 
@@ -59,7 +49,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var orders = connection.Query<Orders>(
-                    "SELECT * FROM Orders WHERE OrdersID = @id",
+                    "SELECT * FROM Orders WHERE OrderID = @id",
                     new
                     {
                         id = OrderId
@@ -67,7 +57,9 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                 foreach(var item in orders)
                 {
                     if (item.OrderID != null)
+                    {
                         order = item;
+                    }
                 }
             }
             return order;

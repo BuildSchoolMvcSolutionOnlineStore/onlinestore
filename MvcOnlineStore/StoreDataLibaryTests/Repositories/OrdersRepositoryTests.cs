@@ -16,7 +16,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void Orders_FindByIdTest()
         {
             var repository = new OrdersRepository();
-            var text = repository.FindOrdersByOrderId("MB9487");
+            var text = repository.FindOrdersByOrderId("DE001");
             Assert.IsTrue(text != null);
         }
 
@@ -29,32 +29,37 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         }
 
         [TestMethod()]
-        public void CreateOrdersTest()
+        public void Orders_1_CreateOrdersTest()
         {
             var repository = new OrdersRepository();
-            var model = new Orders();
-            model.OrderID = "Test87";
-            model.CustomerID = 87;
-            model.OrderDate = new DateTime(2018 / 12 / 12);
-            model.ShippedDate = new DateTime(2018, 1, 1);
-            model.PaymentMethodID = 88;
-            model.DeliveryMethodID = 89;
-            Assert.IsTrue(model.OrderID != null);
+            var model = new Orders
+            {
+                OrderID = "Test87",
+                CustomerID = "liouli",
+                OrderDate = new DateTime(2018, 12, 12),
+                ShippedDate = new DateTime(2018, 1, 1),
+                PaymentMethodID = 1,
+                DeliveryMethodID = 2,
+                Status = 0
+            };
+            repository.CreateOrders(model);
+            var search = repository.FindOrdersByOrderId("Test87");
+            Assert.IsTrue(search != null);
         }
 
         [TestMethod()]
-        public void UpdateOrdersTest()
+        public void Orders_2_UpdateOrdersTest()
         {
             var repository = new OrdersRepository();
             var Ordersmodel = repository.FindOrdersByOrderId("Test87");
-            Ordersmodel.CustomerID = 9487;
+            Ordersmodel.CustomerID = "Jhon8868";
             repository.UpdateOrders(Ordersmodel);
             var Newmodel = repository.FindOrdersByOrderId("Test87");
-            Assert.IsTrue(Newmodel.CustomerID == 9487);
+            Assert.IsTrue(Newmodel.CustomerID == "Jhon8868");
         }
 
         [TestMethod()]
-        public void DeleteOrdersTest()
+        public void Orders_3_DeleteOrdersTest()
         {
             var repository = new OrdersRepository();
             repository.DeleteOrders("Test87");
