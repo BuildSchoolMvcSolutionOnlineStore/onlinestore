@@ -20,7 +20,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                     {
                         customerID = model.CustomerID,
                         customerPassword = model.CustomerPassword,
-                        customerName=model.DeliveryMethod,
+                        customerName=model.CustomerName,
                         telephone=model.Telephone,
                         address=model.Address,
                         CustomerMail=model.CustomerMail
@@ -33,16 +33,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             {
                 connection.Execute(
                     "UPDATE Customers SET " +
-                    "CustomerPassword = @CustomerPassword,CustomerName = @CustomerName,Telephone = @Telephone,Address = @Address,CustomerMail = @CustomerMail WHERE CustomerID = @id",
-                    new
-                    {
-                        id = model.CustomerID,
-                        customerPassword = model.CustomerPassword,
-                        customerName = model.DeliveryMethod,
-                        telephone = model.Telephone,
-                        address = model.Address,
-                        CustomerMail = model.CustomerMail
-                    });
+                    "CustomerPassword = @CustomerPassword,CustomerName = @CustomerName,Telephone = @Telephone,Address = @Address,CustomerMail = @CustomerMail WHERE CustomerID = @CustomerID", model);
             }
             
         }
@@ -103,7 +94,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                 var TopAmounts = connection.Query<Customers>("SELECT Top 1 c.CustomerName,SUM(p.UnitPrice*od.Quantity-od.Discount) AS Total FROM Customers c INNER JOIN Orders o ON c.CustomerID=o.CustomerID INNER JOIN OrderDetails od on o.OrderID=od.OrderID INNER JOIN Products p ON od.ProductID=p.ProductID GROUP BY c.CustomerName ORDER By Total DESC ");
                 foreach (var item in TopAmounts)
                 {
-                    customer = item.DeliveryMethod;
+                    customer = item.CustomerName;
                 }
             }
             return customer;

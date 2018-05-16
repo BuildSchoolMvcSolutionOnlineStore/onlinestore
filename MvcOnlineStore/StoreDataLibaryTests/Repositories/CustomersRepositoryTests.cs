@@ -34,7 +34,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
             var model = new Customers();
             model.CustomerID = "Test0";
             model.CustomerPassword = "1234";
-            model.DeliveryMethod = "Testabc";
+            model.CustomerName = "Testabc";
             model.Telephone = 0900000000;
             model.Address = "CHU";
             model.CustomerMail = "Testabc@gmail.com";
@@ -48,11 +48,11 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         {
             var repository = new CustomersRepository();
             var Oldmodel = repository.FindCustomerByCustomerId("Test0");
-            Oldmodel.DeliveryMethod = "asdfsdg";
+            Oldmodel.CustomerName = "修改";
             repository.UpdateCustomer(Oldmodel);
 
             var Newmodel = repository.FindCustomerByCustomerId("Test0");
-            Assert.IsTrue(Newmodel.DeliveryMethod == "asdfsdg");
+            Assert.IsTrue(Newmodel.CustomerName == "修改");
         }
 
         [TestMethod()]

@@ -97,7 +97,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
             string deliveryMethod = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                var TopAmounts = connection.Query<Customers>("SELECT TOP 1 d.DeliveryMethod FROM DeliveryMethods d INNER JOIN Orders o ON d.DeliveryMethodID = o.DeliveryMethodID GROUP BY d.DeliveryMethod ORDER BY COUNT(*) DESC");
+                var TopAmounts = connection.Query<DeliveryMethods>("SELECT TOP 1 d.DeliveryMethod FROM DeliveryMethods d INNER JOIN Orders o ON d.DeliveryMethodID = o.DeliveryMethodID GROUP BY d.DeliveryMethod ORDER BY COUNT(*) DESC");
                 foreach (var item in TopAmounts)
                 {
                     deliveryMethod = item.DeliveryMethod;
