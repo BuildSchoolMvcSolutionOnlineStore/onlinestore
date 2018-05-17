@@ -1,5 +1,5 @@
-﻿using BuildSchool.MvcSolution.OnlineStore.Models.Models;
-using Dapper;
+﻿using Dapper;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
+namespace StoreData.Repositories
 {
     public class CategoriesRepository
     {
