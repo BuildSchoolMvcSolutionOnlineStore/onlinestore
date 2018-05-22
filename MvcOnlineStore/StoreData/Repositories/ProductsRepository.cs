@@ -11,47 +11,27 @@ namespace StoreData.Repositories
 {
     public class ProductsRepository
     {
-        public void CreateProduct(Products model)
+        public void Create(Products model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute(
                 "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions)",
-                new
-                {
-                    ProductID = model.ProductID,
-                    CategoryID = model.CategoryID,
-                    ProductName = model.ProductName,
-                    Stock = model.Stock,
-                    UnitPrice = model.UnitPrice,
-                    Size = model.Size,
-                    Color = model.Color,
-                    Instructions = model.Instructions
-                });
+                model);
             }
         }
-        public void UpdateProduct(Products model)
+        public void Update(Products model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute(
                 "UPDATE Products SET " +
                 "CategoryID = @CategoryID,ProductName = @ProductName,Stock = @Stock,UnitPrice = @UnitPrice," +
-                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @id",
-                new
-                {
-                    id = model.ProductID,
-                    CategoryID = model.CategoryID,
-                    ProductName = model.ProductName,
-                    Stock = model.Stock,
-                    UnitPrice = model.UnitPrice,
-                    Size = model.Size,
-                    Color = model.Color,
-                    Instructions = model.Instructions
-                });
+                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @ProductID",
+                model);
             }
         }
-        public void DeleteProduct(String ProductID)
+        public void Delete(String ProductID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -64,9 +44,8 @@ namespace StoreData.Repositories
             }
         }
 
-        public Products FindProductByProductId(string ProductID)
+        public Products FindById(string ProductID)
         {
-            Products product = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var products = connection.Query<Products>(
@@ -75,16 +54,12 @@ namespace StoreData.Repositories
                     {
                         id = ProductID
                     });
-                
-                foreach(var item in products)
-                {
-                    if(item.ProductID != null)
-                        product = item;
-                }
+                var product = products.FirstOrDefault();
+
+                return product;
             }
-            return product;
         }
-        public IEnumerable<Products> GetAllProducts()
+        public IEnumerable<Products> GetAll()
         {
             var productlist = new List<Products>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
@@ -99,7 +74,7 @@ namespace StoreData.Repositories
             }
             return productlist;
         }
-        public IEnumerable<Products> GetProductsByProductName(string selectString)
+        public IEnumerable<Products> GetByProductName(string selectString)
         {
             var productlist = new List<Products>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
@@ -118,7 +93,7 @@ namespace StoreData.Repositories
             }
             return productlist;
         }
-        public IEnumerable<Products> FindTopProductByQuantity()
+        public IEnumerable<Products> FindTopByQuantity()
         {
             var productlist = new List<Products>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))

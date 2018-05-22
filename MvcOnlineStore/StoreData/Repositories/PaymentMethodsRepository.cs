@@ -11,7 +11,7 @@ namespace StoreData.Repositories
 {
     public class PaymentMethodsRepository
     {
-        public void CreatePaymentMethods(PaymentMethods model)
+        public void Create(PaymentMethods model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -25,7 +25,7 @@ namespace StoreData.Repositories
 
         }
 
-        public void UpdatePaymentMethods(PaymentMethods model)
+        public void Update(PaymentMethods model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -37,7 +37,7 @@ namespace StoreData.Repositories
                     });
             }
         }
-        public void DeletePaymentMethods(int PaymentMethodID)
+        public void Delete(int PaymentMethodID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -49,7 +49,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public PaymentMethods FindPaymentMethodsByPaymentMethodsId(int PaymentMethodID)
+        public PaymentMethods FindById(int PaymentMethodID)
         //單筆資料查詢
         {
             PaymentMethods paymentMethod = null;
@@ -69,7 +69,7 @@ namespace StoreData.Repositories
             }
             return paymentMethod;
         }
-        public IEnumerable<PaymentMethods> GetAllPaymentMethods()
+        public IEnumerable<PaymentMethods> GetAll()
         {
             var paymentMethodlist = new List<PaymentMethods>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))

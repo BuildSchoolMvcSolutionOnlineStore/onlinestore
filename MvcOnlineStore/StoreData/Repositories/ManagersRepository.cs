@@ -6,10 +6,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoreData.Abstracts;
 
 namespace StoreData.Repositories
 {
-    public class ManagersRepository
+    public class ManagersRepository 
     {
         
         public void Create(Managers model)
@@ -96,8 +97,6 @@ namespace StoreData.Repositories
                 }
             }
             return managerlist;
-
         }
-
     }
 }

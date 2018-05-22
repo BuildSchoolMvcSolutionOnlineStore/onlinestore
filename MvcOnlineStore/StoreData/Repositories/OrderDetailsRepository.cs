@@ -12,21 +12,21 @@ namespace StoreData.Repositories
 {
     public class OrderDetailsRepository
     {
-        public void CreateOrderDeta(OrderDetails model)
+        public void Create(OrderDetails model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute("INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)",model);
             }
         }
-        public void UpdateOrderDeta(OrderDetails model)
+        public void Update(OrderDetails model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute("UPDATE OrderDetails SET ProductID = @ProductID, Quantity = @Quantity, Discount =@Discount WHERE OrderID = @OrderID AND ProductID = @ProductID", model);
             }
         }
-        public void DeleteOrderDeta(string OrderID)
+        public void Delete(string OrderID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {

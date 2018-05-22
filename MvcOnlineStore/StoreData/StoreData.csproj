@@ -53,6 +53,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimpleInjector, Version=4.3.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.3.0\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -142,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstracts\IManager.cs" />
     <Compile Include="Abstracts\PasswordVaildationTools\IHashingProvider.cs" />
     <Compile Include="Abstracts\PasswordVaildationTools\IPasswordRule.cs" />
     <Compile Include="Abstracts\PasswordVaildationTools\ISaltStrategy.cs" />
@@ -180,11 +184,14 @@
     <Compile Include="Repositories\ProductsRepository.cs" />
     <Compile Include="Repositories\SaltStrategies\DefaultSaltStrategy.cs" />
     <Compile Include="Repositories\SqlConnectionString.cs" />
-    <Compile Include="ViewModels\Manager\SignInViewModel.cs" />
+    <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Manager\SingInViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -220,13 +227,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Manager\SingIn.cshtml" />
-    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Manager\Management.cshtml" />
+    <Content Include="Views\Manager\ManagementProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Order\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

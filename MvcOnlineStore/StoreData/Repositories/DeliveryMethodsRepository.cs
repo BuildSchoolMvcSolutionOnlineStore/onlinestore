@@ -12,7 +12,7 @@ namespace StoreData.Repositories
 {
     public class DeliveryMethodsRepository
     {
-        public void CreateDeliveryMethod(DeliveryMethods model)
+        public void Create(DeliveryMethods model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -27,7 +27,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public void UpdateDeliveryMethod(DeliveryMethods model)
+        public void Update(DeliveryMethods model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -42,7 +42,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public void DeleteDeliveryMethod(int DeliveryMethodID)
+        public void Delete(int DeliveryMethodID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -55,7 +55,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public DeliveryMethods FindDeliveryMethodByDeliveryMethodID(int DeliveryMethodID)
+        public DeliveryMethods FindById(int DeliveryMethodID)
         {          
             DeliveryMethods deliveryMethod = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
@@ -76,7 +76,7 @@ namespace StoreData.Repositories
             return deliveryMethod;
         }
 
-        public IEnumerable<DeliveryMethods> GetAllDeliveryMethods()
+        public IEnumerable<DeliveryMethods> GetAll()
         {
             var deliveryMethodlist = new List<DeliveryMethods>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))

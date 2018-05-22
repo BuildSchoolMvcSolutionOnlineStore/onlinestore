@@ -12,7 +12,7 @@ namespace StoreData.Repositories
 {
     public class CustomersRepository
     {
-        public void CreateCustomer(Customers model)
+        public void Create(Customers model)
         {
             using(var connection= new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -28,7 +28,7 @@ namespace StoreData.Repositories
                     });
             }
         }
-        public void UpdateCustomer(Customers model)
+        public void Update(Customers model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -39,7 +39,7 @@ namespace StoreData.Repositories
             
         }
 
-        public void DeleteCustomer(String CustomerID)
+        public void Delete(String CustomerID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -51,7 +51,7 @@ namespace StoreData.Repositories
                     });
             }
         }
-        public Customers FindCustomerByCustomerId(string CustomerID)
+        public Customers FindById(string CustomerID)
         //單筆資料查詢
         {
             Customers customer = null;
@@ -71,7 +71,7 @@ namespace StoreData.Repositories
             }
             return customer;
         }
-        public IEnumerable<Customers> GetAllCustomers()
+        public IEnumerable<Customers> GetAll()
         {
             var customerlist = new List<Customers>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))

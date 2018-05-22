@@ -1,0 +1,40 @@
+﻿@model IEnumerable<StoreData.Models.Products>
+
+@{
+    /**/
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>產品名稱</th>
+            <th>庫存數量</th>
+            <th>修改</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 40%">
+                    <a href="#">@item.ProductName</a>
+                </td>
+                <td style="width: 20%">
+                    <strong>@item.Stock</strong>
+                </td>
+                <td style="width: 20%">
+                    <button type="submit" class="btn btn-success">修改</button>
+                </td>
+                <td style="width: 20%">
+                    <button type="submit" class="btn btn-danger">刪除</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

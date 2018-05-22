@@ -15,7 +15,7 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories.Tests
         public void Products_FindByIdTest()
         {
             var repository = new ProductsRepository();
-            var text = repository.FindProductByProductId("A001");
+            var text = repository.FindProductByProductId("A008");
             Assert.IsTrue(text != null);
         }
 

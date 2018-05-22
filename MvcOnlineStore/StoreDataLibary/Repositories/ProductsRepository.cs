@@ -66,7 +66,6 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
 
         public Products FindProductByProductId(string ProductID)
         {
-            Products product = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var products = connection.Query<Products>(
@@ -75,14 +74,10 @@ namespace BuildSchool.MvcSolution.OnlineStore.Models.Repositories
                     {
                         id = ProductID
                     });
-                
-                foreach(var item in products)
-                {
-                    if(item.ProductID != null)
-                        product = item;
-                }
+                var product = products.FirstOrDefault();
+
+                return product;
             }
-            return product;
         }
         public IEnumerable<Products> GetAllProducts()
         {

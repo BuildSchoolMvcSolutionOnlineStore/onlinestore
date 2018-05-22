@@ -12,7 +12,7 @@ namespace StoreData.Repositories
 {
     public class OrdersRepository
     {
-        public void CreateOrders(Orders model)
+        public void Create(Orders model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -21,7 +21,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public void UpdateOrders(Orders model)
+        public void Update(Orders model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -30,7 +30,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public void DeleteOrders(string OrderID)
+        public void Delete(string OrderID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
@@ -43,7 +43,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public Orders FindOrdersByOrderId(string OrderId)
+        public Orders FindById(string OrderId)
         {
             Orders order = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
@@ -65,7 +65,7 @@ namespace StoreData.Repositories
             return order;
         }
 
-        public IEnumerable<Orders> GetAllOrders()
+        public IEnumerable<Orders> GetAll()
         {
             var orderslist = new List<Orders>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))

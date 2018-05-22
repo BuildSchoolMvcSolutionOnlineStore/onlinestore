@@ -12,28 +12,28 @@ namespace StoreData.Repositories
 {
     public class CategoriesRepository
     {
-        public void CreateCategory(Categories model)
+        public void Create(Categories model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute("INSERT INTO Categories VALUES(@CategoryID, @CategoryName)",model);
             }
         }
-        public void UpdateCategory(Categories model)
+        public void Update(Categories model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute("UPDATE Categories SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID",model);
             }
         }
-        public void DeleteCategory(int CategoryID)
+        public void Delete(int CategoryID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute("Delete From Categories WHERE CategoryID = @id",new {id = CategoryID });
             }
         }
-        public Categories FindCategoryByCategoryID(int CategoryID)
+        public Categories FindById(int CategoryID)
         //單筆資料查詢
         {
             Categories category = null;
@@ -50,7 +50,7 @@ namespace StoreData.Repositories
                 return category;
             }
         }
-        public IEnumerable<Categories> GetAllCategories()
+        public IEnumerable<Categories> GetAll()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
