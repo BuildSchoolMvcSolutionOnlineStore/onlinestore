@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item" style="width:30%;">
                     <a class="nav-link btn-outline-dark navli" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="#"
-                       aria-selected="false" >Orders</a>
+                       aria-selected="false">Orders</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -46,8 +46,48 @@
                     </div>
                     @{Html.RenderAction("ManagementProduct");}
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">789</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">345</div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row mt-2">
+                            <div class="col-md-8">
+
+                            </div>
+                            <div class="col-md-3 col-10">
+                                <form class="form ">
+                                    <div class="input-group input-group mb-3 mr-2 ">
+                                        <input type="text" class="form-control w-50" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                               style="opacity:0.8;">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">搜尋</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @{Html.RenderAction("ManagementCustomer");}
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <ul class="nav nav-tabs justify-content-center mt-5" id="myTab2" role="tablist">
+                        <li class="nav-item" style="width:30%">
+                            <a class="nav-link btn-outline-dark active navli" id="home-tab-nofinish" data-toggle="tab" href="#nofinish" role="tab" aria-controls="#"
+                               aria-selected="true">未完成</a>
+                        </li>
+                        <li class="nav-item"style="width:30%">
+                            <a class="nav-link btn-outline-dark navli" id="profile-tab-finish" data-toggle="tab" href="#yesfinish" role="tab" aria-controls="#"
+                               aria-selected="false">已完成</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="nofinish" role="tabpanel" aria-labelledby="home-tab-nofinish">
+                            @{ Html.RenderAction("ManagementOrders");}
+                        </div>
+                        <div class="tab-pane fade" id="yesfinish" role="tabpanel" aria-labelledby="profile-tab-finish">
+                            <div class="tab-pane fade show active" id="nofinish" role="tabpanel" aria-labelledby="home-tab-nofinish">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
