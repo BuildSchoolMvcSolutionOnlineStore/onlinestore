@@ -232,7 +232,9 @@
     <Content Include="Views\Manager\Management.cshtml" />
     <Content Include="Views\Manager\ManagementProduct.cshtml" />
     <Content Include="Views\Manager\ManagementCustomer.cshtml" />
-    <Content Include="Views\Manager\ManagementOrders.cshtml" />
+    <Content Include="Views\Manager\ManagementOrders_Status_0.cshtml" />
+    <Content Include="Views\Manager\ManagementOrders_Status_1.cshtml" />
+    <Content Include="Views\Manager\ManagementOrders_Status_2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
