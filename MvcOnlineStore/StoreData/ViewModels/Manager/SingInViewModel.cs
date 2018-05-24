@@ -8,11 +8,12 @@ namespace StoreData.ViewModels.Manager
 {
     public class SingInViewModel
     {
-        [Required(ErrorMessage ="請輸入使用者名稱")]
-        [Display(Name = "使用者名稱 : ")]
+        
+        [Display(Name = "帳號")]
+        [Required(ErrorMessage = "請輸入會員帳號")]
         public string account { get; set; }
+        [Display(Name = "密碼")]
         [Required(ErrorMessage = "請輸入密碼")]
-        [Display(Name = "密碼 : ")]
         public string password { get; set; }
     }
 }

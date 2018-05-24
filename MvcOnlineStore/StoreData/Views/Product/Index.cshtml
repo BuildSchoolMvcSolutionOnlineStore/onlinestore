@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-3">
+    <div class="col-2 col-md-2">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="catmenu">
+            <p class="cl dark-primary text-left font-weight-bold">分類</p>
+            <hr>
+            <ul class="p-0" id="sidebar" style="list-style-type: none;">
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        精選商品
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        所有商品
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        新品
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        鉛筆
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        原子筆
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+                <li class=" text-secondary-color mb-2">
+                    <a href="">
+                        XXX
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-10 col-md-10">
+        <div class="row">
+            <div class="col">
+                <nav class="nav">
+                    <a class="nav-link active" href="#">全部產品</a>
+                </nav>
+            </div>
+            <div class="col">
+                <div class="shop-setting-group">
+                    <div class="shop-setting-wrapper text-right" products-sort="">
+                        <select class="shop-setting ng-pristine ng-untouched ng-valid" ng-model="sortQuery">
+                            <option value="" selected="" disabled="">商品排序</option>
+                            <option value="created_at_desc">上架時間: 由新到舊</option>
+                            <option value="created_at_asc">上架時間: 由舊到新</option>
+                            <option value="price_desc">價格: 由高至低</option>
+                            <option value="price_asc">價格: 由低至高</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            @{Html.RenderAction("_ProductListPartial");}
+        </div>
+    </div>
+</div>
+<div class="row mb-4 ">
+    <div class="col d-flex justify-content-center">
+        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+        </div>
+    </div>
+</div>

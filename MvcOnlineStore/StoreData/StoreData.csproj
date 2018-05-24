@@ -229,12 +229,14 @@
     <Content Include="Views\Manager\SingIn.cshtml" />
     <Content Include="Views\Manager\Management.cshtml" />
     <Content Include="Views\Manager\ManagementProduct.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\_ProductListPartial.cshtml" />
+    <Content Include="Views\Product\ProductItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Order\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

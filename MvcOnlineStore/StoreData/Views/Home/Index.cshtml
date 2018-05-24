@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="use-flexbox mt-5">
-    <img src="https://placehold.it/140x140" alt="">
+    <img src="https://placehold.it/600x250" alt="">
 </div>
 <hr class=" my-1">
 <hr class=" my-1">
@@ -12,7 +12,8 @@
         <a class="nav-link active" href="#">首頁</a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">商店</a>
+        @Html.ActionLink("商店", "Index", "Product",null, new { @class = "nav-link"})
+        <a class="nav-link" href="/Product" >商店</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">鉛筆</a>
             <a class="dropdown-item" href="#">原子筆</a>

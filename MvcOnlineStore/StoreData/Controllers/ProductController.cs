@@ -17,12 +17,14 @@ namespace StoreData.Controllers
             return View();
         }
         //商品列表
-        public ActionResult ProductList()
+        public ActionResult _ProductListPartial()
         {
-            return View();
+            var list = productservice.ProductList();
+            return PartialView(list);
         }
+        [Route("{ProductId}")]
         //單一商品頁面
-        public ActionResult ProductItem()
+        public ActionResult ProductItem(string ProductId)
         {
             return View();
         }
