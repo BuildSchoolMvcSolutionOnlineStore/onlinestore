@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-dark">
-        <a class="navbar-brand text-white" href="#" onclick="location.href='@Url.Action("Index","Home")'">Navbar</a>
+        <a class="navbar-brand text-white" href="#" onclick="location.href='@Url.Action("Index","Home")'">筆酷文具店</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon "></span>
@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <button type="button" class="btn btn btn-secondary my-2 my-md-0" onclick="location.href='@Url.Action("SingIn","Manager")'" >
+                    <button type="button" class="btn btn btn-secondary my-2 my-md-0" onclick="location.href='@Url.Action("SingIn","Manager")'">
                         後臺管理系統
                     </button>
                 </li>
@@ -38,7 +38,7 @@
                         </button>
                     </li>
                     <li class="nav-item my-2 my-md-0">
-                        <button type="button" class="btn btn btn-secondary ">
+                        <button type="button" class="btn btn btn-secondary " data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-comment mr-1" aria-hidden="true"></i>留言板
                         </button>
                     </li>
@@ -46,7 +46,23 @@
             </div>
         </div>
     </nav>
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">聯絡我們</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="請輸入您的電子信箱">
+                    <textarea class="form-control mt-3" id="exampleFormControlTextarea1" rows="3" placeholder="輸入您想告訴我們的話"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">發送</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -12,14 +12,14 @@ namespace StoreData
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //要放在MapRoute前面 不然會爆開
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-            //屬性路由
-            routes.MapMvcAttributeRoutes();
         }
     }
 }

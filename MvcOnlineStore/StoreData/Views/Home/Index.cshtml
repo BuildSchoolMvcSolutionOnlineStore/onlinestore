@@ -1,90 +1,85 @@
-﻿@{
+﻿@model IEnumerable<StoreData.Models.Products>
+@{
     ViewBag.Title = "首頁";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = Model.ToList();
 }
-<div class="use-flexbox mt-5">
-    <img src="https://placehold.it/600x250" alt="">
-</div>
-<hr class=" my-1">
-<hr class=" my-1">
-<ul class="nav nav-fill font-weight-bold">
-    <li class="nav-item">
-        <a class="nav-link active" href="#">首頁</a>
-    </li>
-    <li class="nav-item dropdown">
-        @Html.ActionLink("商店", "Index", "Product",null, new { @class = "nav-link"})
-        <a class="nav-link" href="/Product" >商店</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">鉛筆</a>
-            <a class="dropdown-item" href="#">原子筆</a>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">關於</a>
-    </li>
-</ul>
-<hr class=" my-1">
-<hr class=" my-1">
+@{ Html.RenderAction("_NavPartial", "Home");}
 <div class="row text-center mt-5">
     <div class="col">
-        <img class="image" src='https://placehold.it/890x630' alt=''/>
+        <img class="image" src='/FileUploads/carousel-1.jpg' alt='' />
     </div>
 </div>
 <div class="row text-center my-5">
     <div class="col">
-        <img class="image" src='https://placehold.it/890x630' alt=''/>
+        <img class="image" src='/FileUploads/carousel-2.jpg' alt='' />
     </div>
 </div>
 <h6>Top</h6>
-<div class="row mt-2">
-    <div class="col-6 col-md-3 mb-3 ">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
+
+    <div class="row mt-2">
+        @for (int j = 0; j < 8; j++)
+        {
+            <div class="col-6 col-md-3 mb-3 ">
+                <div class="image-container">
+                    <a href="/Product/@list[j].ProductID">
+                        <img class="image" src='/FileUploads/@list[j].Path' alt='' style="width:255px;height:255px;">
+                    </a>
+                    <div class="overlay">@list[j].ProductName</div>
+                </div>
+            </div>
+        }
+    </div>
+
+@*<div class="row mt-2">
+        <div class="col-6 col-md-3 mb-3 ">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
         </div>
     </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
+    <div class="row md-mt-2">
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
         </div>
-    </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
         </div>
-    </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row md-mt-2">
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
+        <div class="col-6 col-md-3 mb-3">
+            <div class="image-container">
+                <img class="image" src='https://placehold.it/200x200' alt=''>
+                <div class="overlay">TEST</div>
+            </div>
         </div>
-    </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
-        </div>
-    </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
-        </div>
-    </div>
-    <div class="col-6 col-md-3 mb-3">
-        <div class="image-container">
-            <img class="image" src='https://placehold.it/200x200' alt=''>
-            <div class="overlay">TEST</div>
-        </div>
-    </div>
-</div>
+    </div>*@

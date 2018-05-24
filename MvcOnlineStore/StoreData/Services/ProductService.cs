@@ -14,5 +14,9 @@ namespace StoreData.Services
         {
             return repository.GetAll();
         }
+        public Products FIndById(string Id)
+        {
+            return repository.FindById(Id);
+        }
     }
 }

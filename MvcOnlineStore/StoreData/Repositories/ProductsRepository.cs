@@ -16,7 +16,7 @@ namespace StoreData.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 connection.Execute(
-                "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions)",
+                "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions,@Path)",
                 model);
             }
         }
@@ -27,7 +27,7 @@ namespace StoreData.Repositories
                 connection.Execute(
                 "UPDATE Products SET " +
                 "CategoryID = @CategoryID,ProductName = @ProductName,Stock = @Stock,UnitPrice = @UnitPrice," +
-                "Size = @Size,Color = @Color,Instructions = @Instructions WHERE ProductID = @ProductID",
+                "Size = @Size,Color = @Color,Instructions = @Instructions,Path = @Path WHERE ProductID = @ProductID",
                 model);
             }
         }

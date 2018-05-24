@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using StoreData.Repositories;
 
 namespace StoreData.Controllers
 {
     public class HomeController : Controller
     {
+        private ProductsRepository productservice = new ProductsRepository();
         public ActionResult Index()
         {
-            return View();
+            var list = productservice.GetAll();
+            return View(list);
         }
 
         public ActionResult About()
@@ -25,6 +28,10 @@ namespace StoreData.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult _NavPartial()
+        {
+            return PartialView();
         }
     }
 }

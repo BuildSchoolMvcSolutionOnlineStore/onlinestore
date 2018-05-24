@@ -195,6 +195,17 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FileUploads\A001.jpg" />
+    <Content Include="FileUploads\A002.jpg" />
+    <Content Include="FileUploads\A003.jpg" />
+    <Content Include="FileUploads\A004.jpg" />
+    <Content Include="FileUploads\A005.jpg" />
+    <Content Include="FileUploads\A006.jpg" />
+    <Content Include="FileUploads\A007.jpg" />
+    <Content Include="FileUploads\A008.jpg" />
+    <Content Include="FileUploads\carousel-1.jpg" />
+    <Content Include="FileUploads\carousel-2.jpg" />
+    <Content Include="FileUploads\logo.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -238,6 +249,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\_ProductListPartial.cshtml" />
     <Content Include="Views\Product\ProductItem.cshtml" />
+    <Content Include="Views\Home\_NavPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,8 +13,9 @@ namespace StoreData.Models
         public string ProductName { get; set;}
         public int Stock { get; set; }
         public int UnitPrice { get; set; }
-        public int Size { get; set; }
+        public string Size { get; set; }
         public string Color { get; set; }
         public string Instructions { get; set; }
+        public string Path { get; set; }
     }
 }
