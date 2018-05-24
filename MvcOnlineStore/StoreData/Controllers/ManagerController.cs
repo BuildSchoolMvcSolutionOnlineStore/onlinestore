@@ -11,6 +11,10 @@ namespace StoreData.Controllers
     public class ManagerController : Controller
     {
         private ProductService productservice = new ProductService();
+        private CustomerService customerservice = new CustomerService();
+        private OrdersService ordersservice0 = new OrdersService();
+        private OrdersService ordersservice1 = new OrdersService();
+        private OrdersService ordersservice2 = new OrdersService();
         // GET: Manager
         public ActionResult Index()
         {
@@ -39,15 +43,27 @@ namespace StoreData.Controllers
             return PartialView(list);
         }
         //客戶列表
-        public ActionResult CustomerList()
+        public ActionResult ManagementCustomer()
         {
-            return View();
+            var list = customerservice.CustomerList();
+            return PartialView(list);
         }
 
         //訂單列表
-        public ActionResult OrderList()
+        public ActionResult ManagementOrders_Status_0()
         {
-            return View();
+            var list = ordersservice0.OrdersList_Status_0();
+            return PartialView(list);
+        }
+        public ActionResult ManagementOrders_Status_1()
+        {
+            var list = ordersservice1.OrdersList_Status_1();
+            return PartialView(list);
+        }
+        public ActionResult ManagementOrders_Status_2()
+        {
+            var list = ordersservice2.OrdersList_Status_2();
+            return PartialView(list);
         }
     }
 }

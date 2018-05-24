@@ -1,0 +1,28 @@
+﻿@model IEnumerable<StoreData.Models.Customers>
+
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th style="width: 20%">客戶名稱</th>
+            <th style="width: 40%">Email</th>
+            <th style="width: 20%">Phono</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="#">@item.CustomerName</a>
+            </td>
+            <td>
+                <strong>@item.CustomerMail</strong>
+            </td>
+            <td>
+                <strong>@item.Telephone</strong>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
