@@ -3,6 +3,66 @@
     ViewBag.Title = "管理者頁面";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="modal fade" id="exampleModaladd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">ProductName</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="ProductName">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">CategoryName</label>
+                        <select class="custom-select" required>
+                            <option value="">鉛筆</option>
+                            <option value="1">鋼筆</option>
+                            <option value="2">原子筆</option>
+                        </select>
+                        <div class="invalid-feedback">Example invalid custom select feedback</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Stock</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Stock">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">UnitPrice</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="UnitPrice">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Size</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Size">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Color</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Color">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Instructions</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Instructions">
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Path</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                    </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container mt-5">
     <div class="row">
         <div class="col-8 mb-3">
@@ -41,7 +101,7 @@
                             </form>
                         </div>
                         <div class="col-md-1 col-2">
-                            <button type="button" class="btn btn-block btn btn-success">+</button>
+                            <button type="button" class="btn btn-block btn btn-success" data-toggle="modal" data-target="#exampleModaladd">+</button>
                         </div>
                     </div>
                     @{Html.RenderAction("ManagementProduct");}
