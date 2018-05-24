@@ -1,0 +1,36 @@
+﻿@model StoreData.Models.Customers
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.IsAuthenticated)
+{
+    <h2>Hi,@ViewBag.Username</h2>
+    <p><a href="@Url.Action("Logout","Customer")" class="btn">登出</a></p>
+}
+else
+{
+    <h2>會員登入</h2>
+    using (Html.BeginForm())
+    {
+        <p>
+            使用者名稱:<input type="text"
+                         class="form-control"
+                         maxlength="25"
+                         name="Username" />
+
+            密碼:<input type="Password"
+                      class="form-control"
+                      maxlength="25"
+                      name="Password" />
+
+        </p>
+        <p><button type="submit"> 登入</button></p>
+        <p style="color:red">@ViewBag.Error</p>
+    }
+
+}
+
+

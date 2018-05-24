@@ -161,6 +161,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
     <Compile Include="Models\Managers.cs" />
@@ -235,10 +236,10 @@
     <Content Include="Views\Manager\ManagementOrders_Status_0.cshtml" />
     <Content Include="Views\Manager\ManagementOrders_Status_1.cshtml" />
     <Content Include="Views\Manager\ManagementOrders_Status_2.cshtml" />
+    <Content Include="Views\Customer\CustomerLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Customer\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
