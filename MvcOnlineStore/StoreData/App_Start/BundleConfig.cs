@@ -27,9 +27,23 @@ namespace StoreData
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/style.css"));
+            bundles.Add(new StyleBundle("~/Admin/css").Include(
+                     "~/Content/bootstrap.min.css",
+                     "~/Content/Admin/styles.css",
+                     "~/Content/Admin/datepicker3.css",
+                     "~/Content/Admin/font-awesome.min.css"
+                   ));
+
+            bundles.Add(new ScriptBundle("~/Admin/jquery").Include(
+                      "~/Scripts/Admin/jquery-1.11.1.min.js",
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/Admin/chart.min.js",
+                      "~/Scripts/Admin/chart-data.js",
+                      "~/Scripts/Admin/easypiechart.js",
+                      "~/Scripts/Admin/easypiechart-data.js",
+                      "~/Scripts/Admin/bootstrap-datepicker.js",
+                      "~/Scripts/Admin/custom.js"
+                      ));
         }
     }
 }

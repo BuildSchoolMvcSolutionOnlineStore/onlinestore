@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreDataLibaryTests", "Sto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreData", "StoreData\StoreData.csproj", "{CF01DD3E-87EA-4D83-AF1C-9417979A9A73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreDataTests", "StoreDataTests\StoreDataTests.csproj", "{60707197-FFF9-43F1-B089-006B3B8C993B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CF01DD3E-87EA-4D83-AF1C-9417979A9A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF01DD3E-87EA-4D83-AF1C-9417979A9A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF01DD3E-87EA-4D83-AF1C-9417979A9A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60707197-FFF9-43F1-B089-006B3B8C993B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60707197-FFF9-43F1-B089-006B3B8C993B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60707197-FFF9-43F1-B089-006B3B8C993B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60707197-FFF9-43F1-B089-006B3B8C993B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

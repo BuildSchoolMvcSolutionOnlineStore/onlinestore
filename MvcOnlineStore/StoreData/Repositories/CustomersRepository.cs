@@ -36,7 +36,6 @@ namespace StoreData.Repositories
                     "UPDATE Customers SET " +
                     "CustomerPassword = @CustomerPassword,CustomerName = @CustomerName,Telephone = @Telephone,Address = @Address,CustomerMail = @CustomerMail WHERE CustomerID = @CustomerID", model);
             }
-            
         }
 
         public void Delete(String CustomerID)
@@ -86,19 +85,18 @@ namespace StoreData.Repositories
             }
             return customerlist;
         }
-        public string FindTopAmountByCustomerId()
-        //單筆資料查詢
+        public IEnumerable<Customers> SearchById(string selectString)
         {
-            string customer = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
-                var TopAmounts = connection.Query<Customers>("SELECT Top 1 c.CustomerName,SUM(p.UnitPrice*od.Quantity-od.Discount) AS Total FROM Customers c INNER JOIN Orders o ON c.CustomerID=o.CustomerID INNER JOIN OrderDetails od on o.OrderID=od.OrderID INNER JOIN Products p ON od.ProductID=p.ProductID GROUP BY c.CustomerName ORDER By Total DESC ");
-                foreach (var item in TopAmounts)
-                {
-                    customer = item.CustomerName;
-                }
+                var list = connection.Query<Customers>(
+                    "SELECT * FROM Customers WHERE CustomerID LIKE '%'+@str+'%'",
+                    new
+                    {
+                        str = selectString
+                    });
+                return list;
             }
-            return customer;
         }
     }
 }

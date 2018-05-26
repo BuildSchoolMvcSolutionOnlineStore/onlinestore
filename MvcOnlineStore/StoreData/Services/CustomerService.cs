@@ -10,9 +10,16 @@ namespace StoreData.Services
     public class CustomerService
     {
         private CustomersRepository repository = new CustomersRepository();
-        public IEnumerable<Customers> CustomerList()
+        public IEnumerable<Customers> CustomerList(string Id)
         {
-            return repository.GetAll();
+            if(String.IsNullOrEmpty(Id))
+            {
+                return repository.GetAll();
+            }
+            else
+            {
+                return repository.SearchById(Id);
+            }
         }
     }
 }

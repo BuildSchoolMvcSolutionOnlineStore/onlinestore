@@ -8,7 +8,7 @@ namespace StoreData.Repositories
 {
     public static class SqlConnectionString
     {
-        private static string serviceIP = "192.168.40.20";
+        private static string serviceIP = "192.168.0.102";
         private static string database = "Shopping";
         private static string userID = "linker";
         private static string password = "19960705";
