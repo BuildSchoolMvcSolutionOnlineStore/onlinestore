@@ -4,28 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using StoreData.Repositories;
+using StoreData.ViewModels.Manager;
 
 namespace StoreData.Services
 {
     public class ProductService
     {
-        private ProductsRepository repository = new ProductsRepository();
-        public IEnumerable<Products> ProductList(string Search, ForPaging Paging)
+        private ProductsRepository productsRepository = new ProductsRepository();
+        public void UpdateStock(string id,int stock)
         {
-            IEnumerable<Products> Data;
-            if (String.IsNullOrEmpty(Search))
-            {
-                Data = repository.GetAll();
-                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
-                Paging.SetRightPage();
-            }
-            else
-            {
-                Data = repository.SearchById(Search);
-                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
-                Paging.SetRightPage();
-            }
-            return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
+            var item = productsRepository.FindById(id);
+            item.Stock = stock;
+            productsRepository.Update(item);
         }
     }
 }

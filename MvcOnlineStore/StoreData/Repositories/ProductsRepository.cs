@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -89,8 +90,8 @@ namespace StoreData.Repositories
             {
                 var products = connection.Query<Products>(
                     "SELECT TOP 3 p.ProductID FROM Products p " +
-                    "INNER JOIN OrderDetails od ON od.ProductID = p.ProductID "+
-                    "GROUP BY p.ProductID "+
+                    "INNER JOIN OrderDetails od ON od.ProductID = p.ProductID " +
+                    "GROUP BY p.ProductID " +
                     "ORDER BY Count(od.Quantity) DESC ");
 
                 foreach (var item in products)
@@ -114,6 +115,36 @@ namespace StoreData.Repositories
                 }
             }
             return productlist;
+        }
+        //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
+        public IEnumerable<AdminProduct> GetAll_Admin()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var products = connection.Query<AdminProduct>(
+                    "SELECT p.ProductID, " +
+                    "(SELECT CategoryName FROM Categories WHERE p.CategoryID = CategoryID)As CategoryName, " +
+                    "p.ProductName, p.Stock, p.UnitPrice, p.Size, p.Color " +
+                    "FROM Products p");
+                return products;
+            }
+        }
+        public IEnumerable<AdminProduct> SearchById_Admin(string selectString)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            {
+                var products = connection.Query<AdminProduct>(
+                    "SELECT p.ProductID, " +
+                    "(SELECT CategoryName FROM Categories WHERE p.CategoryID = CategoryID)As CategoryName, " +
+                    "p.ProductName, p.Stock, p.UnitPrice, p.Size, p.Color " +
+                    "FROM Products p " +
+                    "WHERE ProductID LIKE '%'+@str+'%'",
+                    new
+                    {
+                        str = selectString
+                    });
+                return products;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace StoreData.Controllers
     {
         private ProductService productService = new ProductService();
         private CustomerService customerService = new CustomerService();
+        private AdminService adminService = new AdminService();
         // GET: Admin
         [Route("")]
         public ActionResult Index()
@@ -39,8 +40,14 @@ namespace StoreData.Controllers
                 Search = Id,
                 Paging = new ForPaging(Page)
             };
-            Data.DataList = productService.ProductList(Data.Search, Data.Paging);
+            Data.DataList = adminService.GetProductList(Data.Search, Data.Paging);
             return View(Data);
+        }
+        [HttpPost]
+        public ActionResult UpdateStock(string Id,int stock,string search,int Page)
+        {
+            productService.UpdateStock(Id, stock);
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Products",Id = search ,Page });
         }
     }
 }
