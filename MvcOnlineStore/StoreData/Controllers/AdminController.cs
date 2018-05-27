@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StoreData.Services;
+using StoreData.ViewModels.Manager;
 
 namespace StoreData.Controllers
 {
@@ -19,16 +20,27 @@ namespace StoreData.Controllers
             return View();
         }
         [Route("Members")]
-        public ActionResult Members(string Id)
+        public ActionResult Members(string Id,int Page = 1)
         {
-            var list = customerService.CustomerList(Id);
-            return View(list);
+            var Data = new MemberView
+            {
+                Search = Id,
+                Paging = new ForPaging(Page)
+            };
+            Data.DataList = customerService.CustomerList(Data.Search, Data.Paging);
+            return View(Data);
         }
 
-        [Route("Prodcts")]
-        public ActionResult Prodcts()
+        [Route("Products")]
+        public ActionResult Products(string Id, int Page = 1)
         {
-            return View();
+            var Data = new ProductView
+            {
+                Search = Id,
+                Paging = new ForPaging(Page)
+            };
+            Data.DataList = productService.ProductList(Data.Search, Data.Paging);
+            return View(Data);
         }
     }
 }

@@ -61,37 +61,26 @@ namespace StoreData.Repositories
         }
         public IEnumerable<Products> GetAll()
         {
-            var productlist = new List<Products>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var products = connection.Query<Products>(
                     "SELECT * FROM Products");
-
-                foreach (var item in products)
-                {
-                    productlist.Add(item);
-                }
+                return products;
             }
-            return productlist;
         }
-        public IEnumerable<Products> GetByProductName(string selectString)
+        public IEnumerable<Products> SearchById(string selectString)
         {
-            var productlist = new List<Products>();
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
             {
                 var products = connection.Query<Products>(
-                    "SELECT * FROM Products WHERE ProductName LIKE '%'+@str+'%'",
+                    "SELECT * FROM Products WHERE ProductID LIKE '%'+@str+'%'",
                     new
                     {
                         str = selectString
                     });
 
-                foreach (var item in products)
-                {
-                    productlist.Add(item);
-                }
+                return products;
             }
-            return productlist;
         }
         public IEnumerable<Products> FindTopByQuantity()
         {

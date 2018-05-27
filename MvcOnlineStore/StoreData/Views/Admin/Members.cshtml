@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StoreData.Models.Customers>
+﻿@model StoreData.ViewModels.Manager.MemberView
 
 @{
     ViewBag.Title = "Members";
@@ -24,7 +24,7 @@
     {
         <div class="col-md-6">
             <div class="input-group">
-                <input type="text" class="form-control input-md" placeholder="輸入會員編號" name="Id"/>
+                <input type="text" class="form-control input-md" placeholder="輸入會員編號" name="Id" value="@Model.Search"/>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary btn-md">搜尋</button>
                 </span>
@@ -49,9 +49,9 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!Model.Count().Equals(0))
+                @if (!Model.DataList.Count().Equals(0))
                 {
-                    foreach (var item in Model)
+                    foreach (var item in Model.DataList)
                     {
                         <tr>
                             <td>@item.CustomerID</td>
@@ -82,6 +82,59 @@
                 }
             </tbody>
         </table>
+    </div>
+    <div class="col-lg-12 text-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (Model.Paging.NowPage > 1)
+                {
+                    <li>
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Members", Page = Model.Paging.NowPage - 1, Id = Model.Search }) aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (var page = (Model.Paging.NowPage - 6); page < (Model.Paging.NowPage + 6); page++)
+                {
+                    if ((page > 0) && (page <= Model.Paging.MaxPage))
+                    {
+                        if (page == Model.Paging.NowPage)
+                        {
+                            <li class="active"><a>@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Members", Page = page, Id = Model.Search })>@page</a></li>
+                            @*@Html.ActionLink(page.ToString(), "Members", new { Page = page, Id = Model.Search })*@
+                        }
+                    }
+                }
+                @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+                {
+                    <li>
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Members", Page = Model.Paging.NowPage + 1, Id = Model.Search }) aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled">
+                        <a aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
 </div>
 

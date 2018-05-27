@@ -186,9 +186,12 @@
     <Compile Include="Repositories\SaltStrategies\DefaultSaltStrategy.cs" />
     <Compile Include="Repositories\SqlConnectionString.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\ForPaging.cs" />
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Manager\MemberView.cs" />
+    <Compile Include="ViewModels\Manager\ProductView.cs" />
     <Compile Include="ViewModels\Manager\SingInViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +261,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Members.cshtml" />
+    <Content Include="Views\Admin\Products.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

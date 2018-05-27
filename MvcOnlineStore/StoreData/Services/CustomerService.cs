@@ -10,16 +10,22 @@ namespace StoreData.Services
     public class CustomerService
     {
         private CustomersRepository repository = new CustomersRepository();
-        public IEnumerable<Customers> CustomerList(string Id)
+        public IEnumerable<Customers> CustomerList(string Search, ForPaging Paging)
         {
-            if(String.IsNullOrEmpty(Id))
+            IEnumerable<Customers> Data;
+            if (String.IsNullOrEmpty(Search))
             {
-                return repository.GetAll();
+                Data = repository.GetAll();
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
             }
             else
             {
-                return repository.SearchById(Id);
+                Data = repository.SearchById(Search);
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
             }
+            return Data.OrderBy(x=>x.CustomerID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
     }
 }

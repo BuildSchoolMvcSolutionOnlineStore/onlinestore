@@ -1,0 +1,161 @@
+﻿@model  StoreData.ViewModels.Manager.ProductView
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "" })>
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li class="active">產品庫存管理</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">產品庫存管理</h1>
+    </div>
+    @using (Html.BeginForm(new { Controller = "Admin", Action = "Products" }))
+    {
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control input-md" placeholder="輸入產品編號" name="Id" value="@Model.Search"/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-md">搜尋</button>
+                </span>
+            </div>
+        </div>
+    }
+</div><!--/.row-->
+
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名稱</th>
+                    <th>類別</th>
+                    <th>庫存</th>
+                    <th>單價</th>
+                    <th>大小</th>
+                    <th>顏色</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DataList)
+                {
+                    <tr>
+                        <td class="center">@item.ProductID</td>
+                        <td class="center ">@item.ProductName</td>
+                        <td class="center">@item.CategoryID</td>
+                        <td class="center">@item.Stock</td>
+                        <td class="center">@item.UnitPrice</td>
+                        <td class="center">@item.Size</td>
+                        <td class="center">@item.Color</td>
+                        <td class="center">
+                            <a class="btn btn-success" href="#" data-toggle="modal" data-target="#bs-example-modal-sm">
+                                <i class="glyphicon glyphicon-refresh icon-white"></i>
+                                修改庫存
+                            </a>
+                            <a class="btn btn-info" href="#">
+                                <i class="glyphicon glyphicon-edit icon-white"></i>
+                                編輯
+                            </a>
+                            <a class="btn btn-danger" href="#">
+                                <i class="glyphicon glyphicon-trash icon-white"></i>
+                                刪除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-12 text-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (Model.Paging.NowPage > 1)
+                {
+                    <li>
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Products", Page = Model.Paging.NowPage - 1, Id = Model.Search }) aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (var page = (Model.Paging.NowPage - 6); page < (Model.Paging.NowPage + 6); page++)
+                {
+                    if ((page > 0) && (page <= Model.Paging.MaxPage))
+                    {
+                        if (page == Model.Paging.NowPage)
+                        {
+                            <li class="active"><a>@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Products", Page = page, Id = Model.Search })>@page</a></li>
+                            @*@Html.ActionLink(page.ToString(), "Members", new { Page = page, Id = Model.Search })*@
+                        }
+                    }
+                }
+                @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+                {
+                    <li>
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "Products", Page = Model.Paging.NowPage + 1, Id = Model.Search }) aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled">
+                        <a aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改庫存</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h4>目前庫存數量 : 5</h4>
+                    <br>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label" style="font-size:18px;">修改數量</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">返回</button>
+            </div>
+        </div>
+    </div>
+</div><!--stock modal-->
