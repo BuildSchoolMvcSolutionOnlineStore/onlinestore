@@ -44,6 +44,25 @@ namespace StoreData
                       "~/Scripts/Admin/bootstrap-datepicker.js",
                       "~/Scripts/Admin/custom.js"
                       ));
+            bundles.Add(new ScriptBundle("~/NewHome/css").Include(
+                "~/Content/NewHome/bootstrap.css",
+                "~/Content/NewHome/fasthover.css",
+                "~/Content/NewHome/flexslider.css",
+                "~/Content/NewHome/jquery.countdown.css",
+                "~/Content/NewHome/popuo-box.css",
+                "~/Content/NewHome/style.css"));
+            bundles.Add(new ScriptBundle("~/NewHome/JavaScript").Include(
+                "~/Scripts/NewHome/bootstrap-3.1.1.min.js",
+                "~/Scripts/NewHome/easyResponsiveTabs.js",
+                "~/Scripts/NewHome/imagezoom.js",
+                "~/Scripts/NewHome/jquery.countdown.js",
+                "~/Scripts/NewHome/jquery.flexisel.js",
+                "~/Scripts/NewHome/jquery.flexslider.jg",
+                "~/Scripts/NewHome/jquery.magnific-popup.js",
+                "~/Scripts/NewHome/jquery.min.js",
+                "~/Scripts/NewHome/jquery.wmuSlider.js",
+                "~/Scripts/NewHome/script.js",
+                "~/Scripts/NewHome/simpleCart.min.js"));
         }
     }
 }
