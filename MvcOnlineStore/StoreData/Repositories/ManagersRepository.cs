@@ -16,7 +16,7 @@ namespace StoreData.Repositories
         public void Create(Managers model)
         {
 
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "INSERT INTO Managers VALUES(@ManagerID,@ManagerName,@ManagerPassword,@ManagerMail)",
@@ -35,7 +35,7 @@ namespace StoreData.Repositories
         {
 
 
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "UPDATE Managers SET " +
@@ -53,7 +53,7 @@ namespace StoreData.Repositories
         }
         public void Delete(string ManagerID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "DELETE FROM Managers WHERE ManagerID = @id",
@@ -66,7 +66,7 @@ namespace StoreData.Repositories
         public Managers FindById(string ManagerID)
         {
             Managers manager = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var managers = connection.Query<Managers>(
                     "SELECT * FROM Managers WHERE ManagerID = @id",
@@ -86,7 +86,7 @@ namespace StoreData.Repositories
         public IEnumerable<Managers> GetAll()
         {
             var managerlist = new List<Managers>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var managers = connection.Query<Managers>(
                     "SELECT * FROM Managers");

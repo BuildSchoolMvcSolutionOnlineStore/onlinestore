@@ -14,7 +14,7 @@ namespace StoreData.Repositories
     {
         public void Create(Customers model)
         {
-            using(var connection= new SqlConnection(SqlConnectionString.ConnectionString))
+            using(var connection= new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO Customers VALUES(@CustomerID,@CustomerPassword,@CustomerName,@Telephone,@Address,@CustomerMail)",
                     new
@@ -30,7 +30,7 @@ namespace StoreData.Repositories
         }
         public void Update(Customers model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "UPDATE Customers SET " +
@@ -40,7 +40,7 @@ namespace StoreData.Repositories
 
         public void Delete(String CustomerID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "Delete From Customers WHERE CustomerID = @id",
@@ -54,7 +54,7 @@ namespace StoreData.Repositories
         //單筆資料查詢
         {
             Customers customer = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var customers=connection.Query<Customers>(
                     "SELECT * FROM Customers WHERE CustomerID = @id",
@@ -73,7 +73,7 @@ namespace StoreData.Repositories
         public IEnumerable<Customers> GetAll()
         {
             var customerlist = new List<Customers>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var customers = connection.Query<Customers>(
                     "SELECT * FROM Customers");
@@ -87,7 +87,7 @@ namespace StoreData.Repositories
         }
         public IEnumerable<Customers> SearchById(string selectString)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var list = connection.Query<Customers>(
                     "SELECT * FROM Customers WHERE CustomerID LIKE '%'+@str+'%'",

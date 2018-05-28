@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class Products
+    public partial class Products
     {
         public string ProductID { get; set; }
         public int CategoryID { get; set; }

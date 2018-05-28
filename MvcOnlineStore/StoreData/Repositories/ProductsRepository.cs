@@ -14,7 +14,7 @@ namespace StoreData.Repositories
     {
         public void Create(Products model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "INSERT INTO Products VALUES(@ProductID, @CategoryID,@ProductName,@Stock,@UnitPrice,@Size,@Color,@Instructions,@Path)",
@@ -23,7 +23,7 @@ namespace StoreData.Repositories
         }
         public void Update(Products model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "UPDATE Products SET " +
@@ -34,7 +34,7 @@ namespace StoreData.Repositories
         }
         public void Delete(String ProductID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "DELETE FROM Products WHERE ProductID = @id",
@@ -47,7 +47,7 @@ namespace StoreData.Repositories
 
         public Products FindById(string ProductID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<Products>(
                     "SELECT * FROM Products WHERE ProductID = @id",
@@ -62,7 +62,7 @@ namespace StoreData.Repositories
         }
         public IEnumerable<Products> GetAll()
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<Products>(
                     "SELECT * FROM Products");
@@ -71,7 +71,7 @@ namespace StoreData.Repositories
         }
         public IEnumerable<Products> SearchById(string selectString)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<Products>(
                     "SELECT * FROM Products WHERE ProductID LIKE '%'+@str+'%'",
@@ -86,7 +86,7 @@ namespace StoreData.Repositories
         public IEnumerable<Products> FindTopByQuantity()
         {
             var productlist = new List<Products>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<Products>(
                     "SELECT TOP 3 p.ProductID FROM Products p " +
@@ -104,7 +104,7 @@ namespace StoreData.Repositories
         public IEnumerable<Products> OrderByUnitPrice()
         {
             var productlist = new List<Products>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<Products>(
                     "SELECT * FROM Products ORDER BY UnitPrice ");
@@ -119,7 +119,7 @@ namespace StoreData.Repositories
         //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
         public IEnumerable<AdminProduct> GetAll_Admin()
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<AdminProduct>(
                     "SELECT p.ProductID, " +
@@ -129,9 +129,10 @@ namespace StoreData.Repositories
                 return products;
             }
         }
+        //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
         public IEnumerable<AdminProduct> SearchById_Admin(string selectString)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<AdminProduct>(
                     "SELECT p.ProductID, " +
@@ -144,6 +145,15 @@ namespace StoreData.Repositories
                         str = selectString
                     });
                 return products;
+            }
+        }
+        //取得最新的產品ID
+        public string GetNewId()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var id = connection.Query<string>("SELECT TOP 1 ProductID FROM Products ORDER BY ProductID DESC");
+                return id.FirstOrDefault();
             }
         }
     }
