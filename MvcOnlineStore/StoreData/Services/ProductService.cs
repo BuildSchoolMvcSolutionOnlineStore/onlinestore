@@ -32,5 +32,15 @@ namespace StoreData.Services
             model.ProductID = "A" + numner;
             productsRepository.Create(model);
         }
+        //修改產品
+        public void Update(Products model)
+        {
+            productsRepository.Update(model);
+        }
+        //刪除產品
+        public void Delete(string Id)
+        {
+            productsRepository.Delete(Id);
+        }
     }
 }

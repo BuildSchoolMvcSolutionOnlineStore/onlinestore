@@ -98,14 +98,32 @@
                                     </div>
                                 </div>
                             </div><!--stock modal-->
-                            <a class="btn btn-info" href="#">
+                            <a class="btn btn-info" href=@Url.RouteUrl(new { Controller = "Admin",Action = "UpdateProduct",Id = item.ProductID})>
                                 <i class="glyphicon glyphicon-edit icon-white"></i>
                                 編輯
                             </a>
-                            <a class="btn btn-danger" href="#">
-                                <i class="glyphicon glyphicon-trash icon-white"></i>
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-delete-@item.ProductID">
+                                <i class="glyphicon glyphicon-refresh icon-white"></i>
                                 刪除
                             </a>
+                            <div class="modal fade" id="bs-example-modal-sm-delete-@item.ProductID" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">確定要刪除嗎</h4>
+                                        </div>
+                                        @using (Html.BeginForm("DeleteProduct", "Admin"))
+                                        {
+                                            <input name="Id" type="hidden" value=@item.ProductID />
+                                            <div class="modal-body text-center">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                <button type="submit" class="btn btn-danger">刪除</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div><!--delete modal-->
                         </td>
                     </tr>
                 }

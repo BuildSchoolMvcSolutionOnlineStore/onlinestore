@@ -82,5 +82,52 @@ namespace StoreData.Controllers
             TempData["message"] = "成功新增商品";
             return RedirectToRoute(new { Controlller = "Admin", Action = "CreateProduct" });
         }
+
+        [Route("UpdateProduct")]
+        public ActionResult UpdateProduct(string Id)
+        {
+            var Data = adminService.GetProduct(Id);
+            var categories = categoryService.GetCategoryList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var category in categories)
+            {
+                items.Add(new SelectListItem()
+                {
+                    Text = category.CategoryName,
+                    Value = category.CategoryID.ToString()
+                });
+            }
+            ViewBag.CategoryItems = items;
+
+            return View(Data);
+        }
+        [Route("UpdateProduct")]
+        [HttpPost]
+        public ActionResult UpdateProduct(Products model, HttpPostedFileBase file)
+        {
+            if(file == null)
+            {
+                productService.Update(model);
+            }
+            else
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                model.Path = fileName;
+                productService.Update(model);
+                var path = Path.Combine(Server.MapPath("~/FileUploads/"), fileName);
+                file.SaveAs(path);
+            }
+
+            TempData["message"] = "成功修改商品";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Products"});
+        }
+        [Route("DeleteProduct")]
+        [HttpPost]
+        public ActionResult DeleteProduct(string Id)
+        {
+            productService.Delete(Id);
+            TempData["message"] = "成功刪除商品";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Products" });
+        }
     }
 }

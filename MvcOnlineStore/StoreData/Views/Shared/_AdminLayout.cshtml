@@ -74,6 +74,11 @@
                     </li>
                     <li>
                         <a class="" href="">
+                            <span class="fa fa-arrow-right">&nbsp;</span> 已出貨訂單
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="">
                             <span class="fa fa-arrow-right">&nbsp;</span> 已完成訂單
                         </a>
                     </li>
@@ -139,5 +144,26 @@
     </div>
     @Scripts.Render("~/Admin/jquery");
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $("#file").on("change", function () {
+                var file = this.files[0];
+                if (this.files && file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        })
+    </script>
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["message"]));
+        alert(message);
+        </script>
+    }
 </body>
 </html>

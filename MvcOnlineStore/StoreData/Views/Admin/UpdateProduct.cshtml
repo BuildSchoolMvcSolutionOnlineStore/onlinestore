@@ -1,7 +1,7 @@
 ﻿@model StoreData.Models.Products
 
 @{
-    ViewBag.Title = "CreateProduct";
+    ViewBag.Title = "UpdateProduct";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -12,23 +12,29 @@
                 <em class="fa fa-home"></em>
             </a>
         </li>
-        <li class="active">新增產品</li>
+        <li>
+            <a href=@Url.RouteUrl(new { Controlller = "Admin", Action = "Products" })>
+                產品列表
+            </a>
+        </li>
+        <li class="active">修改產品</li>
     </ol>
 </div><!--/.row-->
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">新增產品</h1>
+        <h1 class="page-header">修改產品</h1>
     </div>
 </div><!--/.row-->
 
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">新增產品</div>
+            <div class="panel-heading">修改產品</div>
             <div class="panel-body">
-                @using (Html.BeginForm("CreateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UpdateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    @Html.Hidden("ProductId", Model.ProductID)
                     <div class="col-md-6">
                         <div class="form-group">
                             @Html.LabelFor(model => model.ProductName)
@@ -69,14 +75,15 @@
                         <div class="form-group">
                             <label>圖片預覽</label>
                             <br>
-                            <img id="img" class="img-thumbnail" src="https://dummyimage.com/200x200.jpg" alt="預覽圖" style="height:200px;width:200px;" />
+                            <img id="img" class="img-thumbnail" src="~/FileUploads/@Model.Path" alt="預覽圖" style="height:200px;width:200px;" />
+                            @Html.Hidden("Path", @Model.Path)
                         </div>
                         <div class="form-group">
                             <label>上傳檔案</label>
                             <input type="file" id="file" name="file" />
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">新增</button>
+                    <button type="submit" class="btn btn-primary btn-block">修改</button>
                 }
             </div>
         </div>

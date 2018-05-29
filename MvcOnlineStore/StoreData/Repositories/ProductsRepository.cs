@@ -147,6 +147,23 @@ namespace StoreData.Repositories
                 return products;
             }
         }
+        public AdminProduct FindById_Admin(string Id)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var products = connection.Query<AdminProduct>(
+                    "SELECT p.ProductID, " +
+                    "(SELECT CategoryName FROM Categories WHERE p.CategoryID = CategoryID)As CategoryName, " +
+                    "p.ProductName, p.Stock, p.UnitPrice, p.Size, p.Color " +
+                    "FROM Products p " +
+                    "WHERE ProductID = @Id",
+                    new
+                    {
+                        Id
+                    });
+                return products.FirstOrDefault();
+            }
+        }
         //取得最新的產品ID
         public string GetNewId()
         {
