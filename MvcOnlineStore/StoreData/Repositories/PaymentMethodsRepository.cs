@@ -13,7 +13,7 @@ namespace StoreData.Repositories
     {
         public void Create(PaymentMethods model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO PaymentMethods VALUES(@PaymentMethodID, @PaymentMethod)",
                     new
@@ -27,7 +27,7 @@ namespace StoreData.Repositories
 
         public void Update(PaymentMethods model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("UPDATE PaymentMethods SET PaymentMethod = @PaymentMethod WHERE PaymentMethodID = @id",
                     new
@@ -39,7 +39,7 @@ namespace StoreData.Repositories
         }
         public void Delete(int PaymentMethodID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("Delete From PaymentMethods WHERE PaymentMethodID = @id",
                     new
@@ -53,7 +53,7 @@ namespace StoreData.Repositories
         //單筆資料查詢
         {
             PaymentMethods paymentMethod = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var paymentMethods = connection.Query <PaymentMethods> ("SELECT * FROM PaymentMethods WHERE PaymentMethodID = @id",
                     new
@@ -72,7 +72,7 @@ namespace StoreData.Repositories
         public IEnumerable<PaymentMethods> GetAll()
         {
             var paymentMethodlist = new List<PaymentMethods>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<PaymentMethods>(
                     "SELECT * FROM Products");
@@ -88,7 +88,7 @@ namespace StoreData.Repositories
         public IEnumerable<PaymentMethods> FindTopByPaymentMethodID()
         {
             var paymentMethodlist = new List<PaymentMethods>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var paymentMethods = connection.Query<PaymentMethods>(
                     "select p.PaymentMethod from PaymentMethods as p inner join Orders as o on  p.PaymentMethodID = o.PaymentMethodID group by p.PaymentMethod order by count(*) desc");

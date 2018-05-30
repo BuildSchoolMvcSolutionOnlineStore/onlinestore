@@ -1,0 +1,91 @@
+﻿@model StoreData.Models.Products
+
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li>
+            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "" })>
+                <em class="fa fa-home"></em>
+            </a>
+        </li>
+        <li>
+            <a href=@Url.RouteUrl(new { Controlller = "Admin", Action = "Products" })>
+                產品列表
+            </a>
+        </li>
+        <li class="active">修改產品</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">修改產品</h1>
+    </div>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">修改產品</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("ProductId", Model.ProductID)
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName)
+                            @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", @placeholder = "輸入名稱" })
+                            @Html.ValidationMessageFor(model => model.ProductName, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>產品類別</label>
+                            @Html.DropDownListFor(model => model.CategoryID, (IEnumerable<SelectListItem>)ViewBag.CategoryItems, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Stock)
+                            @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", @placeholder = "輸入數量" })
+                            @Html.ValidationMessageFor(model => model.Stock, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UnitPrice)
+                            @Html.TextBoxFor(model => model.UnitPrice, new { @class = "form-control", @placeholder = "輸入價錢" })
+                            @Html.ValidationMessageFor(model => model.UnitPrice, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Size)
+                            @Html.TextBoxFor(model => model.Size, new { @class = "form-control", @placeholder = "輸入大小" })
+                            @Html.ValidationMessageFor(model => model.Size, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Color)
+                            @Html.TextBoxFor(model => model.Color, new { @class = "form-control", @placeholder = "輸入顏色" })
+                            @Html.ValidationMessageFor(model => model.Color, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Instructions)
+                            @Html.TextAreaFor(model => model.Instructions, new { @class = "form-control", @placeholder = "輸入文字", @row = "3" })
+                            @Html.ValidationMessageFor(model => model.Instructions, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>圖片預覽</label>
+                            <br>
+                            <img id="img" class="img-thumbnail" src="~/FileUploads/@Model.Path" alt="預覽圖" style="height:200px;width:200px;" />
+                            @Html.Hidden("Path", @Model.Path)
+                        </div>
+                        <div class="form-group">
+                            <label>上傳檔案</label>
+                            <input type="file" id="file" name="file" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">修改</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

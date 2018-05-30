@@ -1,4 +1,5 @@
-﻿using StoreData.Repositories;
+﻿using StoreData.Models;
+using StoreData.Repositories;
 using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace StoreData.Services
                 Paging.SetRightPage();
             }
             return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
+        }
+        public Products GetProduct(string Id)
+        {
+            var Data = productRepository.FindById(Id);
+            return Data;
         }
     }
 }

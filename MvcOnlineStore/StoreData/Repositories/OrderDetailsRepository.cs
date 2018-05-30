@@ -14,21 +14,21 @@ namespace StoreData.Repositories
     {
         public void Create(OrderDetails model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)",model);
             }
         }
         public void Update(OrderDetails model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("UPDATE OrderDetails SET ProductID = @ProductID, Quantity = @Quantity, Discount =@Discount WHERE OrderID = @OrderID AND ProductID = @ProductID", model);
             }
         }
         public void Delete(string OrderID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "Delete From OrderDetails WHERE OrderID = @id",
@@ -42,7 +42,7 @@ namespace StoreData.Repositories
         //單筆資料查詢
         {
             OrderDetails orderDetails = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var orderdeta = connection.Query<OrderDetails>(
                     "SELECT * FROM OrderDetails WHERE OrderID = @id",
@@ -62,7 +62,7 @@ namespace StoreData.Repositories
         }
         public IEnumerable<OrderDetails> GetAllOrderDeta()
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var orderdeta = connection.Query<OrderDetails>("SELECT * FROM OrderDetails");
                 return orderdeta;

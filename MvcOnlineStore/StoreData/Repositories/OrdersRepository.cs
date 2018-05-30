@@ -14,7 +14,7 @@ namespace StoreData.Repositories
     {
         public void Create(Orders model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO Orders VALUES(@OrderID ,@CustomerID, @OrderDate, @ShippedDate, @PaymentMethodID, @DeliveryMethodID,@Status)",
                     model);
@@ -23,7 +23,7 @@ namespace StoreData.Repositories
 
         public void Update(Orders model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                 "UPDATE Orders SET CustomerID = @CustomerID, OrderDate = @OrderDate, ShippedDate = @ShippedDate, PaymentMethodID = @PaymentMethodID, DeliveryMethodID = @DeliveryMethodID, Status = @Status WHERE OrderID = @OrderID", model);
@@ -32,7 +32,7 @@ namespace StoreData.Repositories
 
         public void Delete(string OrderID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "Delete From Orders WHERE OrderID = @id",
@@ -46,7 +46,7 @@ namespace StoreData.Repositories
         public Orders FindById(string OrderId)
         {
             Orders order = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var orders = connection.Query<Orders>(
                     "SELECT * FROM Orders WHERE OrderID = @id",
@@ -68,7 +68,7 @@ namespace StoreData.Repositories
         public IEnumerable<Orders> GetAll()
         {
             var orderslist = new List<Orders>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var orders = connection.Query<Orders>(
                     "SELECT * FROM Orders");

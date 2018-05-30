@@ -12,8 +12,7 @@ namespace StoreData.Controllers
         private ProductsRepository productservice = new ProductsRepository();
         public ActionResult Index()
         {
-            var list = productservice.GetAll();
-            return View(list);
+            return View();
         }
 
         public ActionResult About()

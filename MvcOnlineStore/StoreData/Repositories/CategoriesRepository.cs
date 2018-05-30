@@ -14,21 +14,21 @@ namespace StoreData.Repositories
     {
         public void Create(Categories model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO Categories VALUES(@CategoryID, @CategoryName)",model);
             }
         }
         public void Update(Categories model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("UPDATE Categories SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID",model);
             }
         }
         public void Delete(int CategoryID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("Delete From Categories WHERE CategoryID = @id",new {id = CategoryID });
             }
@@ -37,7 +37,7 @@ namespace StoreData.Repositories
         //單筆資料查詢
         {
             Categories category = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var orders =  connection.Query<Categories>("SELECT * FROM Categories WHERE CategoryID = @id",
                     new {id = CategoryID });
@@ -52,7 +52,7 @@ namespace StoreData.Repositories
         }
         public IEnumerable<Categories> GetAll()
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var list = connection.Query<Categories>("SELECT * FROM Categories");
                 return list;

@@ -26,5 +26,13 @@ namespace StoreData.Repositories.Tests
             var list = repository.SearchById_Admin("A001");
             Assert.IsTrue(list.Count() > 0);
         }
+
+        [TestMethod()]
+        public void GetNewIdTest()
+        {
+            ProductsRepository repository = new ProductsRepository();
+            var id = repository.GetNewId();
+            Assert.IsTrue(id != null);
+        }
     }
 }

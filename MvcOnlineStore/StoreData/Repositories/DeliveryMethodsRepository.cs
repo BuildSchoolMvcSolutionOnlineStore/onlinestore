@@ -14,7 +14,7 @@ namespace StoreData.Repositories
     {
         public void Create(DeliveryMethods model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "INSERT INTO DeliveryMethods VALUES(@DeliveryMethodID, @DeliveryMethod, @Freight)",
@@ -29,7 +29,7 @@ namespace StoreData.Repositories
 
         public void Update(DeliveryMethods model)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "UPDATE DeliveryMethods SET " + "DeliveryMethod = @DeliveryMethod, Freight = @Freight WHERE DeliveryMethodID = @id",
@@ -44,7 +44,7 @@ namespace StoreData.Repositories
 
         public void Delete(int DeliveryMethodID)
         {
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
                     "Delete From DeliveryMethods WHERE DeliveryMethodID = @id",
@@ -58,7 +58,7 @@ namespace StoreData.Repositories
         public DeliveryMethods FindById(int DeliveryMethodID)
         {          
             DeliveryMethods deliveryMethod = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var deliveryMethods = connection.Query<DeliveryMethods>(
                     "SELECT * FROM DeliveryMethods WHERE DeliveryMethodID = @id",
@@ -79,7 +79,7 @@ namespace StoreData.Repositories
         public IEnumerable<DeliveryMethods> GetAll()
         {
             var deliveryMethodlist = new List<DeliveryMethods>();
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var deliveryMethods = connection.Query<DeliveryMethods>(
                     "SELECT * FROM DeliveryMethods");
@@ -95,7 +95,7 @@ namespace StoreData.Repositories
         public string FindTopByDeliveryMethodID()
         {
             string deliveryMethod = null;
-            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var TopAmounts = connection.Query<DeliveryMethods>("SELECT TOP 1 d.DeliveryMethod FROM DeliveryMethods d INNER JOIN Orders o ON d.DeliveryMethodID = o.DeliveryMethodID GROUP BY d.DeliveryMethod ORDER BY COUNT(*) DESC");
                 foreach (var item in TopAmounts)
