@@ -19,6 +19,10 @@ namespace StoreData.Controllers
             return View();
         }
         ////商品列表
+        public ActionResult ProductList()
+        {
+            return View();
+        }
         //public ActionResult _ProductListPartial()
         //{
         //    var list = productservice.ProductList();

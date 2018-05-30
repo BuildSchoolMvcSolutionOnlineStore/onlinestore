@@ -1,0 +1,222 @@
+﻿@model StoreData.Models.Products
+
+@{
+    ViewBag.Title = "產品頁";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/NewHome/css")
+@Scripts.Render("~/NewHome/JavaScript")
+@Scripts.Render("~/bundles/modernizr")
+
+<!-- breadcrumbs -->
+<div class="breadcrumb_dress">
+    <div class="container">
+        <ul>
+            <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+            <li>Dresses</li>
+        </ul>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- dresses -->
+<div class="dresses">
+    <div class="container">
+        <div class="w3ls_dresses_grids">
+            <div class="col-md-4 w3ls_dresses_grid_left">
+                <div class="w3ls_dresses_grid_left_grid">
+                    <h3>Categories</h3>
+                    <div class="w3ls_dresses_grid_left_grid_sub">
+                        <ul class="panel_bottom">
+                            <li><a href="products.html">Summer Store</a></li>
+                            <li><a href="dresses.html">New In Clothing</a></li>
+                            <li><a href="sandals.html">New In Shoes</a></li>
+                            <li><a href="products.html">Latest Watches</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w3ls_dresses_grid_left_grid">
+                    <div class="dresses_img_hover">
+                        <img src="~/FileUploads/26.jpg" alt=" " class="img-responsive" />
+                        <div class="dresses_img_hover_pos">
+                            <h4>For Kids <span>20%</span><i>Discount</i></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 w3ls_dresses_grid_right">
+                <div class="col-md-6 w3ls_dresses_grid_right_left">
+                    <div class="w3ls_dresses_grid_right_grid1">
+                        <img src="~/FileUploads/34.jpg" alt=" " class="img-responsive" />
+                        <div class="w3ls_dresses_grid_right_grid1_pos">
+                            <h3>Printed <span>Cotton</span> Top</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 w3ls_dresses_grid_right_left">
+                    <div class="w3ls_dresses_grid_right_grid1">
+                        <img src="~/FileUploads/34.jpg" alt=" " class="img-responsive" />
+                        <div class="w3ls_dresses_grid_right_grid1_pos1">
+                            <h3>Printed Blue <span>Cotton</span> Jeans</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+
+                <div class="w3ls_dresses_grid_right_grid2">
+                    <div class="w3ls_dresses_grid_right_grid2_left">
+                        <h3>Showing Results: 0-1</h3>
+                    </div>
+                    <div class="w3ls_dresses_grid_right_grid2_right">
+                        <select name="select_item" class="select_item">
+                            <option selected="selected">Default sorting</option>
+                            <option>Sort by popularity</option>
+                            <option>Sort by average rating</option>
+                            <option>Sort by newness</option>
+                            <option>Sort by price: low to high</option>
+                            <option>Sort by price: high to low</option>
+                        </select>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="w3ls_dresses_grid_right_grid3">
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$340</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                            <div class="dresses_grid_pos">
+                                <h6>New</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$250</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$200</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="w3ls_dresses_grid_right_grid3">
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$270</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$190</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$270</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                            <div class="dresses_grid_pos">
+                                <h6>New</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="w3ls_dresses_grid_right_grid3">
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$212</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$180</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+                        <div class="agile_ecommerce_tab_left dresses_grid">
+                            <div class="imageboxshadow">
+                                <img src="~/FileUploads/A001.jpg" alt=" " class="" />
+                            </div>
+                            <h5><a href="single.html">Dresses</a></h5>
+                            <div class="simpleCart_shelfItem">
+                                <p> <i class="item_price">$250</i></p>
+                                <p><a class="item_add" href="#">QUICK VIEW</a></p>
+                            </div>
+                            <div class="dresses_grid_pos">
+                                <h6>New</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

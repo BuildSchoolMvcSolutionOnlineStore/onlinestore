@@ -12,18 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Glegoo:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
-    <script type="application/x-javascript">
-        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-               function hideURLbar(){ window.scrollTo(0,1); }
-    </script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-            });
-        });
-    </script>
+
 </head>
 <body>
     <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
@@ -45,7 +34,7 @@
                                 <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
                                     <ul>
                                         <li class="resp-tab-item" aria-controls="tab_item-0"><span>登入</span></li>
-                                        <li class="resp-tab-item" aria-controls="tab_item-1"><span>登出</span></li>
+                                        <li class="resp-tab-item" aria-controls="tab_item-1"><span>註冊</span></li>
                                     </ul>
                                     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
                                         <div class="facts">
@@ -54,7 +43,7 @@
                                                     <input name="Email" placeholder="Email Address" type="text" required="">
                                                     <input name="Password" placeholder="Password" type="password" required="">
                                                     <div class="sign-up">
-                                                        <input type="submit" value="Sign in" />
+                                                        <input type="submit" value="登入" />
                                                     </div>
                                                 </form>
                                             </div>
@@ -101,6 +90,7 @@
                                 <div class="col-md-12">
                                     <ul class="social">
                                         <li class="social_facebook"><a href="#" class="entypo-facebook"></a></li>
+                                        <li></li>
                                         <li class="social_dribbble"><a href="#" class="entypo-dribbble"></a></li>
                                     </ul>
                                 </div>
@@ -119,7 +109,7 @@
                 </a>
             </div>
             <div class="w3l_logo" style="position:relative;top:10px;left:0px">
-                <img src="~/FileUploads/Newlogo.jpg" alt=" "/>
+                <img src="~/FileUploads/Newlogo.jpg" alt=" " />
             </div>
             <div class="search">
                 <input class="search_box" type="checkbox" id="search_box">
@@ -160,49 +150,9 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html" class="act">Home</a></li>
+                        <li class="active"><a href=@Url.RouteUrl(new {Controller="Home",Action="Index" })>Home</a></li>
                         <!-- Mega Menu -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Clothing</h6>
-                                            <li><a href="dresses.html">Dresses<span>New</span></a></li>
-                                            <li><a href="sweaters.html">Sweaters</a></li>
-                                            <li><a href="skirts.html">Shorts & Skirts</a></li>
-                                            <li><a href="jeans.html">Jeans</a></li>
-                                            <li><a href="shirts.html">Shirts & Tops<span>New</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Ethnic Wear</h6>
-                                            <li><a href="salwars.html">Salwars</a></li>
-                                            <li><a href="sarees.html">Sarees<span>New</span></a></li>
-                                            <li><a href="products.html"><i>Summer Store</i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Foot Wear</h6>
-                                            <li><a href="#">Flats</a></li>
-                                            <li><a href="#">Sandals</a></li>
-                                            <li><a href="#">Boots</a></li>
-                                            <li><a href="#">Heels</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="w3ls_products_pos">
-                                            <h4>50%<i>Off/-</i></h4>
-                                            <img src="~/FileUploads/1.jpg" alt=" " class="img-responsive" />
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
+                        <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Short Codes</a></li>
                         <li><a href="#">Mail Us</a></li>
@@ -213,6 +163,98 @@
     </div>
 
     @RenderBody()
-
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="w3_footer_grids">
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Contact</h3>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
+                    <ul class="address">
+                        <li>
+                            <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block,
+                            <span>New York City.</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                            <a href="mailto:info@example.com">info@example.com</a>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Information</h3>
+                    <ul class="info">
+                        <li>
+                            <a href="about.html">About Us</a>
+                        </li>
+                        <li>
+                            <a href="mail.html">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="short-codes.html">Short Codes</a>
+                        </li>
+                        <li>
+                            <a href="faq.html">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="products.html">Special Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Category</h3>
+                    <ul class="info">
+                        <li>
+                            <a href="dresses.html">Dresses</a>
+                        </li>
+                        <li>
+                            <a href="sweaters.html">Sweaters</a>
+                        </li>
+                        <li>
+                            <a href="shirts.html">Shirts</a>
+                        </li>
+                        <li>
+                            <a href="sarees.html">Sarees</a>
+                        </li>
+                        <li>
+                            <a href="skirts.html">Shorts & Skirts</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Follow Us</h3>
+                    <div class="agileits_social_button">
+                        <ul class="info">
+                            <li>
+                                <a href="#" class="facebook"> </a>
+                            </li>
+                            <li>
+                                <a href="#" class="google"> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <div class="footer-copy1">
+                <div class="footer-copy-pos">
+                    <a href="#home1" class="scroll">
+                        <img src="~/FileUploads/arrow.png" alt=" " class="img-responsive" />
+                    </a>
+                </div>
+            </div>
+            <div class="container">
+                <p>
+                    &copy; 2016 Women's Fashion. All rights reserved | Design by
+                    <a href="https://w3layouts.com/">W3layouts</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,9 +1,23 @@
-.hs-wrapper{
-	width: 196px;
+.imageboxshadow:hover img {
+    border: 2px solid #A5839B !important;
+    width: 196px;
     height: 223px;
-	position: relative;
-	margin: 0 auto;
-	overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.imageboxshadow img{
+    width: 196px;
+    height: 223px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.hs-wrapper {
+    width: 196px;
+    height: 223px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
 }
 .hs-wrapper1{
 	width: 255px !important;
@@ -11,7 +25,7 @@
 }
 .hs-wrapper2 {
     width: 223px !important;
-    height: 295px !important;
+    height: 29px !important;
 }
 .hs-wrapper img{
 	top: 0px;
