@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using StoreData.Models;
+﻿using StoreData.Models;
 using StoreData.Services;
 using StoreData.ViewModels.Manager;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
 
 namespace StoreData.Controllers
 {
@@ -17,6 +15,7 @@ namespace StoreData.Controllers
         private CustomerService customerService = new CustomerService();
         private AdminService adminService = new AdminService();
         private CategoryService categoryService = new CategoryService();
+        private OrdersService ordersService = new OrdersService();
 
         // GET: Admin
         [Route("")]
@@ -128,6 +127,12 @@ namespace StoreData.Controllers
             productService.Delete(Id);
             TempData["message"] = "成功刪除商品";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Products" });
+        }
+        [Route("UnDeliveryOrder")]
+        public ActionResult UnDeliveryOrder(string Id, int Page = 1)
+        {
+            var list =  ordersService.OrdersList_Status_0();
+            return View(list);
         }
     }
 }

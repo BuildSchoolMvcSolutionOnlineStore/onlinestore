@@ -119,6 +119,7 @@ namespace StoreData.Repositories
         //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
         public IEnumerable<AdminProduct> GetAll_Admin()
         {
+            
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<AdminProduct>(

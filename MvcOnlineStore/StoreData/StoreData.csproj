@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Manager\MemberView.cs" />
+    <Compile Include="ViewModels\Manager\OrderView.cs" />
     <Compile Include="ViewModels\Manager\ProductView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +286,11 @@
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\UpdateProduct.cshtml" />
+    <Content Include="Views\Admin\UnDeliveryOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Facebook\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
