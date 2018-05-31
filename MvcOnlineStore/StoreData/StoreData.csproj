@@ -215,6 +215,41 @@
     <Content Include="Content\NewHome\style.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FileUploads\1.jpg" />
+    <Content Include="FileUploads\10.jpg" />
+    <Content Include="FileUploads\11.jpg" />
+    <Content Include="FileUploads\12.jpg" />
+    <Content Include="FileUploads\13.png" />
+    <Content Include="FileUploads\14.jpg" />
+    <Content Include="FileUploads\15.jpg" />
+    <Content Include="FileUploads\16.jpg" />
+    <Content Include="FileUploads\17.jpg" />
+    <Content Include="FileUploads\18.jpg" />
+    <Content Include="FileUploads\19.jpg" />
+    <Content Include="FileUploads\2.jpg" />
+    <Content Include="FileUploads\20.jpg" />
+    <Content Include="FileUploads\21.jpg" />
+    <Content Include="FileUploads\22.jpg" />
+    <Content Include="FileUploads\23.jpg" />
+    <Content Include="FileUploads\24.jpg" />
+    <Content Include="FileUploads\25.png" />
+    <Content Include="FileUploads\26.jpg" />
+    <Content Include="FileUploads\27.jpg" />
+    <Content Include="FileUploads\28.jpg" />
+    <Content Include="FileUploads\29.jpg" />
+    <Content Include="FileUploads\3.jpg" />
+    <Content Include="FileUploads\30.png" />
+    <Content Include="FileUploads\31.jpg" />
+    <Content Include="FileUploads\32.jpg" />
+    <Content Include="FileUploads\33.jpg" />
+    <Content Include="FileUploads\34.jpg" />
+    <Content Include="FileUploads\4.jpg" />
+    <Content Include="FileUploads\5.jpg" />
+    <Content Include="FileUploads\6.jpg" />
+    <Content Include="FileUploads\7.jpg" />
+    <Content Include="FileUploads\700me.png" />
+    <Content Include="FileUploads\8.jpg" />
+    <Content Include="FileUploads\9.jpg" />
     <Content Include="FileUploads\A001.jpg" />
     <Content Include="FileUploads\A002.jpg" />
     <Content Include="FileUploads\A003.jpg" />
@@ -223,9 +258,23 @@
     <Content Include="FileUploads\A006.jpg" />
     <Content Include="FileUploads\A007.jpg" />
     <Content Include="FileUploads\A008.jpg" />
+    <Content Include="FileUploads\A009.jpg" />
+    <Content Include="FileUploads\arrow.png" />
+    <Content Include="FileUploads\b1.jpg" />
+    <Content Include="FileUploads\bag.png" />
+    <Content Include="FileUploads\BOSS.jpg" />
     <Content Include="FileUploads\carousel-1.jpg" />
     <Content Include="FileUploads\carousel-2.jpg" />
+    <Content Include="FileUploads\Employee2.jpg" />
+    <Content Include="FileUploads\Homeright.png" />
+    <Content Include="FileUploads\img-sp.png" />
+    <Content Include="FileUploads\left-arrow.png" />
     <Content Include="FileUploads\logo.jpg" />
+    <Content Include="FileUploads\Newlogo.jpg" />
+    <Content Include="FileUploads\right-arrow.png" />
+    <Content Include="FileUploads\star-.png" />
+    <Content Include="FileUploads\star.png" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -242,6 +291,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\MvcOnlineShopTeam7 - Web Deploy.pubxml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -276,7 +331,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\CustomerLogin.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
@@ -292,6 +346,8 @@
     <Content Include="Views\Admin\UnDeliveryOrder.cshtml" />
     <Content Include="Views\Admin\SearchOrder.cshtml" />
     <Content Include="Views\Admin\ShippedOrder.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Home\MailUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

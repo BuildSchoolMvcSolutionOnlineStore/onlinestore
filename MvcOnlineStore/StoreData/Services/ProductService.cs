@@ -67,5 +67,19 @@ namespace StoreData.Services
             var Data = productsRepository.FindById(Id);
             return Data;
         }
+        //尋找產品ID
+        public Products FindproductById(string Id)
+        {
+            var result = productsRepository.FindById(Id);
+            return result;
+        }
+        //所有產品
+        public IEnumerable<Products> GetAllproduct()
+        {
+            var result = productsRepository.GetAll();
+            return result;
+        }
+        // 
+
     }
 }

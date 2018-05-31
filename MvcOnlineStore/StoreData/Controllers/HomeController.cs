@@ -7,6 +7,7 @@ using StoreData.Repositories;
 
 namespace StoreData.Controllers
 {
+    [RoutePrefix("Home")]
     public class HomeController : Controller
     {
         private ProductsRepository productservice = new ProductsRepository();
@@ -14,17 +15,14 @@ namespace StoreData.Controllers
         {
             return View();
         }
-
+        [Route("About")]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
-
-        public ActionResult Contact()
+        [Route("MailUS")]
+        public ActionResult MailUS()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

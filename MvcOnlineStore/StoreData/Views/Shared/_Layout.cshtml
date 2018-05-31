@@ -1,72 +1,262 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Women's Fashion Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />*@
+    @Styles.Render("~/NewHome/css")
+    @Scripts.Render("~/NewHome/JavaScript")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/style.css")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Glegoo:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-dark">
-        <a class="navbar-brand text-white" href="#" onclick="location.href='@Url.Action("Index","Home")'">筆酷文具店</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon "></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto"></ul>
-            <div class="form-inline">
-                <ul class="navbar-nav">
-                    <li class="nav-item mr-2 my-2 my-md-0">
-                        <button type="button" class="btn btn btn-secondary" onclick="location.href='@Url.Action("CustomerLogin","Customer")'">
-                            <i class="fa fa-user mr-1" aria-hidden="true"></i>登入
-                        </button>
-                    </li>
-                    <li class="nav-item mr-2 my-2 my-md-0">
-                        <button type="button" class="btn btn btn-secondary">
-                            <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>購物車
-                        </button>
-                    </li>
-                    <li class="nav-item my-2 my-md-0">
-                        <button type="button" class="btn btn btn-secondary " data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-comment mr-1" aria-hidden="true"></i>留言板
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">聯絡我們</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        別等了,現在就登入!
+                    </h4>
                 </div>
-                <div class="modal-body">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="請輸入您的電子信箱">
-                    <textarea class="form-control mt-3" id="exampleFormControlTextarea1" rows="3" placeholder="輸入您想告訴我們的話"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">發送</button>
+                <div class="modal-body modal-body-sub">
+                    <div class="row">
+                        <div class="col-md-8 modal_body_left modal_body_left1" style="border-right: 1px dotted #C2C2C2;padding-right:3em;">
+                            <div class="sap_tabs">
+                                <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                                    <ul>
+                                        <li class="resp-tab-item" aria-controls="tab_item-0"><span>登入</span></li>
+                                        <li class="resp-tab-item" aria-controls="tab_item-1"><span>註冊</span></li>
+                                    </ul>
+                                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+                                        <div class="facts">
+                                            <div class="register">
+                                                <form action="#" method="post">
+                                                    <input name="Email" placeholder="帳號" type="text" required="">
+                                                    <input name="Password" placeholder="密碼" type="password" required="">
+                                                    <div class="sign-up">
+                                                        <input type="submit" value="登入" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+                                        <div class="facts">
+                                            <div class="register">
+                                                <form action="#" method="post">
+                                                    <input placeholder="姓名" name="Name" type="text" required="">
+                                                    <input placeholder="帳號" name="ID" type="text" required="">
+                                                    <input placeholder="密碼" name="Password" type="password" required="">
+                                                    <input placeholder="電話" name="Telephone" type="password" required="">
+                                                    <input placeholder="地址" name="Address" type="text" required="">
+                                                    <input placeholder="Email Address" name="Email" type="email" required="">
+                                                    <div class="sign-up">
+                                                        <input type="submit" value="註冊" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('#horizontalTab').easyResponsiveTabs({
+                                        type: 'default', //Types: default, vertical, accordion
+                                        width: 'auto', //auto or any width like 600px
+                                        fit: true   // 100% fit in a container
+                                    });
+                                });
+                            </script>
+                            <div id="OR" class="hidden-xs">
+                                OR
+                            </div>
+                        </div>
+                        <div class="col-md-4 modal_body_right modal_body_right1">
+                            <div class="row text-center sign-with">
+                                <div class="col-md-12">
+                                    <h3 class="other-nw">
+                                        第三方登入
+                                    </h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="social">
+                                        <li class="social_facebook"><a href="#" class="entypo-facebook"></a></li>
+                                        <li></li>
+                                        <li class="social_dribbble"><a href="#" class="entypo-dribbble"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+    <div class="header">
+        <div class="container">
+            <div class="w3l_login">
+                <a href="#" data-toggle="modal" data-target="#myModal88">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="w3l_logo" style="position:relative;top:10px;left:0px">
+                <img src="~/FileUploads/Newlogo.jpg" alt=" " />
+            </div>
+            <div class="search">
+                <input class="search_box" type="checkbox" id="search_box">
+                <label class="icon-search" for="search_box">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </label>
+                <div class="search_form">
+                    <form action="#" method="post">
+                        <input type="text" name="Search" placeholder="Search...">
+                        <input type="submit" value="Send">
+                    </form>
+                </div>
+            </div>
+            <div class="cart box_1">
+                <a href="checkout.html">
+                    <div class="total">
+                        <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                    </div>
+                    <img src="~/FileUploads/bag.png" alt="" />
+                </a>
+                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
     </div>
-    <footer class="bg-secondary mt-3 pt-3 text-center " style="height: 50px;">
-        <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    @RenderSection("scripts", required: false)
+    <div class="navigation">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href=@Url.RouteUrl(new {Controller="Home",Action="Index" })>Home</a></li>
+                        <!-- Mega Menu -->
+                        <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
+                        <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
+                        <li><a href="#">Short Codes</a></li>
+                        <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    @RenderBody()
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="w3_footer_grids">
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Contact</h3>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
+                    <ul class="address">
+                        <li>
+                            <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block,
+                            <span>New York City.</span>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                            <a href="mailto:info@example.com">info@example.com</a>
+                        </li>
+                        <li>
+                            <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Information</h3>
+                    <ul class="info">
+                        <li>
+                            <a href="about.html">About Us</a>
+                        </li>
+                        <li>
+                            <a href="mail.html">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="short-codes.html">Short Codes</a>
+                        </li>
+                        <li>
+                            <a href="faq.html">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="products.html">Special Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Category</h3>
+                    <ul class="info">
+                        <li>
+                            <a href="dresses.html">Dresses</a>
+                        </li>
+                        <li>
+                            <a href="sweaters.html">Sweaters</a>
+                        </li>
+                        <li>
+                            <a href="shirts.html">Shirts</a>
+                        </li>
+                        <li>
+                            <a href="sarees.html">Sarees</a>
+                        </li>
+                        <li>
+                            <a href="skirts.html">Shorts & Skirts</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Follow Us</h3>
+                    <div class="agileits_social_button">
+                        <ul class="info">
+                            <li>
+                                <a href="#" class="facebook"> </a>
+                            </li>
+                            <li>
+                                <a href="#" class="google"> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <div class="footer-copy1">
+                <div class="footer-copy-pos">
+                    <a href="#" class="scroll">
+                        <img src="~/FileUploads/arrow.png" alt=" " class="img-responsive" />
+                    </a>
+                </div>
+            </div>
+            @*<div class="container">
+                <p>
+                    &copy; 2016 Women's Fashion. All rights reserved | Design by
+                    <a href="https://w3layouts.com/">W3layouts</a>
+                </p>
+            </div>*@
+        </div>
+    </div>
 </body>
 </html>
