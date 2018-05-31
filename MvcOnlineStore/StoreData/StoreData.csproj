@@ -244,6 +244,7 @@
     <Content Include="FileUploads\5.jpg" />
     <Content Include="FileUploads\6.jpg" />
     <Content Include="FileUploads\7.jpg" />
+    <Content Include="FileUploads\700me.png" />
     <Content Include="FileUploads\8.jpg" />
     <Content Include="FileUploads\9.jpg" />
     <Content Include="FileUploads\A001.jpg" />
@@ -254,11 +255,15 @@
     <Content Include="FileUploads\A006.jpg" />
     <Content Include="FileUploads\A007.jpg" />
     <Content Include="FileUploads\A008.jpg" />
+    <Content Include="FileUploads\A009.jpg" />
     <Content Include="FileUploads\arrow.png" />
     <Content Include="FileUploads\b1.jpg" />
     <Content Include="FileUploads\bag.png" />
+    <Content Include="FileUploads\BOSS.jpg" />
     <Content Include="FileUploads\carousel-1.jpg" />
     <Content Include="FileUploads\carousel-2.jpg" />
+    <Content Include="FileUploads\Employee2.jpg" />
+    <Content Include="FileUploads\Homeright.png" />
     <Content Include="FileUploads\img-sp.png" />
     <Content Include="FileUploads\left-arrow.png" />
     <Content Include="FileUploads\logo.jpg" />
@@ -323,7 +328,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\CustomerLogin.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
@@ -338,6 +342,7 @@
     <Content Include="Views\Admin\UpdateProduct.cshtml" />
     <Content Include="Views\Admin\UnDeliveryOrder.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Home\MailUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

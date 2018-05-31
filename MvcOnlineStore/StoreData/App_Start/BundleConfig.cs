@@ -48,9 +48,9 @@ namespace StoreData
                 "~/Content/NewHome/bootstrap.css",
                 "~/Content/NewHome/style.css",
                 "~/Content/NewHome/fasthover.css",
+                "~/Content/NewHome/flexslider.css",
                 "~/Content/NewHome/jquery.countdown.css",
-                "~/Content/NewHome/popuo-box.css",
-                "~/Content/NewHome/flexslider.css"));
+                "~/Content/NewHome/popuo-box.css"));
 
             bundles.Add(new ScriptBundle("~/NewHome/JavaScript").Include(
                 "~/Scripts/NewHome/jquery.min.js",
