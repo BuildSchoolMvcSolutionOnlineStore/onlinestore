@@ -19,19 +19,19 @@
     <div class="container">
         <div class="col-md-4 single-left">
             <div class="flexslider">
-                <img src=/FileUploads/@Model.Path alt='' style="width:300px;height:300px;"/>
+                <img src=/FileUploads/@Model.Path alt='' style="width:300px;height:300px;" />
             </div>
             <!-- flixslider -->
             <script defer src="js/jquery.flexslider.js"></script>
             <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
             <script>
-                    // Can also be used with $(document).ready()
-                    $(window).load(function () {
-                        $('.flexslider').flexslider({
-                            animation: "slide",
-                            controlNav: "thumbnails"
-                        });
+                // Can also be used with $(document).ready()
+                $(window).load(function () {
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: "thumbnails"
                     });
+                });
             </script>
             <!-- flixslider -->
             <!-- zooming-effect -->
@@ -40,7 +40,6 @@
         </div>
         <div class="col-md-8 single-right">
             <h3>@Model.ProductName</h3>
-
             <div class="description">
                 <h5>
                     <i>Description</i>
@@ -48,18 +47,23 @@
                 <p>
                     @Model.Instructions
                 </p>
-            </div>
+            </div><!--Instructions End-->
             <div class="color-quality">
                 <div class="color-quality-left">
                     <h5>Color : </h5>
                     <ul>
                         <li>
-                                <span></span>@Model.Color
+                            <span></span>@Model.Color
                         </li>
-
                     </ul>
+                    <br />
+                    <h5>UnitPrice : </h5>
+                    <i class="item_price">@Model.UnitPrice</i>
                 </div>
                 <div class="color-quality-right">
+                    <h5>Size : </h5>
+                    <i class="item_size">@Model.Size</i>
+                    <br /><br />
                     <h5>Quality :</h5>
                     <div class="quantity">
                         <div class="quantity-select">
@@ -72,32 +76,26 @@
                     </div>
                     <!--quantity-->
                     <script>
-                            $('.value-plus1').on('click', function () {
-                                var divUpd = $(this).parent().find('.value1'),
-                                    newVal = parseInt(divUpd.text(), 10) + 1;
-                                divUpd.text(newVal);
-                            });
+                        $('.value-plus1').on('click', function () {
+                            var divUpd = $(this).parent().find('.value1'),
+                                newVal = parseInt(divUpd.text(), 10) + 1;
+                            divUpd.text(newVal);
+                        });
 
-                            $('.value-minus1').on('click', function () {
-                                var divUpd = $(this).parent().find('.value1'),
-                                    newVal = parseInt(divUpd.text(), 10) - 1;
-                                if (newVal >= 1) divUpd.text(newVal);
-                            });
+                        $('.value-minus1').on('click', function () {
+                            var divUpd = $(this).parent().find('.value1'),
+                                newVal = parseInt(divUpd.text(), 10) - 1;
+                            if (newVal >= 1) divUpd.text(newVal);
+                        });
                     </script>
                     <!--quantity-->
-
                 </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="simpleCart_shelfItem">
-                <p>     
-                    <i class="item_price">$25</i>
-                </p>
-                <p>
-                    <a class="item_add" href="#">Add to cart</a>
-                </p>
             </div>
         </div>
-        <div class="clearfix"> </div>
+        <div class="simpleCart_shelfItem">
+            <p>
+                <a class="item_add" href="#">Add to cart</a>
+            </p>
+        </div>
     </div>
 </div>
