@@ -18,6 +18,7 @@ namespace StoreData.Controllers
         {
             return View();
         }
+        [Route("ProductList")]
         ////商品列表
         public ActionResult ProductList()
         {
@@ -28,13 +29,13 @@ namespace StoreData.Controllers
         //    var list = productservice.ProductList();
         //    return PartialView(list);
         //}
-        //[Route("{Id}")]
-        ////單一商品頁面
-        //public ActionResult ProductItem(string Id)
-        //{
-        //    var item = productservice.FIndById(Id);
-        //    return View(item);
-        //}
+        [Route("{Id}")]
+        //單一商品頁面
+        public ActionResult ProductItem(string Id)
+        {
+            var list = productservice.FindproductById(Id);
+            return View(list);
+        }
         //側邊分類欄
         public ActionResult CategoriesList()
         {

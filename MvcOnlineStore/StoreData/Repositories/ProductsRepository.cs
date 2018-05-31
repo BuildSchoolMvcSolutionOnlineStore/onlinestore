@@ -130,7 +130,7 @@ namespace StoreData.Repositories
                 return products;
             }
         }
-        //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
+        //SELECT ProductID,CategoryName, ProductName, Stock, UnitPrice, Size, Color
         public IEnumerable<AdminProduct> SearchById_Admin(string selectString)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
