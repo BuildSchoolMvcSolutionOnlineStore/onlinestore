@@ -11,20 +11,24 @@ namespace StoreData.Controllers
     [RoutePrefix("Admin")]
     public class AdminController : Controller
     {
+        //services
         private ProductService productService = new ProductService();
         private CustomerService customerService = new CustomerService();
         private AdminService adminService = new AdminService();
         private CategoryService categoryService = new CategoryService();
         private OrdersService ordersService = new OrdersService();
-
         // GET: Admin
+
+        //儀表板
         [Route("")]
         public ActionResult Index()
         {
-            return View();
+            var Data = adminService.Dashboard();
+            return View(Data);
         }
+        //會員管理
         [Route("Members")]
-        public ActionResult Members(string Id,int Page = 1)
+        public ActionResult Members(string Id, int Page = 1)
         {
             var Data = new MemberView
             {
@@ -35,6 +39,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
 
+        //產品管理
         [Route("Products")]
         public ActionResult Products(string Id, int Page = 1)
         {
@@ -43,22 +48,25 @@ namespace StoreData.Controllers
                 Search = Id,
                 Paging = new ForPaging(Page)
             };
-            Data.DataList = adminService.GetProductList(Data.Search, Data.Paging);
+            Data.DataList = productService.GetProductList(Data.Search, Data.Paging);
             return View(Data);
         }
+
+        //修改產品庫存
         [HttpPost]
-        public ActionResult UpdateStock(string Id,int stock,string search,int Page)
+        public ActionResult UpdateStock(string Id, int stock, string search, int Page)
         {
             productService.UpdateStock(Id, stock);
-            return RedirectToRoute(new { Controlller = "Admin", Action = "Products",Id = search ,Page });
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Products", Id = search, Page });
         }
 
+        //新增產品
         [Route("CreateProduct")]
         public ActionResult CreateProduct()
         {
             var categories = categoryService.GetCategoryList();
             List<SelectListItem> items = new List<SelectListItem>();
-            foreach(var category in categories)
+            foreach (var category in categories)
             {
                 items.Add(new SelectListItem()
                 {
@@ -71,7 +79,7 @@ namespace StoreData.Controllers
         }
         [Route("CreateProduct")]
         [HttpPost]
-        public ActionResult CreateProduct(Products model,HttpPostedFileBase file)
+        public ActionResult CreateProduct(Products model, HttpPostedFileBase file)
         {
             string fileName = Path.GetFileName(file.FileName);
             model.Path = fileName;
@@ -82,10 +90,11 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "CreateProduct" });
         }
 
+        //修改產品
         [Route("UpdateProduct")]
         public ActionResult UpdateProduct(string Id)
         {
-            var Data = adminService.GetProduct(Id);
+            var Data = productService.GetProduct(Id);
             var categories = categoryService.GetCategoryList();
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var category in categories)
@@ -104,7 +113,7 @@ namespace StoreData.Controllers
         [HttpPost]
         public ActionResult UpdateProduct(Products model, HttpPostedFileBase file)
         {
-            if(file == null)
+            if (file == null)
             {
                 productService.Update(model);
             }
@@ -118,8 +127,10 @@ namespace StoreData.Controllers
             }
 
             TempData["message"] = "成功修改商品";
-            return RedirectToRoute(new { Controlller = "Admin", Action = "Products"});
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Products" });
         }
+
+        //刪除產品
         [Route("DeleteProduct")]
         [HttpPost]
         public ActionResult DeleteProduct(string Id)
@@ -128,11 +139,65 @@ namespace StoreData.Controllers
             TempData["message"] = "成功刪除商品";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Products" });
         }
+
+        [Route("SearchOrder")]
+        public ActionResult SearchOrder(string Id, int Page = 1)
+        {
+            var Data = new OrderView
+            {
+                Search = Id,
+                Paging = new ForPaging(Page)
+            };
+            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging);
+            return View(Data);
+        }
+        //未出貨訂單
         [Route("UnDeliveryOrder")]
         public ActionResult UnDeliveryOrder(string Id, int Page = 1)
         {
-            var list =  ordersService.OrdersList_Status_0();
-            return View(list);
+            var Data = new OrderView
+            {
+                Search = Id,
+                Paging = new ForPaging(Page)
+            };
+            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging, 0);
+            return View(Data);
         }
+        //已出貨訂單
+        [Route("ShippedOrder")]
+        public ActionResult ShippedOrder(string Id, int Page = 1)
+        {
+            var Data = new OrderView
+            {
+                Search = Id,
+                Paging = new ForPaging(Page)
+            };
+            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging, 1);
+            return View(Data);
+        }
+        //出貨按鈕
+        [Route("Shipping")]
+        [HttpPost]
+        public ActionResult Shipping(string orderId, string action)
+        {
+            ordersService.UpdateStatus(orderId, 1);
+            TempData["message"] = "訂單狀態變更為: 已出貨";
+            return RedirectToRoute(new { Controller = "Admin", Action = action});
+        }
+        //到貨按鈕
+        [Route("Arrival")]
+        [HttpPost]
+        public ActionResult Arrival(string orderId, string action)
+        {
+            ordersService.UpdateStatus(orderId, 2);
+            TempData["message"] = "訂單狀態變更為: 已到貨";
+            return RedirectToRoute(new { Controller = "Admin", Action = action });
+        }
+        //訂單明細
+        //[Route("OrderDetail")]
+        //public ActionResult OrderDetail(string orderId)
+        //{
+
+        //}
     }
 }

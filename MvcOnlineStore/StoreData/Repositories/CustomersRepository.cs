@@ -98,5 +98,16 @@ namespace StoreData.Repositories
                 return list;
             }
         }
+        //取得會員數量
+        public int GetAllCount()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var count = connection.Query<int>(
+                    "SELECT COUNT (*) FROM Customers"
+                    );
+                return count.FirstOrDefault();
+            }
+        }
     }
 }

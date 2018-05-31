@@ -42,5 +42,30 @@ namespace StoreData.Services
         {
             productsRepository.Delete(Id);
         }
+        //管理者用的產品列表
+        public IEnumerable<AdminProduct> GetProductList(string Search, ForPaging Paging)
+        {
+            IEnumerable<AdminProduct> Data;
+            if (String.IsNullOrEmpty(Search))
+            {
+                Data = productsRepository.GetAll_Admin();
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
+            }
+            else
+            {
+                Data = productsRepository.SearchById_Admin(Search);
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
+            }
+            return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
+        }
+
+        //取得單一產品
+        public Products GetProduct(string Id)
+        {
+            var Data = productsRepository.FindById(Id);
+            return Data;
+        }
     }
 }

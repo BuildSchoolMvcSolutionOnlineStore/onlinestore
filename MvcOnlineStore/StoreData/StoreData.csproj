@@ -194,6 +194,9 @@
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Manager\AdminOrder.cs" />
+    <Compile Include="ViewModels\Manager\AdminProduct.cs" />
+    <Compile Include="ViewModels\Manager\IndexView.cs" />
     <Compile Include="ViewModels\Manager\MemberView.cs" />
     <Compile Include="ViewModels\Manager\OrderView.cs" />
     <Compile Include="ViewModels\Manager\ProductView.cs" />
@@ -287,6 +290,8 @@
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\UpdateProduct.cshtml" />
     <Content Include="Views\Admin\UnDeliveryOrder.cshtml" />
+    <Content Include="Views\Admin\SearchOrder.cshtml" />
+    <Content Include="Views\Admin\ShippedOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
