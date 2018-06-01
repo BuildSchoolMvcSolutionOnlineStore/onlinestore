@@ -12,13 +12,14 @@ namespace StoreData.Controllers
     public class ProductController : Controller
     {
         private ProductService productservice = new ProductService();
-        // GET: Product
-        [Route("")]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //// GET: Product
+        //[Route("")]
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
         ////商品列表
+        [Route("ProductList")]
         public ActionResult ProductList()
         {
             return View();

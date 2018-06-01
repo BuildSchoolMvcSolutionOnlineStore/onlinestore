@@ -11,6 +11,7 @@ namespace StoreData.Controllers
     public class HomeController : Controller
     {
         private ProductsRepository productservice = new ProductsRepository();
+        [Route("Index")]
         public ActionResult Index()
         {
             return View();

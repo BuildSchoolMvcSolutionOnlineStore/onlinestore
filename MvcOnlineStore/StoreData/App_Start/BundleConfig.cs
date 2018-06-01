@@ -44,7 +44,7 @@ namespace StoreData
                       "~/Scripts/Admin/bootstrap-datepicker.js",
                       "~/Scripts/Admin/custom.js"
                       ));
-            bundles.Add(new ScriptBundle("~/NewHome/css").Include(
+            bundles.Add(new StyleBundle("~/NewHome/css").Include(
                 "~/Content/NewHome/bootstrap.css",
                 "~/Content/NewHome/style.css",
                 "~/Content/NewHome/fasthover.css",
