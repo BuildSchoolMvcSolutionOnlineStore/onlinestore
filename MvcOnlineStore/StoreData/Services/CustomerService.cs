@@ -27,5 +27,12 @@ namespace StoreData.Services
             }
             return Data.OrderBy(x=>x.CustomerID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
+        //註冊方法
+        public bool AccountCheck(string Account)
+        {
+            Customers Search = repository.FindById(Account);
+            bool result = (Search == null);
+            return result;
+        }
     }
 }

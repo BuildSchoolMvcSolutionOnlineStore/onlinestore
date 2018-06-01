@@ -163,6 +163,7 @@
     </Compile>
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
+    <Compile Include="Models\CustomerMetadata.cs" />
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
     <Compile Include="Models\Managers.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Manager\AdminOrder.cs" />
     <Compile Include="ViewModels\Manager\AdminProduct.cs" />
     <Compile Include="ViewModels\Manager\IndexView.cs" />

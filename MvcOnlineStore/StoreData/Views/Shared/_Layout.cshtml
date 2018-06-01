@@ -50,24 +50,26 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
-                                        <div class="facts">
-                                            <div class="register">
-                                                <form action="#" method="post">
-                                                    <input placeholder="姓名" name="Name" type="text" required="">
-                                                    <input placeholder="帳號" name="ID" type="text" required="">
-                                                    <input placeholder="密碼" name="Password" type="password" required="">
-                                                    <input placeholder="電話" name="Telephone" type="password" required="">
-                                                    <input placeholder="地址" name="Address" type="text" required="">
-                                                    <input placeholder="Email Address" name="Email" type="email" required="">
-                                                    <div class="sign-up">
-                                                        <input type="submit" value="註冊" />
-                                                    </div>
-                                                </form>
+                                   @using (Html.BeginForm("", ""))
+                                    {
+                                        <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+                                            <div class="facts">
+                                                <div class="register">
+                                                    <form action="#" method="post">
+                                                        <input placeholder="姓名" name="Name" type="text" required="">
+                                                        <input placeholder="帳號" name="ID" type="text" required="">
+                                                        <input placeholder="密碼" name="Password" type="password" required="">
+                                                        <input placeholder="電話" name="Telephone" type="password" required="">
+                                                        <input placeholder="地址" name="Address" type="text" required="">
+                                                        <input placeholder="Email Address" name="Email" type="email" required="">
+                                                        <div class="sign-up">
+                                                            <input type="submit" value="註冊" />
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div><!--註冊-->
+                                    }
                                 </div>
                             </div>
                             <script type="text/javascript">
@@ -143,26 +145,26 @@
         <div class="container">
             <nav class="navbar navbar-default">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header nav_2">
-                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href=@Url.RouteUrl(new {Controller="Home",Action="Index" })>Home</a></li>
-                        <!-- Mega Menu -->
-                        <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
-                        <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
-                        <li><a href="#">Short Codes</a></li>
-                        <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                                    <div class="navbar-header nav_2">
+                                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                        <ul class="nav navbar-nav">
+                                            <li class="active"><a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index" })>Home</a></li>
+                                            <!-- Mega Menu -->
+                                            <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
+                                            <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
+                                            <li><a href="#">Short Codes</a></li>
+                                            <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
+                                        </ul>
+                                    </div>
+                                    </nav>
+                                </div>
     </div>
 
     @RenderBody()
