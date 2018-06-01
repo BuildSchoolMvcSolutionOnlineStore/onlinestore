@@ -92,7 +92,7 @@ namespace StoreData.Controllers
         //註冊一開始顯示頁面
         public ActionResult Register()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult Register(CustomerRegisterView RegisterMember)
@@ -105,7 +105,7 @@ namespace StoreData.Controllers
             }
             RegisterMember.CustomerPassword = null;
             RegisterMember.PasswordCheck = null;
-            return View(RegisterMember);
+            return RedirectToAction("Index","Home");
         }
     }
 }

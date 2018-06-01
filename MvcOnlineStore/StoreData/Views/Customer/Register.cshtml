@@ -1,0 +1,35 @@
+﻿@model StoreData.ViewModels.Customer.CustomerRegisterView
+
+<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+    <div class="facts">
+        <div class="register">
+            @using (Html.BeginForm("Register", "Customer"))
+            {
+                @Html.TextBoxFor(model => model.newCustomer.CustomerID, new { @placeholder = "帳號" })
+                @Html.ValidationMessageFor(model => model.newCustomer.CustomerID)
+                <br />
+                @Html.TextBoxFor(model => model.CustomerPassword, new { @placeholder = "密碼" })
+                @Html.ValidationMessageFor(model => model.CustomerPassword)
+                <br />
+                @Html.TextBoxFor(model => model.PasswordCheck, new { @placeholder = "再次輸入密碼" })
+                @Html.ValidationMessageFor(model => model.PasswordCheck)
+                <br />
+                @Html.TextBoxFor(model => model.newCustomer.CustomerName, new { @placeholder = "姓名" })
+                @Html.ValidationMessageFor(model => model.newCustomer.CustomerName)
+                <br />
+                @Html.TextBoxFor(model => model.newCustomer.Telephone, new { @placeholder = "電話" })
+                @Html.ValidationMessageFor(model => model.newCustomer.Telephone)
+                <br />
+                @Html.TextBoxFor(model => model.newCustomer.Address, new { @placeholder = "地址" })
+                @Html.ValidationMessageFor(model => model.newCustomer.Address)
+                <br />
+                @Html.TextBoxFor(model => model.newCustomer.CustomerMail, new { @placeholder = "Email" })
+                @Html.ValidationMessageFor(model => model.newCustomer.CustomerMail)
+
+                <div class="sign-up">
+                    <input type="submit" value="註冊" />
+                </div>
+            }
+        </div>
+    </div>
+</div><!--註冊-->
