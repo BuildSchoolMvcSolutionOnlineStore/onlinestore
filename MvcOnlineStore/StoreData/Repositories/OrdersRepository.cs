@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -78,6 +79,69 @@ namespace StoreData.Repositories
                 }
             }
             return orderslist;
+        }
+
+        public IEnumerable<AdminOrder> GetAll_Admin()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var list = connection.Query<AdminOrder>(
+                    "SELECT o.OrderID," +
+                    "(SELECT CustomerName FROM Customers WHERE CustomerID = o.CustomerID) AS CustomerName," +
+                    "o.OrderDate,o.ShippedDate," +
+                    "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
+                    "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
+                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," + 
+                    "o.Status FROM Orders o"
+                    );
+                return list;
+            }
+        }
+        public IEnumerable<AdminOrder> SearchById_Admin(string selectString)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var list = connection.Query<AdminOrder>(
+                    "SELECT o.OrderID," +
+                    "(SELECT CustomerName FROM Customers WHERE CustomerID = o.CustomerID) AS CustomerName," +
+                    "o.OrderDate,o.ShippedDate," +
+                    "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
+                    "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
+                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," +
+                    "o.Status FROM Orders o " +
+                    "WHERE o.OrderID LIKE '%'+@str+'%'",
+                    new
+                    {
+                        str = selectString
+                    });
+                return list;
+            }
+        }
+        public int GetNewOrderCount()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var count = connection.Query<int>(
+                    "SELECT COUNT(*) FROM Orders WHERE Status = 0"
+                    );
+                return count.FirstOrDefault();
+            }
+        }
+
+        //取得完成訂單的總金額
+        public int GetAmount()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var amount = connection.Query<int>(
+                    "SELECT SUM(od.Quantity * p.UnitPrice ) " +
+                    "FROM OrderDetails od " +
+                    "INNER JOIN Products p ON p.ProductID = od.ProductID " +
+                    "INNER JOIN Orders o On o.OrderID = od.OrderID " +
+                    "WHERE o.Status = 3 "
+                    );
+                return amount.FirstOrDefault();
+            }
         }
     }
 }
