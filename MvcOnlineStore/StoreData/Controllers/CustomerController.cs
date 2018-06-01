@@ -1,5 +1,6 @@
 ﻿using StoreData.Models;
 using StoreData.Services;
+using StoreData.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace StoreData.Controllers
 {
     public class CustomerController : Controller
     {
+        private CustomerService customerService = new CustomerService();
         public ActionResult CustomerLogin()
         {
             var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
@@ -41,7 +43,7 @@ namespace StoreData.Controllers
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketData);
                 cookie.Expires = ticket.Expiration;
                 Response.Cookies.Add(cookie);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -62,7 +64,7 @@ namespace StoreData.Controllers
             var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             cookie.Expires = DateTime.Now;
             Response.Cookies.Add(cookie);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         //客戶登入
         public ActionResult SingIn()
@@ -80,6 +82,30 @@ namespace StoreData.Controllers
         public ActionResult UpdateCustomer()
         {
             return View();
+        }
+
+        //判斷註冊帳號是否已被註冊過Action
+        public JsonResult AccountCheck(CustomerRegisterView RegisterMember)
+        {
+            return Json(customerService.AccountCheck(RegisterMember.newCustomer.CustomerID), JsonRequestBehavior.AllowGet);
+        }
+        //註冊一開始顯示頁面
+        public ActionResult Register()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult Register(CustomerRegisterView RegisterMember)
+        {
+            if (ModelState.IsValid)
+            {
+                RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
+                TempData["RegisterStatae"] = "註冊成功";
+                return RedirectToAction("RegisterResult");
+            }
+            RegisterMember.CustomerPassword = null;
+            RegisterMember.PasswordCheck = null;
+            return RedirectToAction("Index","Home");
         }
     }
 }

@@ -49,24 +49,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
-                                        <div class="facts">
-                                            <div class="register">
-                                                <form action="#">
-                                                    <input placeholder="姓名" name="Name" type="text">
-                                                    <input placeholder="帳號" name="ID" type="text">
-                                                    <input placeholder="密碼" name="Password" type="password">
-                                                    <input placeholder="電話" name="Telephone" type="password">
-                                                    <input placeholder="地址" name="Address" type="text">
-                                                    <input placeholder="Email Address" name="Email" type="email">
-                                                    <div class="sign-up">
-                                                        <input type="submit" value="註冊" />
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @{ Html.RenderAction("Register", "Customer");}
+                                    <!--註冊部分頁面-->
                                 </div>
                             </div>
                             <script type="text/javascript">
@@ -152,7 +136,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href=@Url.RouteUrl(new {Controller="Home",Action="Index" })>Home</a></li>
+                        <li class="active"><a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index" })>Home</a></li>
                         <!-- Mega Menu -->
                         <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
@@ -250,12 +234,6 @@
                     </a>
                 </div>
             </div>
-            @*<div class="container">
-                <p>
-                    &copy; 2016 Women's Fashion. All rights reserved | Design by
-                    <a href="https://w3layouts.com/">W3layouts</a>
-                </p>
-            </div>*@
         </div>
     </div>
 </body>
