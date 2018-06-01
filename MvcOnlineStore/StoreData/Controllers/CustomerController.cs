@@ -89,5 +89,23 @@ namespace StoreData.Controllers
         {
             return Json(customerService.AccountCheck(RegisterMember.newCustomer.CustomerID), JsonRequestBehavior.AllowGet);
         }
+        //註冊一開始顯示頁面
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(CustomerRegisterView RegisterMember)
+        {
+            if (ModelState.IsValid)
+            {
+                RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
+                TempData["RegisterStatae"] = "註冊成功";
+                return RedirectToAction("RegisterResult");
+            }
+            RegisterMember.CustomerPassword = null;
+            RegisterMember.PasswordCheck = null;
+            return View(RegisterMember);
+        }
     }
 }
