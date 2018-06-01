@@ -68,14 +68,14 @@
                             </a>
                             <a class="btn btn-success" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-shipping-@item.OrderId">
                                 <i class="glyphicon glyphicon-refresh icon-white"></i>
-                                出貨
+                                到貨
                             </a>
                             <div class="modal fade" id="bs-example-modal-sm-shipping-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                                 <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel"></h4>
+                                            <h4 class="modal-title" id="myModalLabel">已到貨確認</h4>
                                         </div>
                                         @using (Html.BeginForm("Arrival", "Admin"))
                                         {
