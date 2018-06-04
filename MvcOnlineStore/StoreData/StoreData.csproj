@@ -167,6 +167,7 @@
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
     <Compile Include="Models\Managers.cs" />
+    <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PaymentMethods.cs" />

@@ -15,8 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
-         aria-hidden="true">
+    <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -33,24 +32,35 @@
                             <div class="sap_tabs">
                                 <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
                                     <ul>
-                                        <li class="resp-tab-item" aria-controls="tab_item-0"><span>登入</span></li>
-                                        <li class="resp-tab-item" aria-controls="tab_item-1"><span>註冊</span></li>
+                                        <li class="resp-tab-item" aria-controls="tab_item-0" role="tab">
+                                            <a href="#login"  data-toggle="tab">登入</a>
+                                        </li>
+                                        <li class="resp-tab-item">
+                                            <a href="#register" aria-controls="tab_item-1" role="tab" data-toggle="tab">註冊</a>
+                                        </li>
                                     </ul>
-                                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
-                                        <div class="facts">
-                                            <div class="register">
-                                                <form action="#">
-                                                    <input name="Email" placeholder="帳號" type="text">
-                                                    <input name="Password" placeholder="密碼" type="password">
-                                                    <div class="sign-up">
-                                                        <input type="submit" value="登入" />
-                                                    </div>
-                                                </form>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" aria-labelledby="tab_item-0" id="login">
+                                            <div class="facts">
+                                                <div class="register">
+                                                    <form action="#">
+                                                        <input name="Email" placeholder="帳號" type="text">
+                                                        <input name="Password" placeholder="密碼" type="password">
+                                                        <div class="sign-up">
+                                                            <input type="submit" value="登入" />
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </div><!--登入-->
+                                        <div class="tab-pane" aria-labelledby="tab_item-1" id="register">
+                                            <div class="facts">
+                                                <div class="register">
+                                                    @{ Html.RenderAction("Register", "Customer");}
+                                                </div>
+                                            </div>
+                                        </div><!--註冊-->
                                     </div>
-                                    @{ Html.RenderAction("Register", "Customer");}
-                                    <!--註冊部分頁面-->
                                 </div>
                             </div>
                             <script type="text/javascript">
@@ -223,7 +233,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="clearfix"> </div>
+                <div class="clearfix"></div>
             </div>
         </div>
         <div class="footer-copy">
@@ -236,5 +246,7 @@
             </div>
         </div>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
 </body>
 </html>

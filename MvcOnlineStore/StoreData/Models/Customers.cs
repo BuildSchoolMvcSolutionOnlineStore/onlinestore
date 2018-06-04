@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class Customers
+    public partial class Customers
     {
         public string CustomerID { get; set; }
         public string CustomerPassword { get; set; }

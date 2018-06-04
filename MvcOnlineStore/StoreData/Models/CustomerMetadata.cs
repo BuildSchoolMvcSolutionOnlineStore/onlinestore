@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace StoreData.Models
 {   [MetadataType(typeof(CustomerMetadata))]
-    public partial class Customer
+    public partial class Customers
     {
         private class CustomerMetadata
         {
@@ -25,7 +25,7 @@ namespace StoreData.Models
             public string CustomerName { get; set; }
 
             [DisplayName("電話")]
-            [RegularExpression(@"^[0-9]''-'\s){10}$")]
+            [RegularExpression(@"^09-[0-9]{8}")]
             [StringLength(10,ErrorMessage ="輸入電話格式不對")]
             [Required(ErrorMessage ="請輸入電話")]
             public string Telephone { get; set; }
@@ -38,7 +38,7 @@ namespace StoreData.Models
             [Required(ErrorMessage = "請輸入Email")]
             [StringLength(200, ErrorMessage = "Email 長度最多200字元")]
             [EmailAddress(ErrorMessage = "這不是Email格式")]
-            public string CustomerEmail { get; set; }
+            public string CustomerMail { get; set; }
         }
     }
 }
