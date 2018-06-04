@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using StoreData.Models;
 using StoreData.Repositories;
@@ -26,6 +28,28 @@ namespace StoreData.Services
                 Paging.SetRightPage();
             }
             return Data.OrderBy(x=>x.CustomerID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
+        }
+        //註冊方法
+        public bool AccountCheck(string Account)
+        {
+            Customers Search = repository.FindById(Account);
+            bool result = (Search == null);
+            return result;
+        }
+        //密碼加密
+        public string HashPassword(string Password)
+        {
+            string saltkey = "fGJgjIThds9554HDA5FDS5A5s5adpwekmhq";
+            string saltAndPassword = String.Concat(Password, saltkey);
+            SHA1CryptoServiceProvider sha1Hasher = new SHA1CryptoServiceProvider();
+            byte[] PasswordData = Encoding.Default.GetBytes(saltAndPassword);
+            byte[] HashDate = sha1Hasher.ComputeHash(PasswordData);
+            string Hashresult = "";
+            for(int i=0;i<HashDate.Length;i++)
+            {
+                Hashresult += HashDate[i].ToString("x2");
+            }
+            return Hashresult;
         }
     }
 }

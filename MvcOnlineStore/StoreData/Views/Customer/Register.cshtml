@@ -1,0 +1,29 @@
+﻿@model StoreData.ViewModels.Customer.CustomerRegisterView
+
+@using (Html.BeginForm("Register", "Customer"))
+{
+    @Html.TextBoxFor(model => model.newCustomer.CustomerID, new { @placeholder = "帳號"  })
+    @Html.ValidationMessageFor(model => model.newCustomer.CustomerID,null,new {@class="text-danger" })
+    <br />
+    @Html.PasswordFor(model=>model.CustomerPassword, new { @class = "register-margin", @placeholder = "密碼" })
+    @Html.ValidationMessageFor(model => model.CustomerPassword, null, new { @class = "text-danger" })
+    <br />
+    @Html.PasswordFor(model => model.PasswordCheck, new {@class="register-margin", @placeholder = "再次輸入密碼" })
+    @Html.ValidationMessageFor(model => model.PasswordCheck, null, new { @class = "text-danger" })
+    <br />
+    @Html.TextBoxFor(model => model.newCustomer.CustomerName, new { @class = "register-margin", @placeholder = "姓名" })
+    @Html.ValidationMessageFor(model => model.newCustomer.CustomerName, null, new { @class = "text-danger" })
+    <br />
+    @Html.TextBoxFor(model => model.newCustomer.Telephone, new { @class = "register-margin", @placeholder = "電話" })
+    @Html.ValidationMessageFor(model => model.newCustomer.Telephone, null, new { @class = "text-danger" })
+    <br />
+    @Html.TextBoxFor(model => model.newCustomer.Address, new { @class = "register-margin", @placeholder = "地址" })
+    @Html.ValidationMessageFor(model => model.newCustomer.Address, null, new { @class = "text-danger" })
+    <br />
+    @Html.TextBoxFor(model => model.newCustomer.CustomerMail, new { @class = "register-margin", @placeholder = "Email" })
+    @Html.ValidationMessageFor(model => model.newCustomer.CustomerMail,null,new {@class="text-danger" })
+
+    <div class="sign-up">
+        <input type="submit" value="註冊" />
+    </div>
+}

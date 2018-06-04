@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class Customers
+    public partial class Customers
     {
         public string CustomerID { get; set; }
         public string CustomerPassword { get; set; }
         public string CustomerName { get; set; }
-        public int Telephone { get; set; }
+        public string Telephone { get; set; }
         public string Address { get; set; }
         public string CustomerMail { get; set; }
     }

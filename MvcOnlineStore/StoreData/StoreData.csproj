@@ -163,9 +163,11 @@
     </Compile>
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
+    <Compile Include="Models\CustomerMetadata.cs" />
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
     <Compile Include="Models\Managers.cs" />
+    <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PaymentMethods.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
     <Compile Include="ViewModels\Manager\AdminOrder.cs" />
@@ -350,6 +353,7 @@
     <Content Include="Views\Admin\ShippedOrder.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Home\MailUS.cshtml" />
+    <Content Include="Views\Customer\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

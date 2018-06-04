@@ -18,6 +18,7 @@
 <!-- single -->
 <div class="single">
     <div class="container">
+        <div class="col-md-1"></div>
         <div class="col-md-4 single-left">
             <div class="flexslider">
                 <img src=/FileUploads/@Model.Path alt='' style="width:300px;height:300px;" />
@@ -39,7 +40,7 @@
             <script src="js/imagezoom.js"></script>
             <!-- //zooming-effect -->
         </div>
-        <div class="col-md-8 single-right">
+        <div class="col-md-7 single-right">
             <h3>@Model.ProductName</h3>
             <div class="description">
                 <h5>
@@ -58,8 +59,22 @@
                         </li>
                     </ul>
                     <br />
-                    <h5>UnitPrice : </h5>
-                    <i class="item_price">@Model.UnitPrice</i>
+                    <div class="simpleCart_shelfItem">
+                        <h5>UnitPrice : </h5>
+                        <i class="item_price">$@Model.UnitPrice</i>
+                        @if (Model.Stock != 0)
+                        {
+                            <p>
+                                <a class="item_add" href="#">Add to cart</a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                <h3 style="color:red">No stock</h3>
+                            </p>
+                        }
+                    </div>
                 </div>
                 <div class="color-quality-right">
                     <h5>Size : </h5>
@@ -68,35 +83,39 @@
                     <h5>Quality :</h5>
                     <div class="quantity">
                         <div class="quantity-select">
-                            <div class="entry value-minus1">&nbsp;</div>
-                            <div class="entry value1">
-                                <span>1</span>
+                            <button class="entry value-minus1">&nbsp;</button>
+                            <div class="entry value1" style="background-color:#ffffff ;color:#000">
+                                <span>0</span>
                             </div>
-                            <div class="entry value-plus1 active">&nbsp;</div>
+                            <button class="entry value-plus1 active " >&nbsp;</button>
                         </div>
                     </div>
                     <!--quantity-->
-                    <script>
+                    <script>              
                         $('.value-plus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
-                                newVal = parseInt(divUpd.text(), 10) + 1;
-                            divUpd.text(newVal);
+                                newVal = parseInt(divUpd.text(), 10) + 1; 
+                            if (@Model.Stock == 0) {
+                                $('.value-plus1').attr('disabled', true);
+                            }
+                            else {
+                                if (newVal <= @Model.Stock) {
+                                divUpd.text(newVal);
+                                }
+                                else {
+                                divUpd.text(@Model.Stock);
+                                }
+                            }
                         });
-
                         $('.value-minus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
-                            if (newVal >= 1) divUpd.text(newVal);
-                        });
+                            if (newVal >= 0) divUpd.text(newVal);
+                        });  
                     </script>
                     <!--quantity-->
                 </div>
             </div>
-        </div>
-        <div class="simpleCart_shelfItem">
-            <p>
-                <a class="item_add" href="#">Add to cart</a>
-            </p>
         </div>
     </div>
 </div>

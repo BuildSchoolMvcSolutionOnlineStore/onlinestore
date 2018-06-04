@@ -18,7 +18,6 @@ namespace StoreData.Controllers
         private CategoryService categoryService = new CategoryService();
         private OrdersService ordersService = new OrdersService();
         // GET: Admin
-
         //儀表板
         [Route("")]
         public ActionResult Index()

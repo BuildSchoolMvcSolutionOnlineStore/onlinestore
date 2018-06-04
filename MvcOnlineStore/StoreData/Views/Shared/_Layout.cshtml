@@ -13,11 +13,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Glegoo:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
-
 </head>
 <body>
-    <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
-         aria-hidden="true">
+    <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -34,40 +32,34 @@
                             <div class="sap_tabs">
                                 <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
                                     <ul>
-                                        <li class="resp-tab-item" aria-controls="tab_item-0"><span>登入</span></li>
-                                        <li class="resp-tab-item" aria-controls="tab_item-1"><span>註冊</span></li>
+                                        <li class="resp-tab-item" aria-controls="tab_item-0" role="tab">
+                                            <a href="#login"  data-toggle="tab">登入</a>
+                                        </li>
+                                        <li class="resp-tab-item">
+                                            <a href="#register" aria-controls="tab_item-1" role="tab" data-toggle="tab">註冊</a>
+                                        </li>
                                     </ul>
-                                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
-                                        <div class="facts">
-                                            <div class="register">
-                                                <form action="#" method="post">
-                                                    <input name="Email" placeholder="帳號" type="text">
-                                                    <input name="Password" placeholder="密碼" type="password">
-                                                    <div class="sign-up">
-                                                        <input type="submit" value="登入" />
-                                                    </div>
-                                                </form>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" aria-labelledby="tab_item-0" id="login">
+                                            <div class="facts">
+                                                <div class="register">
+                                                    <form action="#">
+                                                        <input name="Email" placeholder="帳號" type="text">
+                                                        <input name="Password" placeholder="密碼" type="password">
+                                                        <div class="sign-up">
+                                                            <input type="submit" value="登入" />
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
-                                        <div class="facts">
-                                            <div class="register">
-                                                <form action="#" method="post">
-                                                    <input placeholder="姓名" name="Name" type="text">
-                                                    <input placeholder="帳號" name="ID" type="text" style="margin:14px 0 0">
-                                                    <input placeholder="密碼" name="Password" type="password">
-                                                    <input placeholder="確認密碼" name="Password" type="password">
-                                                    <input placeholder="電話" name="Telephone" type="text" style="margin:14px 0 0">
-                                                    <input placeholder="地址" name="Address" type="text" style="margin:14px 0 0">
-                                                    <input placeholder="Email Address" name="Email" type="email">
-                                                    <div class="sign-up">
-                                                        <input type="submit" value="註冊" />
-                                                    </div>
-                                                </form>
+                                        </div><!--登入-->
+                                        <div class="tab-pane" aria-labelledby="tab_item-1" id="register">
+                                            <div class="facts">
+                                                <div class="register">
+                                                    @{ Html.RenderAction("Register", "Customer");}
+                                                </div>
                                             </div>
-                                        </div>
+                                        </div><!--註冊-->
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +146,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href=@Url.RouteUrl(new {Controller="Home",Action="Index" })>Home</a></li>
+                        <li class="active"><a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index" })>Home</a></li>
                         <!-- Mega Menu -->
                         <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
@@ -241,7 +233,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="clearfix"> </div>
+                <div class="clearfix"></div>
             </div>
         </div>
         <div class="footer-copy">
@@ -252,13 +244,9 @@
                     </a>
                 </div>
             </div>
-            @*<div class="container">
-                <p>
-                    &copy; 2016 Women's Fashion. All rights reserved | Design by
-                    <a href="https://w3layouts.com/">W3layouts</a>
-                </p>
-            </div>*@
         </div>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
 </body>
 </html>
