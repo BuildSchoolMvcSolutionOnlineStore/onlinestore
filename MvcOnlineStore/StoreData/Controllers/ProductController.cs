@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StoreData.Services;
+using StoreData.ViewModels.Home;
+using StoreData.Models;
 
 namespace StoreData.Controllers
 {
@@ -33,6 +35,9 @@ namespace StoreData.Controllers
         //單一商品頁面
         public ActionResult ProductItem(string Id)
         {
+            //var Data = new Products();
+            //Data = productservice.FindproductById(Data.ProductID);
+            //return View(Data);
             var list = productservice.FindproductById(Id);
             return View(list);
         }

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Home;
 using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
@@ -119,7 +120,7 @@ namespace StoreData.Repositories
         //SELECT ProductID, ProductName, Stock, UnitPrice, Size, Color
         public IEnumerable<AdminProduct> GetAll_Admin()
         {
-            
+
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<AdminProduct>(
@@ -163,6 +164,15 @@ namespace StoreData.Repositories
                         Id
                     });
                 return products.FirstOrDefault();
+            }
+        }
+        //取得產品
+        public IEnumerable<ProductsItem> FindById_Home()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var products = connection.Query<ProductsItem>("SELECT ProductID, CategoryID, ProductName, UnitPrice, [Path] FROM Products ORDER BY ProductID DESC");
+                return products;
             }
         }
         //取得最新的產品ID

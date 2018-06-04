@@ -6,6 +6,7 @@ using System.Web;
 using StoreData.Repositories;
 using StoreData.ViewModels.Manager;
 using System.IO;
+using StoreData.ViewModels.Home;
 
 namespace StoreData.Services
 {
@@ -60,7 +61,27 @@ namespace StoreData.Services
             }
             return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
-
+        // 顯示3樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYThree()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(3);
+            return Data;
+        }
+        // 顯示4樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYFour()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(4);
+            return Data;
+        }
+        // 顯示5樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYSix()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(6);
+            return Data;
+        }
         //取得單一產品
         public Products GetProduct(string Id)
         {
@@ -79,7 +100,6 @@ namespace StoreData.Services
             var result = productsRepository.GetAll();
             return result;
         }
-        // 
 
     }
 }

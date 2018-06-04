@@ -199,6 +199,8 @@
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
+    <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
+    <Compile Include="ViewModels\Home\ProductsItem.cs" />
     <Compile Include="ViewModels\Manager\AdminOrder.cs" />
     <Compile Include="ViewModels\Manager\AdminProduct.cs" />
     <Compile Include="ViewModels\Manager\IndexView.cs" />

@@ -4,16 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StoreData.Repositories;
+using StoreData.Services;
+using StoreData.ViewModels.Home;
 
 namespace StoreData.Controllers
 {
     [RoutePrefix("Home")]
     public class HomeController : Controller
     {
-        private ProductsRepository productservice = new ProductsRepository();
+        private ProductService productservice = new ProductService();
         public ActionResult Index()
         {
-            return View();
+            var list = new HomeIndexTop();
+            list.ProductsList = productservice.GetProductsListBYThree();
+            list.MidProductsList = productservice.GetProductsListBYFour();
+            list.DownProductsList = productservice.GetProductsListBYSix();
+            return View(list);
         }
         [Route("About")]
         public ActionResult About()
@@ -23,7 +29,6 @@ namespace StoreData.Controllers
         [Route("MailUS")]
         public ActionResult MailUS()
         {
-
             return View();
         }
         public ActionResult _NavPartial()
