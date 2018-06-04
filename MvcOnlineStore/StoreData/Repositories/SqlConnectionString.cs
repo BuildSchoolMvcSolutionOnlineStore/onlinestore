@@ -19,7 +19,8 @@ namespace StoreData.Repositories
             else
             {
                 //return ConfigurationManager.ConnectionStrings["db"].ConnectionString;
-                return "Server=192.168.0.102;Database=Shopping;User Id=linker;Password=19960705;";
+                //return "Server=buildschool.database.windows.net;Database=bs-team7;User Id=bsteam7;Password=@bsTp77G#;";
+                return "Server=192.168.40.20;Database=Shopping;User Id=linker;Password=19960705;";
             }
         }
     }

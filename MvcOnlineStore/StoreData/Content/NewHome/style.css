@@ -765,7 +765,7 @@ ul.multi-column-dropdown h6 {
     position: absolute;
     bottom: 79%;
     right: 43%;
-    background: #212121;
+    /*background: #212121;*/
     height: 1px;
     width: 10%;
     transform: rotate(135deg);
@@ -1316,8 +1316,8 @@ h2.resp-accordion {
 	width:100%;
 	font-size:14px;
 }
-.register input[type="password"],.register input[type="email"]{
-	margin:1em 0 0;
+.register input[type="text"], .register input[type="email"], .register input[type="password"]{
+    margin: 1em 0 0;
 }
 div#horizontalTab ul {
     padding-bottom: 1.5em;
