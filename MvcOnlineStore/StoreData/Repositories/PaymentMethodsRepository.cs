@@ -75,7 +75,7 @@ namespace StoreData.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var products = connection.Query<PaymentMethods>(
-                    "SELECT * FROM Products");
+                    "SELECT * FROM PaymentMethods");
 
                 foreach (var item in products)
                 {
@@ -100,5 +100,16 @@ namespace StoreData.Repositories
             }
             return paymentMethodlist;
         }
+        public int FindLastPaymentMethodID()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var paymentMethods = connection.Query<int>(
+                    "select top 1 PaymentMethodID from PaymentMethods order by PaymentMethodID desc");
+                return paymentMethods.FirstOrDefault();
+            }
+
+        }
+            
     }
 }

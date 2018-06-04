@@ -17,6 +17,7 @@ namespace StoreData.Controllers
         private AdminService adminService = new AdminService();
         private CategoryService categoryService = new CategoryService();
         private OrdersService ordersService = new OrdersService();
+        private PayService payservice = new PayService();
         // GET: Admin
         //儀表板
         [Route("")]
@@ -198,5 +199,47 @@ namespace StoreData.Controllers
         //{
 
         //}
+        [Route("Pay")]
+        public ActionResult Pay()
+        {
+            var Data = payservice.paymentGetAll();
+            return View(Data);
+        }
+        [Route("CreatePay")]
+        public ActionResult CreatePay()
+        {
+            return View();
+        }
+        //新增付款方式
+        [Route("CreatePay")]
+        [HttpPost]
+        public ActionResult CreatePay(PaymentMethods model)
+        {
+            payservice.Create(model);
+            TempData["message"] = "成功新增付款方式";
+            return RedirectToRoute(new { Controller = "Admin", Action = "CreatePay" });
+        }
+        //刪除付款方式
+        [Route("DeletePay")]
+        [HttpPost]
+        public ActionResult DeletePay(int Id)
+        {
+            payservice.Delete(Id);
+            TempData["message"] = "成功刪除付款方式";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
+        }
+        public ActionResult UpdatePay(int Id)
+        {
+            var Data = payservice.FindById(Id);
+            return PartialView(Data);
+        }
+        //修改付款方式
+        [HttpPost]
+        public ActionResult UpdatePay(PaymentMethods model)
+        {
+            payservice.UpdatePay(model);
+            TempData["message"] = "成功修改付款方式";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
+        }
     }
 }

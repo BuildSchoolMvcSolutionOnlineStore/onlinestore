@@ -171,6 +171,7 @@
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PaymentMethods.cs" />
+    <Compile Include="Models\PayMethodsMatadata.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\ProductsMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Services\ForPaging.cs" />
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
+    <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Manager\AdminOrder.cs" />
@@ -352,6 +354,9 @@
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Home\MailUS.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
+    <Content Include="Views\Admin\Pay.cshtml" />
+    <Content Include="Views\Admin\CreatePay.cshtml" />
+    <Content Include="Views\Admin\UpdatePay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

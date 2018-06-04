@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class PaymentMethods
+    public partial class PaymentMethods
     {
         public int PaymentMethodID { get;set;}
         public string PaymentMethod { get;set;}
