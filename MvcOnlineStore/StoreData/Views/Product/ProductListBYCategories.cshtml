@@ -109,13 +109,52 @@
             </div>
             <nav class="text-center">
                 <ul class="pagination">
-                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    @if (Model.Paging.NowPage > 1)
+    {
+                <li>
+                    <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=Model.Paging.NowPage - 1 }) aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+}
+else
+{
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+}
+                    @for (var page = (Model.Paging.NowPage - 6); page < (Model.Paging.NowPage + 6); page++)
+    {
+        if ((page > 0) && (page <= Model.Paging.MaxPage))
+        {
+            if (page == Model.Paging.NowPage)
+            {
+                <li class="active"><a>@page</a></li>
+}
+else
+{
+                <li><a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=page })>@page</a></li>
+}
+}
+}
+                    @if (Model.Paging.NowPage < Model.Paging.MaxPage)
+    {
+                <li>
+                    <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=Model.Paging.NowPage + 1 }) aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+}
+else
+{
+                <li class="disabled">
+                    <a aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+}
                 </ul>
             </nav>
             <div class="clearfix"> </div>

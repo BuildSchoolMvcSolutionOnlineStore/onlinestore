@@ -1,4 +1,5 @@
 ﻿using StoreData.Models;
+using StoreData.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace StoreData.ViewModels.Home
         public IEnumerable<ProductsItem> DownProductsList { get; set; }
         public IEnumerable<ProductsItem> GetAllProductsList { get; set; }
         public IEnumerable<Categories> GetAllCategories { get; set; }
+        public ForPaging Paging { get; set; }
     }
 }

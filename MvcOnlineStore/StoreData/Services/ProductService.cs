@@ -96,10 +96,12 @@ namespace StoreData.Services
             return result;
         }
         //所有產品
-        public IEnumerable<ProductsItem> GetAllproduct()
+        public IEnumerable<ProductsItem> GetAllproduct(ForPaging Paging)
         {
             var result = productsRepository.GetAll();
-            return result;
+            Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(result.Count()) / Paging.ItemNum));
+            Paging.SetRightPage();
+            return result.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum); ;
         }
 
     }
