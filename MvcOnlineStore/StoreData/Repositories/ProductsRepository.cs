@@ -61,11 +61,11 @@ namespace StoreData.Repositories
                 return product;
             }
         }
-        public IEnumerable<Products> GetAll()
+        public IEnumerable<ProductsItem> GetAll()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var products = connection.Query<Products>(
+                var products = connection.Query<ProductsItem>(
                     "SELECT * FROM Products");
                 return products;
             }

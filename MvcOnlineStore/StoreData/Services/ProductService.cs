@@ -13,6 +13,7 @@ namespace StoreData.Services
     public class ProductService
     {
         private ProductsRepository productsRepository = new ProductsRepository();
+        private CategoryService categoryservice = new CategoryService();
         //修改庫存
         public void UpdateStock(string id,int stock)
         {
@@ -95,7 +96,7 @@ namespace StoreData.Services
             return result;
         }
         //所有產品
-        public IEnumerable<Products> GetAllproduct()
+        public IEnumerable<ProductsItem> GetAllproduct()
         {
             var result = productsRepository.GetAll();
             return result;

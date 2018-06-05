@@ -354,6 +354,7 @@
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Home\MailUS.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
+    <Content Include="Views\Product\ProductListBYCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

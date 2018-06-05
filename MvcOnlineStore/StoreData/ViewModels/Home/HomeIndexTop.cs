@@ -11,5 +11,7 @@ namespace StoreData.ViewModels.Home
         public IEnumerable<ProductsItem> ProductsList { get; set; }
         public IEnumerable<ProductsItem> MidProductsList { get; set; }
         public IEnumerable<ProductsItem> DownProductsList { get; set; }
+        public IEnumerable<ProductsItem> GetAllProductsList { get; set; }
+        public IEnumerable<Categories> GetAllCategories { get; set; }
     }
 }
