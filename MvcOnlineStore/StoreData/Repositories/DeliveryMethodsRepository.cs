@@ -32,7 +32,7 @@ namespace StoreData.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
-                    "UPDATE DeliveryMethods SET " + "DeliveryMethod = @DeliveryMethod, Freight = @Freight WHERE DeliveryMethodID = @id",
+                    "UPDATE DeliveryMethods SET DeliveryMethod = @DeliveryMethod , Freight = @Freight WHERE DeliveryMethodID = @id",
                 new
                 {
                     id = model.DeliveryMethodID,
@@ -104,6 +104,16 @@ namespace StoreData.Repositories
                 }
             }
             return deliveryMethod;
+        }
+        public int FindLastDeliveryMethodID()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var deliveryMethods = connection.Query<int>(
+                    "select top 1 DeliveryMethodID from DeliveryMethods order by DeliveryMethodID desc");
+                return deliveryMethods.FirstOrDefault();
+            }
+
         }
     }
 }
