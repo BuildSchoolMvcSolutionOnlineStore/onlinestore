@@ -166,12 +166,13 @@
     <Compile Include="Models\CustomerMetadata.cs" />
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DeliveryMethods.cs" />
+    <Compile Include="Models\DeliveryMethodsMetadata.cs" />
     <Compile Include="Models\Managers.cs" />
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PaymentMethods.cs" />
-    <Compile Include="Models\PayMethodsMatadata.cs" />
+    <Compile Include="Models\PayMethodsMetadata.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\ProductsMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\DeliveryService.cs" />
     <Compile Include="Services\ForPaging.cs" />
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\OrdersService.cs" />
@@ -359,6 +361,9 @@
     <Content Include="Views\Admin\Pay.cshtml" />
     <Content Include="Views\Admin\CreatePay.cshtml" />
     <Content Include="Views\Admin\UpdatePay.cshtml" />
+    <Content Include="Views\Admin\Delivery.cshtml" />
+    <Content Include="Views\Admin\CreateDelivery.cshtml" />
+    <Content Include="Views\Admin\UpdateDelivery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,6 +18,7 @@ namespace StoreData.Controllers
         private CategoryService categoryService = new CategoryService();
         private OrdersService ordersService = new OrdersService();
         private PayService payservice = new PayService();
+        private DeliveryService deliveryService = new DeliveryService();
         // GET: Admin
         //儀表板
         [Route("")]
@@ -240,6 +241,49 @@ namespace StoreData.Controllers
             payservice.UpdatePay(model);
             TempData["message"] = "成功修改付款方式";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
+        }
+
+        [Route("Delivery")]
+        public ActionResult Delivery()
+        {
+            var Data = deliveryService.deliveryGetAll();
+            return View(Data);
+        }
+        [Route("CreateDelivery")]
+        public ActionResult CreateDelivery()
+        {
+            return View();
+        }
+        //新增運送方式
+        [Route("CreateDelivery")]
+        [HttpPost]
+        public ActionResult CreateDelivery(DeliveryMethods model)
+        {
+            deliveryService.Create(model);
+            TempData["message"] = "成功新增運送方式";
+            return RedirectToRoute(new { Controller = "Admin", Action = "CreateDelivery" });
+        }
+        //刪除運送方式
+        [Route("DeleteDelivery")]
+        [HttpPost]
+        public ActionResult DeleteDelivery(int Id)
+        {
+            deliveryService.Delete(Id);
+            TempData["message"] = "成功刪除運送方式";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
+        }
+        public ActionResult UpdateDelivery(int Id)
+        {
+            var Data = deliveryService.FindById(Id);
+            return PartialView(Data);
+        }
+        //修改運送方式
+        [HttpPost]
+        public ActionResult UpdateDelivery(DeliveryMethods model)
+        {
+            deliveryService.UpdateDelivery(model);
+            TempData["message"] = "成功修改運送方式";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
     }
 }
