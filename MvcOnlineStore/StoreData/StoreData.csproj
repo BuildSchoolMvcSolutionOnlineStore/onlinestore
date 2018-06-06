@@ -162,6 +162,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CategoriesMetadata.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\CustomerMetadata.cs" />
     <Compile Include="Models\Customers.cs" />
@@ -365,6 +366,9 @@
     <Content Include="Views\Admin\CreateDelivery.cshtml" />
     <Content Include="Views\Admin\UpdateDelivery.cshtml" />
     <Content Include="Views\Product\ProductListBYCategories.cshtml" />
+    <Content Include="Views\Admin\CreateCategory.cshtml" />
+    <Content Include="Views\Admin\Category.cshtml" />
+    <Content Include="Views\Admin\UpdateCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

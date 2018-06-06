@@ -285,5 +285,49 @@ namespace StoreData.Controllers
             TempData["message"] = "成功修改運送方式";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
+
+        [Route("Category")]
+        public ActionResult Category()
+        {
+            var Data = categoryService.CategoryGetAll();
+            return View(Data);
+
+        }
+        [Route("CreateCategory")]
+        public ActionResult CreateCategory()
+        {
+            return View();
+        }
+        //新增類別
+        [Route("CreateCategory")]
+        [HttpPost]
+        public ActionResult CreateCategory(Categories model)
+        {
+            categoryService.Create(model);
+            TempData["message"] = "成功新增類別";
+            return RedirectToRoute(new { Controller = "Admin", Action = "CreateCategory" });
+        }
+        //刪除類別
+        [Route("DeleteCategory")]
+        [HttpPost]
+        public ActionResult DeleteCategory(int Id)
+        {
+            categoryService.Delete(Id);
+            TempData["message"] = "成功刪除類別";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Category" });
+        }
+        public ActionResult UpdateCategory(int Id)
+        {
+            var Data = categoryService.FindById(Id);
+            return PartialView(Data);
+        }
+        //修改類別
+        [HttpPost]
+        public ActionResult UpdateCategory(Categories model)
+        {
+            categoryService.UpdateCategory(model);
+            TempData["message"] = "成功修改類別";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Category" });
+        }
     }
 }
