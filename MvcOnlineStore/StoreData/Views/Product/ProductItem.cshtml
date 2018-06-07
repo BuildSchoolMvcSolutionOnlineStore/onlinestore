@@ -1,12 +1,9 @@
-﻿@model StoreData.ViewModels.Home.HomeIndexTop
-
-@{
+﻿@model StoreData.ViewModels.Home.ProductsItem
+@{ 
     ViewBag.Title = "ProductItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/NewHome/css")
-@Scripts.Render("~/NewHome/JavaScript")
-@Scripts.Render("~/bundles/modernizr")
 
 <!-- banner -->
 <div class="banner10" id="home1">
@@ -22,98 +19,96 @@
         </ul>
     </div>
 </div>
-@foreach (var item in Model.ProductsList)
-{
-    <!-- single -->
-    <div class="single">
-        <div class="container">
-            <div class="col-md-1"></div>
-            <div class="col-md-4 single-left">
-                <div class="flexslider">
-                    <img src=/FileUploads/@item.Path alt='' style="width:300px;height:300px;" />
-                </div>
-                <!-- flixslider -->
-                <script defer src="js/jquery.flexslider.js"></script>
-                <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-                <script>
-                    // Can also be used with $(document).ready()
-                    $(window).load(function () {
-                        $('.flexslider').flexslider({
-                            animation: "slide",
-                            controlNav: "thumbnails"
-                        });
-                    });
-                </script>
-                <!-- flixslider -->
-                <!-- zooming-effect -->
-                <script src="js/imagezoom.js"></script>
-                <!-- //zooming-effect -->
+<!-- single -->
+<div class="single">
+    <div class="container">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 single-left">
+            <div class="flexslider">
+                <img src=/FileUploads/@Model.Path alt='' style="width:300px;height:300px;" />
             </div>
-            <div class="col-md-7 single-right">
-                <h3>@item.ProductName</h3>
-                <div class="description">
-                    <h5>
-                        <i>Description</i>
-                    </h5>
-                    <p>
-                        @item.Instructions
-                    </p>
-                </div><!--Instructions End-->
-                <div class="color-quality">
-                    <div class="color-quality-left">
-                        <h5>Color : </h5>
-                        <ul>
-                            <li>
-                                <span></span>@item.Color
-                            </li>
-                        </ul>
-                        <br />
-                        <div class="simpleCart_shelfItem">
-                            <h5>UnitPrice : </h5>
-                            <i class="item_price">$@item.UnitPrice</i>
-                            @if (item.Stock != 0)
-                            {
-                                <p>
-                                    <a class="item_add" href="#">Add to cart</a>
-                                </p>
-                            }
-                            else
-                            {
-                                <p>
-                                    <h3 style="color:red">No stock</h3>
-                                </p>
-                            }
+            <!-- flixslider -->
+            <script defer src="js/jquery.flexslider.js"></script>
+            <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+            <script>
+                // Can also be used with $(document).ready()
+                $(window).load(function () {
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: "thumbnails"
+                    });
+                });
+            </script>
+            <!-- flixslider -->
+            <!-- zooming-effect -->
+            <script src="js/imagezoom.js"></script>
+            <!-- //zooming-effect -->
+        </div>
+        <div class="col-md-7 single-right">
+            <h3>@Model.ProductName</h3>
+            <div class="description">
+                <h5>
+                    <i>Description</i>
+                </h5>
+                <p>
+                    @Model.Instructions
+                </p>
+            </div><!--Instructions End-->
+            <div class="color-quality">
+                <div class="color-quality-left">
+                    <h5>Color : </h5>
+                    <ul>
+                        <li>
+                            <span></span>@Model.Color
+                        </li>
+                    </ul>
+                    <br />
+                    <div class="simpleCart_shelfItem">
+                        <h5>UnitPrice : </h5>
+                        <i class="item_price">$@Model.UnitPrice</i>
+                        @if (Model.Stock != 0)
+                        {
+                            <p>
+                                <a class="item_add" href="#">Add to cart</a>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                <h3 style="color:red">No stock</h3>
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="color-quality-right">
+                    <h5>Size : </h5>
+                    <i class="item_size">@Model.Size</i>
+                    <br /><br />
+                    <h5>Quality :</h5>
+                    <div class="quantity">
+                        <div class="quantity-select">
+                            <button class="entry value-minus1">&nbsp;</button>
+                            <div class="entry value1" style="background-color:#ffffff ;color:#000">
+                                <span>0</span>
+                            </div>
+                            <button class="entry value-plus1 active ">&nbsp;</button>
                         </div>
                     </div>
-                    <div class="color-quality-right">
-                        <h5>Size : </h5>
-                        <i class="item_size">@item.Size</i>
-                        <br /><br />
-                        <h5>Quality :</h5>
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <button class="entry value-minus1">&nbsp;</button>
-                                <div class="entry value1" style="background-color:#ffffff ;color:#000">
-                                    <span>0</span>
-                                </div>
-                                <button class="entry value-plus1 active ">&nbsp;</button>
-                            </div>
-                        </div>
-                        <!--quantity-->
-                        <script>
+                    <!--quantity-->
+                    <script>
 
                         $('.value-plus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) + 1;
-                            if (@item.Stock == 0) {
+                            if (@Model.Stock == 0) {
                                 $('.value-plus1').attr('disabled', true);
                             }
                             else {
-                                if (newVal <= @item.Stock) {
+                                if (newVal <= @Model.Stock) {
                                 divUpd.text(newVal);
                                 }
                                 else {
-                                divUpd.text(@item.Stock);
+                                divUpd.text(@Model.Stock);
                                 }
                             }
                         });
@@ -122,12 +117,10 @@
                                 newVal = parseInt(divUpd.text(), 10) - 1;
                             if (newVal >= 0) divUpd.text(newVal);
                         });
-                        </script>
-                        <!--quantity-->
-                    </div>
+                    </script>
+                    <!--quantity-->
                 </div>
             </div>
         </div>
     </div>
-
-}
+</div>

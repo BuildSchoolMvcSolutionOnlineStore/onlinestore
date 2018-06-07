@@ -108,7 +108,7 @@ namespace StoreData.Services
             return Data;
         }
         //尋找產品ID
-        public IEnumerable<ProductsItem> FindproductById(string Id)
+        public ProductsItem FindproductById(string Id)
         {
             var result = productsRepository.FindByProductItemId(Id);
             return result;

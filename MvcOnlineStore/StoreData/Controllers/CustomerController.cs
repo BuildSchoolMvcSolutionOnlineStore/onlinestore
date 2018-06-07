@@ -107,5 +107,10 @@ namespace StoreData.Controllers
             RegisterMember.PasswordCheck = null;
             return RedirectToAction("Index","Home");
         }
+        //加入購物車
+        //public ActionResult AddChart()
+        //{
+
+        //}
     }
 }
