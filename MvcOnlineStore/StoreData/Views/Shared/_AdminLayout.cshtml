@@ -171,7 +171,18 @@
                     reader.readAsDataURL(file);
                 }
             });
+
+            
         })
+        $(window).load(function () {
+            $(".flow ul li button").attr("class", "btn btn-block");
+            $("#" + @Html.Raw(Json.Encode(TempData["orderStatus"]))).attr("class", "btn btn-primary btn-block");
+            
+        });
+        //$(".flow ul li button").on("click", function (e) {
+        //    $(".flow ul li button").attr("class", "btn btn-block")
+        //    $(this).attr("class", "btn btn-primary btn-block")
+        //});
     </script>
     @if (TempData["message"] != null)
     {

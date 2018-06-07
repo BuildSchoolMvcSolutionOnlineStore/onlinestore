@@ -61,6 +61,22 @@ namespace StoreData.Repositories
                 return product;
             }
         }
+
+        public IEnumerable<ProductsItem> FindByProductItemId(string ProductID)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var products = connection.Query<ProductsItem>(
+                    "SELECT * FROM Products WHERE ProductID = @id",
+                    new
+                    {
+                        id = ProductID
+                    });
+
+                return products;
+            }
+        }
+
         public IEnumerable<ProductsItem> GetAll()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
@@ -70,6 +86,22 @@ namespace StoreData.Repositories
                 return products;
             }
         }
+
+        public IEnumerable<ProductsItem> SearchByProductName(string selectString)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var products = connection.Query<ProductsItem>(
+                    "SELECT * FROM Products WHERE ProductName LIKE '%'+@str+'%'",/*CONCAT('%',@str,'%')"*/
+                    new
+                    {
+                        str = selectString
+                    });
+
+                return products;
+            }
+        }
+
         public IEnumerable<Products> SearchById(string selectString)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))

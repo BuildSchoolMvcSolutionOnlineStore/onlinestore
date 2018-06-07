@@ -11,6 +11,6 @@ namespace StoreData.Models
         public string Message { get; set; }
         public string Reply { get; set; }
         public DateTime Time { get; set; }
-        public DateTime? ReplayTime { get; set; }
+        public DateTime? ReplyTime { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace StoreData.ViewModels.Manager
         public string Search { get; set; }
         public IEnumerable<AdminOrder> DataList { get; set; }
         public ForPaging Paging { get; set; }
+        public int OrderStatus { get; set; }
     }
 }

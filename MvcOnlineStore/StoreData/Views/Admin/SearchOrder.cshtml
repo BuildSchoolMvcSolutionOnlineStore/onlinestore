@@ -12,13 +12,13 @@
                 <em class="fa fa-home"></em>
             </a>
         </li>
-        <li class="active">全部訂單列表</li>
+        <li class="active">訂單列表</li>
     </ol>
 </div><!--/.row-->
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">全部訂單列表</h1>
+        <h1 class="page-header">訂單列表</h1>
     </div>
     @using (Html.BeginForm(new { Controller = "Admin", Action = "SearchOrder" }))
     {
@@ -32,7 +32,23 @@
         </div>
     }
 </div><!--/.row-->
-
+<div class="row">
+    <div class="col">
+        <div class="flow">
+            @using (Html.BeginForm(new { Controller = "Admin", Action = "SearchOrder" }))
+            {
+                <ul class="nav nav-pills nav-justified">
+                    <li role="presentation"><button class="btn btn-block" id="-1" name="OrderStatus" value="-1">全部訂單</button></li>
+                    <li role="presentation"><button class="btn btn-block" id="0" name="OrderStatus" value="0">未出貨</button></li>
+                    <li role="presentation"><button class="btn btn-block" id="1" name="OrderStatus" value="1">已出貨</button></li>
+                    <li role="presentation"><button class="btn btn-block" id="2" name="OrderStatus" value="2">已到貨</button></li>
+                    <li role="presentation"><button class="btn btn-block" id="3" name="OrderStatus" value="3">完成</button></li>
+                    <li role="presentation"><button class="btn btn-block" id="4" name="OrderStatus" value="4">取消訂單</button></li>
+                </ul>
+            }
+        </div>
+    </div>
+</div>
 <br />
 <div class="row">
     <div class="col-lg-12">
@@ -42,75 +58,138 @@
                     <th>訂單ID</th>
                     <th>客戶姓名</th>
                     <th>訂單時間</th>
+                    <th>出貨時間</th>
                     <th>付款方式</th>
                     <th>運送方式</th>
                     <th>金額</th>
                     <th>狀態</th>
+                    <th>顧客留言</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.DataList)
+                @if (Model.DataList.Count() > 0)
+                {
+                    foreach (var item in Model.DataList)
+                    {
+                        <tr>
+                            <td>@item.OrderId</td>
+                            <td>@item.CustomerName</td>
+                            <td>@item.OrderDate</td>
+                            <td>
+                                @if (@item.ShippedDate != null)
+                                {
+                                    @item.ShippedDate
+                                }
+                                else
+                                {
+                                    <span>尚未出貨</span>
+                                }
+                            </td>
+                            <td>@item.PaymentMethod</td>
+                            <td>@item.DeliveryMethod</td>
+                            <td>@item.Amount</td>
+                            <td>
+                                @if (item.Status == 0)
+                                {
+                                    <span>未出貨</span>
+                                }
+                                else if (item.Status == 1)
+                                {
+                                    <span>已出貨</span>
+                                }
+                                else if (item.Status == 2)
+                                {
+                                    <span>已到貨</span>
+                                }
+                                else if (item.Status == 3)
+                                {
+                                    <span>已完成</span>
+                                }
+                                else if (item.Status == 4)
+                                {
+                                    <span>要求取消訂單</span>
+                                }
+                            </td>
+                            <td>
+                                @item.Count
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href=@Url.RouteUrl(new {Controller="Admin",Action="OrderDetail",orderId = item.OrderId,status=item.Status,str = ViewContext.RouteData.Values["action"],OrderStatus = Model.OrderStatus})>
+                                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    查看
+                                </a>
+                                @if (item.Status == 0)
+                                {
+                                    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-undelivery-@item.OrderId">
+                                        <i class="glyphicon glyphicon-refresh icon-white"></i>
+                                        出貨
+                                    </a>
+                                    <div class="modal fade" id="bs-example-modal-sm-undelivery-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                        <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">確定要出貨嗎</h4>
+                                                </div>
+                                                @using (Html.BeginForm("Shipping", "Admin"))
+                                                {
+                                                    <input name="orderId" type="hidden" value=@item.OrderId />
+                                                    <div class="modal-body text-center">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button type="submit" class="btn btn-success">出貨</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div><!--shipping modal-->
+                                    <a class="btn btn-danger" href="#">
+                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                        取消訂單
+                                    </a>
+                                }
+                                else if (item.Status == 1)
+                                {
+                                    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-shipping-@item.OrderId">
+                                        <i class="glyphicon glyphicon-refresh icon-white"></i>
+                                        到貨
+                                    </a>
+                                    <div class="modal fade" id="bs-example-modal-sm-shipping-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                        <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">已到貨確認</h4>
+                                                </div>
+                                                @using (Html.BeginForm("Arrival", "Admin"))
+                                                {
+                                                    <input name="orderId" type="hidden" value=@item.OrderId />
+                                                    <input name="action" type="hidden" value=@ViewContext.RouteData.Values["action"] />
+                                                    <div class="modal-body text-center">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button type="submit" class="btn btn-success">到貨</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div><!--shipping modal-->
+                                }
+                                else if (item.Status == 4)
+                                {
+                                    <a class="btn btn-success" href="#">
+                                        <i class="glyphicon glyphicon-edit icon-white"></i>
+                                        確認
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@item.OrderId</td>
-                        <td>@item.CustomerName</td>
-                        <td>@item.OrderDate</td>
-                        <td>@item.PaymentMethod</td>
-                        <td>@item.DeliveryMethod</td>
-                        <td>@item.Amount</td>
-                        <td>
-                            @if (item.Status == 0)
-                            {
-                                <span>未出貨</span>
-                            }
-                            else if (item.Status == 1)
-                            {
-                                <span>已出貨</span>
-                            }
-                            else if (item.Status == 2)
-                            {
-                                <span>已到貨</span>
-                            }
-                            else if (item.Status == 3)
-                            {
-                                <span>已完成</span>
-                            }
-                            else if (item.Status == 4)
-                            {
-                                <span>要求取消訂單</span>
-                            }
-                        </td>
-                        <td>
-                            <a class="btn btn-info" href="#">
-                                <i class="glyphicon glyphicon-edit icon-white"></i>
-                                查看
-                            </a>
-                            @if (item.Status == 0)
-                            {
-                                <a class="btn btn-success" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    出貨
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    取消訂單
-                                </a>
-                            }
-                            else if (item.Status == 1)
-                            {
-                                <a class="btn btn-success" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    到貨
-                                </a>
-                            }
-                            else if (item.Status == 4)
-                            {
-                                <a class="btn btn-success" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    確認
-                                </a>
-                            }
+                        <td class="text-center" colspan="10">
+                            資料庫尚未有資料
                         </td>
                     </tr>
                 }

@@ -21,28 +21,29 @@ namespace StoreData.Controllers
         {
             return View();
         }
-        [Route("ProductList")]
         ////商品列表
-        public ActionResult ProductList(int Page = 1)
+        [Route("ProductList")]
+        public ActionResult ProductList(string ProductName, int Page = 1)
         {
-            var list = new HomeIndexTop()
+            var list = new HomeIndexTop
             {
+                Search = ProductName,
                 Paging = new ForPaging(Page)
             };
+            list.GetAllProductsList = productservice.GetSearchProductName(list.Search,list.Paging);
             list.GetAllCategories = categoryservice.GetCategoryList();
-            list.GetAllProductsList = productservice.GetAllproduct(list.Paging);
             return View(list);
         }
         ////商品列表內的商品
         [Route("ProductListBYCategories/{Id}")]
         public ActionResult ProductListBYCategories(int Id, int Page = 1)
         {
-            var list = new HomeIndexTop()
+            var list = new HomeIndexTop
             {
                 Paging = new ForPaging(Page)
             };
             list.GetAllCategories = categoryservice.GetCategoryList();
-            list.GetAllProductsList = productservice.GetAllproduct(list.Paging).Where(x => x.CategoryID == Id);
+            list.GetAllProductsList = productservice.GetAllproduct(Id,list.Paging);
             return PartialView(list);
         }
         //public ActionResult _ProductListPartial()
@@ -54,7 +55,8 @@ namespace StoreData.Controllers
         //單一商品頁面
         public ActionResult ProductItem(string Id)
         {
-            var list = productservice.FindproductById(Id);
+            var list = new HomeIndexTop();
+            list.ProductsList = productservice.FindproductById(Id);
             return View(list);
         }
         //側邊分類欄

@@ -92,7 +92,9 @@ namespace StoreData.Repositories
                     "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
                     "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
                     "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," + 
-                    "o.Status FROM Orders o"
+                    "o.Status," +
+                    "(SELECT COUNT (*) FROM [Messages] WHERE OrderID = o.OrderID AND Reply IS NOT NULL ) As Count " +
+                    "FROM Orders o"
                     );
                 return list;
             }
@@ -108,7 +110,9 @@ namespace StoreData.Repositories
                     "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
                     "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
                     "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," +
-                    "o.Status FROM Orders o " +
+                    "o.Status," +
+                    "(SELECT COUNT (*) FROM [Messages] WHERE OrderID = o.OrderID AND Reply IS NOT NULL ) As Count " +
+                    "FROM Orders o " +
                     "WHERE o.OrderID LIKE '%'+@str+'%'",
                     new
                     {
