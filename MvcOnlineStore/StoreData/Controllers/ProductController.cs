@@ -21,14 +21,16 @@ namespace StoreData.Controllers
         {
             return View();
         }
-        [Route("ProductList")]
         ////商品列表
-        public ActionResult ProductList(int Page = 1)
+        [Route("ProductList")]
+        public ActionResult ProductList(string ProductName, int Page = 1)
         {
-            var list = new HomeIndexTop()
+            var list = new HomeIndexTop
             {
+                Search = ProductName,
                 Paging = new ForPaging(Page)
             };
+            list.GetAllProductsList = productservice.GetSearchProductName(list.Search);
             list.GetAllCategories = categoryservice.GetCategoryList();
             list.GetAllProductsList = productservice.GetAllproduct(list.Paging);
             return View(list);
@@ -37,7 +39,7 @@ namespace StoreData.Controllers
         [Route("ProductListBYCategories/{Id}")]
         public ActionResult ProductListBYCategories(int Id, int Page = 1)
         {
-            var list = new HomeIndexTop()
+            var list = new HomeIndexTop
             {
                 Paging = new ForPaging(Page)
             };

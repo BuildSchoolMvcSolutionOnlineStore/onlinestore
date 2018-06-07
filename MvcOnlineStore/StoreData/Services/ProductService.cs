@@ -83,6 +83,20 @@ namespace StoreData.Services
             Data = Data.Where(x => x.CategoryID == 1).Take(6);
             return Data;
         }
+        // 搜尋產品
+        public IEnumerable<ProductsItem> GetSearchProductName(string Search)
+        {
+            IEnumerable<ProductsItem> Data;
+            if (String.IsNullOrEmpty(Search))
+            {
+                Data = productsRepository.GetAll();
+            }
+            else
+            {
+                Data = productsRepository.SearchByProductName(Search);
+            }
+            return Data;
+        }
         //取得單一產品
         public Products GetProduct(string Id)
         {

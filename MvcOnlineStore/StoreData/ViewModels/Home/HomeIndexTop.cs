@@ -15,5 +15,6 @@ namespace StoreData.ViewModels.Home
         public IEnumerable<ProductsItem> GetAllProductsList { get; set; }
         public IEnumerable<Categories> GetAllCategories { get; set; }
         public ForPaging Paging { get; set; }
+        public string Search { get; set; }
     }
 }

@@ -113,8 +113,20 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
                 <div class="search_form">
+                    @*@using (Html.BeginForm(new { Controller = "Product", Action = "ProductList" }))
+                        {
+                            @model StoreData.ViewModels.Home.HomeIndexTop
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="Id" value="@Model.Search" />
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary btn-md">搜尋</button>
+                                    </span>
+                                </div>
+                            </div>
+                        }*@
                     <form action="#" method="post">
-                        <input type="text" name="Search" placeholder="Search...">
+                        <input type="text" name="Search" placeholder="Search..." value="A002">
                         <input type="submit" value="Send">
                     </form>
                 </div>
