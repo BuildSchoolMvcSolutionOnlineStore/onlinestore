@@ -6,12 +6,14 @@ using System.Web;
 using StoreData.Repositories;
 using StoreData.ViewModels.Manager;
 using System.IO;
+using StoreData.ViewModels.Home;
 
 namespace StoreData.Services
 {
     public class ProductService
     {
         private ProductsRepository productsRepository = new ProductsRepository();
+        private CategoryService categoryservice = new CategoryService();
         //修改庫存
         public void UpdateStock(string id,int stock)
         {
@@ -60,7 +62,27 @@ namespace StoreData.Services
             }
             return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
-
+        // 顯示3樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYThree()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(3);
+            return Data;
+        }
+        // 顯示4樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYFour()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(4);
+            return Data;
+        }
+        // 顯示5樣產品
+        public IEnumerable<ProductsItem> GetProductsListBYSix()
+        {
+            var Data = productsRepository.FindById_Home();
+            Data = Data.Where(x => x.CategoryID == 1).Take(6);
+            return Data;
+        }
         //取得單一產品
         public Products GetProduct(string Id)
         {
@@ -74,12 +96,13 @@ namespace StoreData.Services
             return result;
         }
         //所有產品
-        public IEnumerable<Products> GetAllproduct()
+        public IEnumerable<ProductsItem> GetAllproduct(ForPaging Paging)
         {
             var result = productsRepository.GetAll();
-            return result;
+            Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(result.Count()) / Paging.ItemNum));
+            Paging.SetRightPage();
+            return result.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum); ;
         }
-        // 
 
     }
 }

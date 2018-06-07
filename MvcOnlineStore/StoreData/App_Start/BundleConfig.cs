@@ -62,7 +62,9 @@ namespace StoreData
                 "~/Scripts/NewHome/script.js",
                 "~/Scripts/NewHome/jquery.wmuSlider.js",
                 "~/Scripts/NewHome/jquery.flexisel.js",
-                "~/Scripts/NewHome/jquery.flexslider.js"));
+                "~/Scripts/NewHome/jquery.flexslider.js",
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.validate*"));
         }
     }
 }

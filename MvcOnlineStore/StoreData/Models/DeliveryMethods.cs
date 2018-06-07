@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class DeliveryMethods
+    public partial class DeliveryMethods
     {
         public int DeliveryMethodID { get; set; }
         public string DeliveryMethod { get; set; }

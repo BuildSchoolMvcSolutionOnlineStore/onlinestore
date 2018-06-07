@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StoreData.Services;
+using StoreData.ViewModels.Home;
+using StoreData.Models;
 
 namespace StoreData.Controllers
 {
@@ -12,6 +14,7 @@ namespace StoreData.Controllers
     public class ProductController : Controller
     {
         private ProductService productservice = new ProductService();
+        private CategoryService categoryservice = new CategoryService();
         // GET: Product
         [Route("")]
         public ActionResult Index()
@@ -20,16 +23,34 @@ namespace StoreData.Controllers
         }
         [Route("ProductList")]
         ////商品列表
-        public ActionResult ProductList()
+        public ActionResult ProductList(int Page = 1)
         {
-            return View();
+            var list = new HomeIndexTop()
+            {
+                Paging = new ForPaging(Page)
+            };
+            list.GetAllCategories = categoryservice.GetCategoryList();
+            list.GetAllProductsList = productservice.GetAllproduct(list.Paging);
+            return View(list);
+        }
+        ////商品列表內的商品
+        [Route("ProductListBYCategories/{Id}")]
+        public ActionResult ProductListBYCategories(int Id, int Page = 1)
+        {
+            var list = new HomeIndexTop()
+            {
+                Paging = new ForPaging(Page)
+            };
+            list.GetAllCategories = categoryservice.GetCategoryList();
+            list.GetAllProductsList = productservice.GetAllproduct(list.Paging).Where(x => x.CategoryID == Id);
+            return PartialView(list);
         }
         //public ActionResult _ProductListPartial()
         //{
         //    var list = productservice.ProductList();
         //    return PartialView(list);
         //}
-        [Route("{Id}")]
+        [Route("ProductItem/{Id}")]
         //單一商品頁面
         public ActionResult ProductItem(string Id)
         {

@@ -50,13 +50,33 @@ namespace StoreData.Repositories
                 return category;
             }
         }
-        public IEnumerable<Categories> GetAll()
+       
+            public IEnumerable<Categories> GetAll()
+            {
+                var categorylist = new List<Categories>();
+                using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+                {
+                    var category = connection.Query<Categories>(
+                        "SELECT * FROM Categories");
+
+                    foreach (var item in category)
+                    {
+                    categorylist.Add(item);
+                    }
+                }
+                return categorylist;
+            }
+        
+
+        public int FindLastCategoryID()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var list = connection.Query<Categories>("SELECT * FROM Categories");
-                return list;
+                var categories = connection.Query<int>(
+                    "SELECT TOP 1 CategoryID FROM Categories ORDER BY CategoryID DESC");
+                return categories.FirstOrDefault();
             }
+
         }
     }
 }

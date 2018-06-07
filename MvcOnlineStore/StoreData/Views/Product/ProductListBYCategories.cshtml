@@ -1,9 +1,9 @@
 ﻿@model StoreData.ViewModels.Home.HomeIndexTop
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/NewHome/css")
+
 
 <div class="banner10" id="home1">
     <div class="container">
@@ -110,54 +110,54 @@
             <nav class="text-center">
                 <ul class="pagination">
                     @if (Model.Paging.NowPage > 1)
-                    {
-                        <li>
-                            <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductList" , Page=Model.Paging.NowPage - 1 }) aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="disabled">
-                            <a aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    }
+    {
+                <li>
+                    <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=Model.Paging.NowPage - 1 }) aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+}
+else
+{
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+}
                     @for (var page = (Model.Paging.NowPage - 6); page < (Model.Paging.NowPage + 6); page++)
-                    {
-                        if ((page > 0) && (page <= Model.Paging.MaxPage))
-                        {
-                            if (page == Model.Paging.NowPage)
-                            {
-                                <li class="active"><a>@page</a></li>
-                            }
-                            else
-                            {
-                                <li><a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductList" , Page=page })>@page</a></li>
-                            }
-                        }
-                    }
+    {
+        if ((page > 0) && (page <= Model.Paging.MaxPage))
+        {
+            if (page == Model.Paging.NowPage)
+            {
+                <li class="active"><a>@page</a></li>
+}
+else
+{
+                <li><a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=page })>@page</a></li>
+}
+}
+}
                     @if (Model.Paging.NowPage < Model.Paging.MaxPage)
-                    {
-                        <li>
-                            <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductList" , Page=Model.Paging.NowPage + 1 }) aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="disabled">
-                            <a aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    }
+    {
+                <li>
+                    <a href=@Url.RouteUrl(new { Controller="Product" , Action="ProductListBYCategories" , Page=Model.Paging.NowPage + 1 }) aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+}
+else
+{
+                <li class="disabled">
+                    <a aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+}
                 </ul>
             </nav>
+            <div class="clearfix"> </div>
         </div>
-        <div class="clearfix"> </div>
     </div>
 </div>
