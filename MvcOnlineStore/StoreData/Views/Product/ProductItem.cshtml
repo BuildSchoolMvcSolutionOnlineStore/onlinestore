@@ -1,18 +1,22 @@
-﻿@model StoreData.Models.Products
-
-@{
+﻿@model StoreData.ViewModels.Home.ProductsItem
+@{ 
     ViewBag.Title = "ProductItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/NewHome/css")
-@Scripts.Render("~/NewHome/JavaScript")
-@Scripts.Render("~/bundles/modernizr")
-
 
 <!-- banner -->
 <div class="banner10" id="home1">
     <div class="container">
         <h2>Single Page</h2>
+    </div>
+</div>
+<div class="breadcrumb_dress">
+    <div class="container">
+        <ul>
+            <li><a href="http://localhost:63184/Home/Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+            <li>Pen</li>
+        </ul>
     </div>
 </div>
 <!-- single -->
@@ -87,14 +91,15 @@
                             <div class="entry value1" style="background-color:#ffffff ;color:#000">
                                 <span>0</span>
                             </div>
-                            <button class="entry value-plus1 active " >&nbsp;</button>
+                            <button class="entry value-plus1 active ">&nbsp;</button>
                         </div>
                     </div>
                     <!--quantity-->
-                    <script>              
+                    <script>
+
                         $('.value-plus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
-                                newVal = parseInt(divUpd.text(), 10) + 1; 
+                                newVal = parseInt(divUpd.text(), 10) + 1;
                             if (@Model.Stock == 0) {
                                 $('.value-plus1').attr('disabled', true);
                             }
@@ -111,7 +116,7 @@
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
                             if (newVal >= 0) divUpd.text(newVal);
-                        });  
+                        });
                     </script>
                     <!--quantity-->
                 </div>
