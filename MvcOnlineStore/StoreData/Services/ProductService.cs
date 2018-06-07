@@ -84,18 +84,22 @@ namespace StoreData.Services
             return Data;
         }
         // 搜尋產品
-        public IEnumerable<ProductsItem> GetSearchProductName(string Search)
+        public IEnumerable<ProductsItem> GetSearchProductName(string Search, ForPaging Paging)
         {
             IEnumerable<ProductsItem> Data;
             if (String.IsNullOrEmpty(Search))
             {
                 Data = productsRepository.GetAll();
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
             }
             else
             {
                 Data = productsRepository.SearchByProductName(Search);
+                Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+                Paging.SetRightPage();
             }
-            return Data;
+            return Data.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
         //取得單一產品
         public Products GetProduct(string Id)
@@ -104,18 +108,18 @@ namespace StoreData.Services
             return Data;
         }
         //尋找產品ID
-        public Products FindproductById(string Id)
+        public IEnumerable<ProductsItem> FindproductById(string Id)
         {
-            var result = productsRepository.FindById(Id);
+            var result = productsRepository.FindByProductItemId(Id);
             return result;
         }
         //所有產品
-        public IEnumerable<ProductsItem> GetAllproduct(ForPaging Paging)
+        public IEnumerable<ProductsItem> GetAllproduct(int Id, ForPaging Paging)
         {
-            var result = productsRepository.GetAll();
+            var result = productsRepository.GetAll().Where((x)=>x.CategoryID == Id);
             Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(result.Count()) / Paging.ItemNum));
             Paging.SetRightPage();
-            return result.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum); ;
+            return result.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
 
     }
