@@ -156,6 +156,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,6 +183,7 @@
     <Compile Include="Repositories\DeliveryMethodsRepository.cs" />
     <Compile Include="Repositories\HashingProviders\SHA512HashingProvider.cs" />
     <Compile Include="Repositories\ManagersRepository.cs" />
+    <Compile Include="Repositories\MessagesRepository.cs" />
     <Compile Include="Repositories\OrderDetailsRepository.cs" />
     <Compile Include="Repositories\OrdersRepository.cs" />
     <Compile Include="Repositories\PasswordRules\HightComplexityPasswordRule.cs" />
@@ -196,17 +198,23 @@
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\DeliveryService.cs" />
     <Compile Include="Services\ForPaging.cs" />
+    <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\OrderDetailService.cs" />
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
+    <Compile Include="ViewModels\Login\LoginView.cs" />
     <Compile Include="ViewModels\Manager\AdminOrder.cs" />
+    <Compile Include="ViewModels\Manager\AdminOrderDetail.cs" />
     <Compile Include="ViewModels\Manager\AdminProduct.cs" />
     <Compile Include="ViewModels\Manager\IndexView.cs" />
     <Compile Include="ViewModels\Manager\MemberView.cs" />
+    <Compile Include="ViewModels\Manager\OrderDetailView.cs" />
     <Compile Include="ViewModels\Manager\OrderView.cs" />
     <Compile Include="ViewModels\Manager\ProductView.cs" />
   </ItemGroup>
@@ -352,9 +360,7 @@
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
     <Content Include="Views\Admin\UpdateProduct.cshtml" />
-    <Content Include="Views\Admin\UnDeliveryOrder.cshtml" />
     <Content Include="Views\Admin\SearchOrder.cshtml" />
-    <Content Include="Views\Admin\ShippedOrder.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Home\MailUS.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
@@ -365,6 +371,8 @@
     <Content Include="Views\Admin\CreateDelivery.cshtml" />
     <Content Include="Views\Admin\UpdateDelivery.cshtml" />
     <Content Include="Views\Product\ProductListBYCategories.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Admin\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

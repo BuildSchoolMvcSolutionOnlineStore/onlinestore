@@ -1,6 +1,7 @@
 ﻿using StoreData.Models;
 using StoreData.Services;
 using StoreData.ViewModels.Manager;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -19,6 +20,8 @@ namespace StoreData.Controllers
         private OrdersService ordersService = new OrdersService();
         private PayService payservice = new PayService();
         private DeliveryService deliveryService = new DeliveryService();
+        private OrderDetailService orderDetailService = new OrderDetailService();
+        private MessageService messageService = new MessageService();
         // GET: Admin
         //儀表板
         [Route("")]
@@ -28,6 +31,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
         //會員管理
+
         [Route("Members")]
         public ActionResult Members(string Id, int Page = 1)
         {
@@ -141,50 +145,37 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Products" });
         }
 
+        //訂單列表
         [Route("SearchOrder")]
-        public ActionResult SearchOrder(string Id, int Page = 1)
+        public ActionResult SearchOrder(string Id, int OrderStatus = -1, int Page = 1)
         {
             var Data = new OrderView
             {
                 Search = Id,
-                Paging = new ForPaging(Page)
+                Paging = new ForPaging(Page),
+                OrderStatus = OrderStatus
             };
-            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging);
-            return View(Data);
-        }
-        //未出貨訂單
-        [Route("UnDeliveryOrder")]
-        public ActionResult UnDeliveryOrder(string Id, int Page = 1)
-        {
-            var Data = new OrderView
+            if(OrderStatus != -1)
             {
-                Search = Id,
-                Paging = new ForPaging(Page)
-            };
-            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging, 0);
-            return View(Data);
-        }
-        //已出貨訂單
-        [Route("ShippedOrder")]
-        public ActionResult ShippedOrder(string Id, int Page = 1)
-        {
-            var Data = new OrderView
+                Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging, OrderStatus);
+            }
+            else
             {
-                Search = Id,
-                Paging = new ForPaging(Page)
-            };
-            Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging, 1);
+                Data.DataList = ordersService.GetOrderList(Data.Search, Data.Paging);
+            }
+            TempData["orderStatus"] = OrderStatus;
             return View(Data);
         }
         //出貨按鈕
         [Route("Shipping")]
         [HttpPost]
-        public ActionResult Shipping(string orderId, string action)
+        public ActionResult Shipping(string orderId)
         {
             ordersService.UpdateStatus(orderId, 1);
             TempData["message"] = "訂單狀態變更為: 已出貨";
-            return RedirectToRoute(new { Controller = "Admin", Action = action});
+            return RedirectToRoute(new { Controller = "Admin", Action = "SearchOrder"});
         }
+
         //到貨按鈕
         [Route("Arrival")]
         [HttpPost]
@@ -194,7 +185,29 @@ namespace StoreData.Controllers
             TempData["message"] = "訂單狀態變更為: 已到貨";
             return RedirectToRoute(new { Controller = "Admin", Action = action });
         }
+
         //訂單明細
+        [Route("OrderDetail/{orderId}")]
+        public ActionResult OrderDetail(string orderId,int status,string str,int OrderStatus)
+        {
+            var Data = new OrderDetailView();
+            Data.OrderId = orderId;
+            Data.Status = status;
+            Data.OrderDataList = orderDetailService.GetAdminOrders(orderId);
+            Data.MessageDataList = messageService.GetAdminMessage(orderId);
+            Data.OrderStatus = OrderStatus;
+            ViewBag.Action = str;
+            return View(Data);
+        }
+        //回覆留言
+        [Route("ReplyMessage")]
+        [HttpPost]
+        public ActionResult ReplyMessage(string orderId,DateTime time,string reply,string str,string status)
+        {
+            messageService.Update(orderId, time, reply);
+            TempData["message"] = "已回覆留言";
+            return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, str });
+        }
         //[Route("OrderDetail")]
         //public ActionResult OrderDetail(string orderId)
         //{
@@ -284,6 +297,50 @@ namespace StoreData.Controllers
             deliveryService.UpdateDelivery(model);
             TempData["message"] = "成功修改運送方式";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
+        }
+
+        [Route("Category")]
+        public ActionResult Category()
+        {
+            var Data = categoryService.CategoryGetAll();
+            return View(Data);
+
+        }
+        [Route("CreateCategory")]
+        public ActionResult CreateCategory()
+        {
+            return View();
+        }
+        //新增類別
+        [Route("CreateCategory")]
+        [HttpPost]
+        public ActionResult CreateCategory(Categories model)
+        {
+            categoryService.Create(model);
+            TempData["message"] = "成功新增類別";
+            return RedirectToRoute(new { Controller = "Admin", Action = "CreateCategory" });
+        }
+        //刪除類別
+        [Route("DeleteCategory")]
+        [HttpPost]
+        public ActionResult DeleteCategory(int Id)
+        {
+            categoryService.Delete(Id);
+            TempData["message"] = "成功刪除類別";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Category" });
+        }
+        public ActionResult UpdateCategory(int Id)
+        {
+            var Data = categoryService.FindById(Id);
+            return PartialView(Data);
+        }
+        //修改類別
+        [HttpPost]
+        public ActionResult UpdateCategory(Categories model)
+        {
+            categoryService.UpdateCategory(model);
+            TempData["message"] = "成功修改類別";
+            return RedirectToRoute(new { Controlller = "Admin", Action = "Category" });
         }
     }
 }

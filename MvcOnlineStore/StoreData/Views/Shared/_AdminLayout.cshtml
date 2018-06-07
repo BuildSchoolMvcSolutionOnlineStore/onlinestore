@@ -103,14 +103,14 @@
                 <a data-toggle="collapse" href="#sub-item-3">
                     <em class="fa fa-navicon">&nbsp;</em> 類別管理 <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
                 </a>
-                <ul class="children collapse" id="sub-item-3">
+                <ul class="children collapse" id="sub-item-3">              
                     <li>
-                        <a class="" href="">
+                        <a class="" href=@Url.RouteUrl(new {Controller="Admin",Action = "Category" })>
                             <span class="fa fa-arrow-right">&nbsp;</span> 類別列表
                         </a>
                     </li>
                     <li>
-                        <a class="" href="">
+                        <a class="" href=@Url.RouteUrl(new {Controller="Admin",Action = "CreateCategory" })>
                             <span class="fa fa-arrow-right">&nbsp;</span> 新增類別
                         </a>
                     </li>
@@ -171,7 +171,18 @@
                     reader.readAsDataURL(file);
                 }
             });
+
+            
         })
+        $(window).load(function () {
+            $(".flow ul li button").attr("class", "btn btn-block");
+            $("#" + @Html.Raw(Json.Encode(TempData["orderStatus"]))).attr("class", "btn btn-primary btn-block");
+            
+        });
+        //$(".flow ul li button").on("click", function (e) {
+        //    $(".flow ul li button").attr("class", "btn btn-block")
+        //    $(this).attr("class", "btn btn-primary btn-block")
+        //});
     </script>
     @if (TempData["message"] != null)
     {

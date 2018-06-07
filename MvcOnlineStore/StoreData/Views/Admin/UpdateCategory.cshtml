@@ -1,0 +1,21 @@
+﻿@model StoreData.Models.Categories
+@using (Html.BeginForm("UpdateCategory", "Admin"))
+{
+    <div class="modal-body">
+        <h4>類別ID : @Model.CategoryID</h4>
+        <h4>類別名稱 : @Model.CategoryName</h4>
+        <br>
+        <div class="form-group">
+            <label for="recipient-name" class="control-label" style="font-size:18px;">修改類別</label>
+            <input name="PaymentMethodID" type="hidden" value=@Model.CategoryID />
+
+            @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        <button type="submit" class="btn btn-primary">送出</button>
+    </div>
+}

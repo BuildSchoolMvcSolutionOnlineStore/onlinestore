@@ -88,7 +88,6 @@
                                                     @Html.TextBoxFor(model => model.Stock, new { @class = "form-control" })
                                                     @Html.ValidationMessageFor(model => model.Stock)
                                                 </div>
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
@@ -103,7 +102,7 @@
                                 編輯
                             </a>
                             <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-delete-@item.ProductID">
-                                <i class="glyphicon glyphicon-refresh icon-white"></i>
+                                <i class="glyphicon glyphicon-trash icon-white"></i>
                                 刪除
                             </a>
                             <div class="modal fade" id="bs-example-modal-sm-delete-@item.ProductID" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

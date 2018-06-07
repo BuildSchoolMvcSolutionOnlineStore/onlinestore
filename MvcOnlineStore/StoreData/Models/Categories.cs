@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-   public class Categories
+   public partial class Categories
     {
         public int CategoryID { get; set; }
+
+        
         public string CategoryName { get; set; }
     }
 }

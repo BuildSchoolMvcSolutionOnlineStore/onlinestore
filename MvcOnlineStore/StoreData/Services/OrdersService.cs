@@ -47,11 +47,24 @@ namespace StoreData.Services
 
             return Data.OrderByDescending(x => x.OrderDate).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
+
+        //狀態列表
+        //0 未出貨
+        //1 已出貨
+        //2 已到貨
+        //3 已領收
+        //4 訂單完成
+        //5 客戶帶取消訂單 or 管理者要求取消訂單
+
         //更新狀態
         public void UpdateStatus(string Id,int status)
         {
             var item = ordersRepository.FindById(Id);
             item.Status = status;
+            if(item.Status == 1)
+            {
+                item.ShippedDate = DateTime.Now;
+            }
             ordersRepository.Update(item);
         }
     }

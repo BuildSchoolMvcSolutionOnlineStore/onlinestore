@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,7 @@ namespace StoreData.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                connection.Execute("INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)",model);
+                connection.Execute("INSERT INTO OrderDetails VALUES(@OrderID ,@ProductID,@Quantity,@Discount)", model);
             }
         }
         public void Update(OrderDetails model)
@@ -50,9 +51,9 @@ namespace StoreData.Repositories
                     {
                         id = OrderId
                     });
-                foreach(var item in orderdeta)
+                foreach (var item in orderdeta)
                 {
-                    if(item.OrderID != null)
+                    if (item.OrderID != null)
                     {
                         orderDetails = item;
                     }
@@ -66,6 +67,21 @@ namespace StoreData.Repositories
             {
                 var orderdeta = connection.Query<OrderDetails>("SELECT * FROM OrderDetails");
                 return orderdeta;
+            }
+        }
+        public IEnumerable<AdminOrderDetail> FindById_Admin(string Id)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var list = connection.Query<AdminOrderDetail>(
+                    "SELECT od.ProductID," +
+                    "(SELECT Path FROM Products WHERE od.ProductID = ProductID) AS Path," +
+                    "(SELECT ProductName FROM Products WHERE od.ProductID = ProductID) AS ProductName," +
+                    "(SELECT UnitPrice FROM Products WHERE od.ProductID = ProductID) AS UnitPrice," +
+                    "od.Quantity " +
+                    "FROM OrderDetails od " +
+                    "WHERE od.OrderID = @Id", new { Id });
+                return list;
             }
         }
     }
