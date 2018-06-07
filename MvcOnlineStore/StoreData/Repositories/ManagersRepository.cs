@@ -98,5 +98,6 @@ namespace StoreData.Repositories
             }
             return managerlist;
         }
+
     }
 }
