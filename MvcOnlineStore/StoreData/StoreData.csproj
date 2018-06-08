@@ -285,6 +285,7 @@
     <Content Include="FileUploads\Employee2.jpg" />
     <Content Include="FileUploads\Homeright.png" />
     <Content Include="FileUploads\img-sp.png" />
+    <Content Include="FileUploads\Index_Right.jpg" />
     <Content Include="FileUploads\left-arrow.png" />
     <Content Include="FileUploads\logo.jpg" />
     <Content Include="FileUploads\Newlogo.jpg" />

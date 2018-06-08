@@ -24,12 +24,14 @@ namespace StoreData.Controllers
         [Route("About")]
         public ActionResult About()
         {
-            return View();
+            var list = new HomeIndexTop();
+            return View(list);
         }
         [Route("MailUS")]
         public ActionResult MailUS()
         {
-            return View();
+            var list = new HomeIndexTop();
+            return View(list);
         }
         public ActionResult _NavPartial()
         {
