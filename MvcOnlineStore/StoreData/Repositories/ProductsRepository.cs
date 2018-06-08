@@ -62,7 +62,7 @@ namespace StoreData.Repositories
             }
         }
 
-        public IEnumerable<ProductsItem> FindByProductItemId(string ProductID)
+        public ProductsItem FindByProductItemId(string ProductID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
@@ -73,7 +73,7 @@ namespace StoreData.Repositories
                         id = ProductID
                     });
 
-                return products;
+                return products.FirstOrDefault();
             }
         }
 

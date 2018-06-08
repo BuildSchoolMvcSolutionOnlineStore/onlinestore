@@ -12,6 +12,7 @@ namespace StoreData.Controllers
     public class LoginController : Controller
     {
         private LoginService LoginService = new LoginService();
+        
         // GET: Login
         public ActionResult Login()
         {
@@ -19,7 +20,7 @@ namespace StoreData.Controllers
                 return RedirectToAction("Index", "Admin");//登入後導向後台主畫面
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult LoginCheck(LoginView loginemployee)
         {
@@ -36,6 +37,13 @@ namespace StoreData.Controllers
                 ModelState.AddModelError("", Validatestr);
                 return View(loginemployee);
             }
+        }
+
+        [Authorize]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

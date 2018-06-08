@@ -55,9 +55,10 @@ namespace StoreData.Controllers
         //單一商品頁面
         public ActionResult ProductItem(string Id)
         {
-            var list = new HomeIndexTop();
-            list.ProductsList = productservice.FindproductById(Id);
-            return View(list);
+            //var list = new HomeIndexTop();
+            //list.ProductsList = productservice.FindproductById(Id);
+            var item = productservice.FindproductById(Id);
+            return View(item);
         }
         //側邊分類欄
         public ActionResult CategoriesList()

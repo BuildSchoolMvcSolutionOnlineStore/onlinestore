@@ -24,6 +24,7 @@ namespace StoreData.Controllers
         private MessageService messageService = new MessageService();
         // GET: Admin
         //儀表板
+        [Authorize]
         [Route("")]
         public ActionResult Index()
         {
@@ -31,7 +32,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
         //會員管理
-
+        [Authorize]
         [Route("Members")]
         public ActionResult Members(string Id, int Page = 1)
         {
@@ -45,6 +46,7 @@ namespace StoreData.Controllers
         }
 
         //產品管理
+        [Authorize]
         [Route("Products")]
         public ActionResult Products(string Id, int Page = 1)
         {
@@ -66,6 +68,7 @@ namespace StoreData.Controllers
         }
 
         //新增產品
+        [Authorize]
         [Route("CreateProduct")]
         public ActionResult CreateProduct()
         {
@@ -96,6 +99,7 @@ namespace StoreData.Controllers
         }
 
         //修改產品
+        [Authorize]
         [Route("UpdateProduct")]
         public ActionResult UpdateProduct(string Id)
         {
@@ -146,6 +150,7 @@ namespace StoreData.Controllers
         }
 
         //訂單列表
+        [Authorize]
         [Route("SearchOrder")]
         public ActionResult SearchOrder(string Id, int OrderStatus = -1, int Page = 1)
         {
@@ -187,6 +192,7 @@ namespace StoreData.Controllers
         }
 
         //訂單明細
+        [Authorize]
         [Route("OrderDetail/{orderId}")]
         public ActionResult OrderDetail(string orderId,int status,string str,int OrderStatus)
         {
@@ -213,12 +219,15 @@ namespace StoreData.Controllers
         //{
 
         //}
+        [Authorize]
         [Route("Pay")]
         public ActionResult Pay()
         {
             var Data = payservice.paymentGetAll();
             return View(Data);
         }
+
+        [Authorize]
         [Route("CreatePay")]
         public ActionResult CreatePay()
         {
@@ -256,12 +265,15 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
         }
 
+        [Authorize]
         [Route("Delivery")]
         public ActionResult Delivery()
         {
             var Data = deliveryService.deliveryGetAll();
             return View(Data);
         }
+
+        [Authorize]
         [Route("CreateDelivery")]
         public ActionResult CreateDelivery()
         {
@@ -285,6 +297,8 @@ namespace StoreData.Controllers
             TempData["message"] = "成功刪除運送方式";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
+
+        [Authorize]
         public ActionResult UpdateDelivery(int Id)
         {
             var Data = deliveryService.FindById(Id);
@@ -299,6 +313,7 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
 
+        [Authorize]
         [Route("Category")]
         public ActionResult Category()
         {
@@ -306,6 +321,7 @@ namespace StoreData.Controllers
             return View(Data);
 
         }
+        [Authorize]
         [Route("CreateCategory")]
         public ActionResult CreateCategory()
         {
