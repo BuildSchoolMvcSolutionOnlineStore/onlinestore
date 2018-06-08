@@ -38,5 +38,12 @@ namespace StoreData.Controllers
                 return View(loginemployee);
             }
         }
+
+        [Authorize]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }
