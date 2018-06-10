@@ -1,6 +1,6 @@
 ﻿@model StoreData.ViewModels.Home.ProductsItem
+
 @{ 
-    ViewBag.Title = "ProductItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/NewHome/css")
@@ -28,8 +28,6 @@
                 <img src=/FileUploads/@Model.Path alt='' style="width:300px;height:300px;" />
             </div>
             <!-- flixslider -->
-            <script defer src="js/jquery.flexslider.js"></script>
-            <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
             <script>
                 // Can also be used with $(document).ready()
                 $(window).load(function () {
@@ -40,9 +38,6 @@
                 });
             </script>
             <!-- flixslider -->
-            <!-- zooming-effect -->
-            <script src="js/imagezoom.js"></script>
-            <!-- //zooming-effect -->
         </div>
         <div class="col-md-7 single-right">
             <h3>@Model.ProductName</h3>

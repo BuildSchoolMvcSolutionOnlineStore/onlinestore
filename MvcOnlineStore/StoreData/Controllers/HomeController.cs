@@ -16,9 +16,9 @@ namespace StoreData.Controllers
         public ActionResult Index()
         {
             var list = new HomeIndexTop();
-            list.ProductsList = productservice.GetProductsListBYThree();
-            list.MidProductsList = productservice.GetProductsListBYFour();
-            list.DownProductsList = productservice.GetProductsListBYSix();
+            list.ProductsList = productservice.GetProductsList();
+            list.MidProductsList = productservice.GetProductsList().Take(4);
+            list.DownProductsList = productservice.GetProductsList().Take(8);
             return View(list);
         }
         [Route("About")]

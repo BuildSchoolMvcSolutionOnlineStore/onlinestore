@@ -16,21 +16,21 @@ namespace StoreData.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                connection.Execute("INSERT INTO Categories VALUES(@CategoryID, @CategoryName)",model);
+                connection.Execute("INSERT INTO Categories VALUES(@CategoryID, @CategoryName)", model);
             }
         }
         public void Update(Categories model)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                connection.Execute("UPDATE Categories SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID",model);
+                connection.Execute("UPDATE Categories SET CategoryName = @CategoryName WHERE CategoryID = @CategoryID", model);
             }
         }
         public void Delete(int CategoryID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                connection.Execute("Delete From Categories WHERE CategoryID = @id",new {id = CategoryID });
+                connection.Execute("Delete From Categories WHERE CategoryID = @id", new { id = CategoryID });
             }
         }
         public Categories FindById(int CategoryID)
@@ -39,8 +39,8 @@ namespace StoreData.Repositories
             Categories category = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var orders =  connection.Query<Categories>("SELECT * FROM Categories WHERE CategoryID = @id",
-                    new {id = CategoryID });
+                var orders = connection.Query<Categories>("SELECT * FROM Categories WHERE CategoryID = @id",
+                    new { id = CategoryID });
 
                 foreach (var item in orders)
                 {
@@ -50,23 +50,23 @@ namespace StoreData.Repositories
                 return category;
             }
         }
-       
-            public IEnumerable<Categories> GetAll()
-            {
-                var categorylist = new List<Categories>();
-                using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
-                {
-                    var category = connection.Query<Categories>(
-                        "SELECT * FROM Categories");
 
-                    foreach (var item in category)
-                    {
+        public IEnumerable<Categories> GetAll()
+        {
+            var categorylist = new List<Categories>();
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var category = connection.Query<Categories>(
+                    "SELECT * FROM Categories");
+
+                foreach (var item in category)
+                {
                     categorylist.Add(item);
-                    }
                 }
-                return categorylist;
             }
-        
+            return categorylist;
+        }
+
 
         public int FindLastCategoryID()
         {
