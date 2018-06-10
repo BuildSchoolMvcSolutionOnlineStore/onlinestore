@@ -9,12 +9,12 @@
 <div class="row">
     <ol class="breadcrumb">
         <li>
-            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "" })>
+            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "Dashboard" })>
                 <em class="fa fa-home"></em>
             </a>
         </li>
         <li>
-            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "SearchOrder",OrderStatus = Model.OrderStatus })>
+            <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "SearchOrder",OrderStatus = Model.OrderStatus})>
                 訂單列表
             </a>
         </li>
@@ -122,14 +122,14 @@
                                                 </div>
                                                 @using (Html.BeginForm("ReplyMessage", "Admin"))
                                                 {
-                                                    <div class="modal-body">
-                                                        <input name="orderId" type="hidden" value=@item.OrderID />
-                                                        <input name="time" type="hidden" value=@item.Time />
-                                                        <input name="str" type="hidden" value=@ViewBag.Action />
-                                                        <input name="status" type="hidden" value=@Model.Status />
-                                                        <p>顧客留言: @item.Message</p>
-                                                        <textarea name="reply" class="form-control" rows="3"></textarea>
-                                                    </div>
+                                                <div class="modal-body">
+                                                    <input name="orderId" type="hidden" value=@item.OrderID />
+                                                    <input name="time" type="hidden" value=@item.Time />
+                                                    <input name="status" type="hidden" value=@Model.Status />
+                                                    <input name="OrderStatus" type="hidden" value=@Model.OrderStatus />
+                                                    <p>顧客留言: @item.Message</p>
+                                                    <textarea name="reply" class="form-control" rows="3"></textarea>
+                                                </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
                                                         <button type="submit" class="btn btn-primary">送出</button>

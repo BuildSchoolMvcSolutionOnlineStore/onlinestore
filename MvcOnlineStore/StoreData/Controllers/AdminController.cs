@@ -25,8 +25,8 @@ namespace StoreData.Controllers
         // GET: Admin
         //儀表板
         [Authorize]
-        [Route("")]
-        public ActionResult Index()
+        [Route("Dashboard")]
+        public ActionResult Dashboard()
         {
             var Data = adminService.Dashboard();
             return View(Data);
@@ -184,17 +184,17 @@ namespace StoreData.Controllers
         //到貨按鈕
         [Route("Arrival")]
         [HttpPost]
-        public ActionResult Arrival(string orderId, string action)
+        public ActionResult Arrival(string orderId)
         {
             ordersService.UpdateStatus(orderId, 2);
             TempData["message"] = "訂單狀態變更為: 已到貨";
-            return RedirectToRoute(new { Controller = "Admin", Action = action });
+            return RedirectToRoute(new { Controller = "Admin", Action = "SearchOrder" });
         }
 
         //訂單明細
         [Authorize]
         [Route("OrderDetail/{orderId}")]
-        public ActionResult OrderDetail(string orderId,int status,string str,int OrderStatus)
+        public ActionResult OrderDetail(string orderId,int status,int OrderStatus)
         {
             var Data = new OrderDetailView();
             Data.OrderId = orderId;
@@ -202,23 +202,17 @@ namespace StoreData.Controllers
             Data.OrderDataList = orderDetailService.GetAdminOrders(orderId);
             Data.MessageDataList = messageService.GetAdminMessage(orderId);
             Data.OrderStatus = OrderStatus;
-            ViewBag.Action = str;
             return View(Data);
         }
         //回覆留言
         [Route("ReplyMessage")]
         [HttpPost]
-        public ActionResult ReplyMessage(string orderId,DateTime time,string reply,string str,string status)
+        public ActionResult ReplyMessage(string orderId,DateTime time,string reply,int status,int OrderStatus)
         {
             messageService.Update(orderId, time, reply);
             TempData["message"] = "已回覆留言";
-            return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, str });
+            return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, OrderStatus });
         }
-        //[Route("OrderDetail")]
-        //public ActionResult OrderDetail(string orderId)
-        //{
-
-        //}
         [Authorize]
         [Route("Pay")]
         public ActionResult Pay()
