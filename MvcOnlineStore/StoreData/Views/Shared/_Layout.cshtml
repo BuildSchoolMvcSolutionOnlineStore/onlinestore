@@ -146,9 +146,9 @@
                 </div>
             </div>
             <div class="cart box_1">
-                <a href="http://localhost:63184/Customer/Chart">
+                <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
                     <div class="total">
-                        <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items 
                     </div>
                     <img src="~/FileUploads/bag.png" alt="" />
                 </a>
