@@ -137,14 +137,22 @@ namespace StoreData.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var amount = connection.Query<int>(
-                    "SELECT SUM(od.Quantity * p.UnitPrice ) " +
-                    "FROM OrderDetails od " +
-                    "INNER JOIN Products p ON p.ProductID = od.ProductID " +
-                    "INNER JOIN Orders o On o.OrderID = od.OrderID " +
-                    "WHERE o.Status = 3 "
-                    );
-                return amount.FirstOrDefault();
+                try
+                { 
+                    var amount = connection.Query<int>(
+                        "SELECT SUM(od.Quantity * p.UnitPrice ) " +
+                        "FROM OrderDetails od " +
+                        "INNER JOIN Products p ON p.ProductID = od.ProductID " +
+                        "INNER JOIN Orders o On o.OrderID = od.OrderID " +
+                        "WHERE o.Status = 3 "
+                        );
+                    return amount.FirstOrDefault();
+                }
+                catch
+                {
+                    return 0;
+                }
+                
             }
         }
     }

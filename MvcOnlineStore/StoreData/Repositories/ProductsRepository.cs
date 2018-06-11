@@ -203,7 +203,7 @@ namespace StoreData.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var products = connection.Query<ProductsItem>("SELECT ProductID, CategoryID, ProductName, UnitPrice, [Path] FROM Products ORDER BY ProductID DESC");
+                var products = connection.Query<ProductsItem>("SELECT ProductID, CategoryID, ProductName, UnitPrice, Path FROM Products ORDER BY ProductID DESC");
                 return products;
             }
         }

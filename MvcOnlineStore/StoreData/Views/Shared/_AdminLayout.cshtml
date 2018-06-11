@@ -40,7 +40,7 @@
         <div class="divider"></div>
         <ul class="nav menu">
             <li class="parent">
-                <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "" })><i class="fas fa-tachometer-alt">&nbsp;</i> 儀表板</a>
+                <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "Dashboard" })><i class="fas fa-tachometer-alt">&nbsp;</i> 儀表板</a>
             </li>
             <li>
                 <a href=@Url.RouteUrl(new {Controller = "Admin",Action = "Members" })><i class="fas fa-users">&nbsp;</i> 會員管理</a>
@@ -70,31 +70,6 @@
                     <li>
                         <a class="" href=@Url.RouteUrl(new {Controller="Admin",Action = "SearchOrder" })>
                             <span class="fa fa-arrow-right">&nbsp;</span> 訂單搜尋
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href=@Url.RouteUrl(new {Controller="Admin",Action = "UnDeliveryOrder" })>
-                            <span class="fa fa-arrow-right">&nbsp;</span> 未出貨訂單
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href=@Url.RouteUrl(new {Controller="Admin",Action = "ShippedOrder" })>
-                            <span class="fa fa-arrow-right">&nbsp;</span> 已出貨訂單
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="">
-                            <span class="fa fa-arrow-right">&nbsp;</span> 已到貨訂單
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="">
-                            <span class="fa fa-arrow-right">&nbsp;</span> 已完成訂單
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="">
-                            <span class="fa fa-arrow-right">&nbsp;</span> 客戶取消訂單
                         </a>
                     </li>
                 </ul>
@@ -150,7 +125,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+            <li><a href="@Url.RouteUrl(new { Controller = "Login", Action = "LogOut" })"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
         </ul>
     </div><!--/.sidebar-->
 

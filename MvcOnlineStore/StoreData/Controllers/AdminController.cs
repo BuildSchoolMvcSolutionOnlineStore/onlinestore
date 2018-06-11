@@ -24,14 +24,15 @@ namespace StoreData.Controllers
         private MessageService messageService = new MessageService();
         // GET: Admin
         //儀表板
-        [Route("")]
-        public ActionResult Index()
+        [Authorize]
+        [Route("Dashboard")]
+        public ActionResult Dashboard()
         {
             var Data = adminService.Dashboard();
             return View(Data);
         }
         //會員管理
-
+        [Authorize]
         [Route("Members")]
         public ActionResult Members(string Id, int Page = 1)
         {
@@ -45,6 +46,7 @@ namespace StoreData.Controllers
         }
 
         //產品管理
+        [Authorize]
         [Route("Products")]
         public ActionResult Products(string Id, int Page = 1)
         {
@@ -66,6 +68,7 @@ namespace StoreData.Controllers
         }
 
         //新增產品
+        [Authorize]
         [Route("CreateProduct")]
         public ActionResult CreateProduct()
         {
@@ -96,6 +99,7 @@ namespace StoreData.Controllers
         }
 
         //修改產品
+        [Authorize]
         [Route("UpdateProduct")]
         public ActionResult UpdateProduct(string Id)
         {
@@ -146,6 +150,7 @@ namespace StoreData.Controllers
         }
 
         //訂單列表
+        [Authorize]
         [Route("SearchOrder")]
         public ActionResult SearchOrder(string Id, int OrderStatus = -1, int Page = 1)
         {
@@ -179,16 +184,17 @@ namespace StoreData.Controllers
         //到貨按鈕
         [Route("Arrival")]
         [HttpPost]
-        public ActionResult Arrival(string orderId, string action)
+        public ActionResult Arrival(string orderId)
         {
             ordersService.UpdateStatus(orderId, 2);
             TempData["message"] = "訂單狀態變更為: 已到貨";
-            return RedirectToRoute(new { Controller = "Admin", Action = action });
+            return RedirectToRoute(new { Controller = "Admin", Action = "SearchOrder" });
         }
 
         //訂單明細
+        [Authorize]
         [Route("OrderDetail/{orderId}")]
-        public ActionResult OrderDetail(string orderId,int status,string str,int OrderStatus)
+        public ActionResult OrderDetail(string orderId,int status,int OrderStatus)
         {
             var Data = new OrderDetailView();
             Data.OrderId = orderId;
@@ -196,29 +202,26 @@ namespace StoreData.Controllers
             Data.OrderDataList = orderDetailService.GetAdminOrders(orderId);
             Data.MessageDataList = messageService.GetAdminMessage(orderId);
             Data.OrderStatus = OrderStatus;
-            ViewBag.Action = str;
             return View(Data);
         }
         //回覆留言
         [Route("ReplyMessage")]
         [HttpPost]
-        public ActionResult ReplyMessage(string orderId,DateTime time,string reply,string str,string status)
+        public ActionResult ReplyMessage(string orderId,DateTime time,string reply,int status,int OrderStatus)
         {
             messageService.Update(orderId, time, reply);
             TempData["message"] = "已回覆留言";
-            return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, str });
+            return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, OrderStatus });
         }
-        //[Route("OrderDetail")]
-        //public ActionResult OrderDetail(string orderId)
-        //{
-
-        //}
+        [Authorize]
         [Route("Pay")]
         public ActionResult Pay()
         {
             var Data = payservice.paymentGetAll();
             return View(Data);
         }
+
+        [Authorize]
         [Route("CreatePay")]
         public ActionResult CreatePay()
         {
@@ -256,12 +259,15 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
         }
 
+        [Authorize]
         [Route("Delivery")]
         public ActionResult Delivery()
         {
             var Data = deliveryService.deliveryGetAll();
             return View(Data);
         }
+
+        [Authorize]
         [Route("CreateDelivery")]
         public ActionResult CreateDelivery()
         {
@@ -285,6 +291,8 @@ namespace StoreData.Controllers
             TempData["message"] = "成功刪除運送方式";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
+
+        [Authorize]
         public ActionResult UpdateDelivery(int Id)
         {
             var Data = deliveryService.FindById(Id);
@@ -299,6 +307,7 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
 
+        [Authorize]
         [Route("Category")]
         public ActionResult Category()
         {
@@ -306,6 +315,7 @@ namespace StoreData.Controllers
             return View(Data);
 
         }
+        [Authorize]
         [Route("CreateCategory")]
         public ActionResult CreateCategory()
         {

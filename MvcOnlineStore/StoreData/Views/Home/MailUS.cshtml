@@ -1,4 +1,4 @@
-﻿@model StoreData.Models.Managers
+﻿@model StoreData.ViewModels.Home.HomeIndexTop
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,7 +14,7 @@
 <div class="breadcrumb_dress">
     <div class="container">
         <ul>
-            <li><a href="http://localhost:63184/Home/Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+            <li><a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index" })><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
             <li>Mail Us</li>
         </ul>
     </div>
@@ -41,10 +41,10 @@
             <div class="col-md-7 contact-left">
                 <h4>Contact Form</h4>
                 <form action="#" method="post">
-                    <input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-                    <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                    <input type="text" name="Telephone" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
-                    <textarea name="message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+                    <input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="" style="border-top:1px solid #999999">
+                    <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="" style="border-top:1px solid #999999">
+                    <input type="text" name="Telephone" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="" style="border-top:1px solid #999999">
+                    <textarea name="message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="" style="border-top:1px solid #999999">Message...</textarea>
                     <input type="submit" value="Submit">
                 </form>
             </div>
