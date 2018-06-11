@@ -113,26 +113,28 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
                 <div class="search_form">
-                    @using (Html.BeginForm(new { Controller = "Product", Action = "ProductList", FormMethod.Post }))
+                    @using (Html.BeginForm(new { Controller = "Product", Action = "ProductList",FormMethod.Post }))
                     {
-                        <form action="#" method="post">
-                            <input type="text" name="ProductName" placeholder="輸入產品名稱">
-                            <input type="submit" value="Send">
-                        </form>
-                        @*<div class="col-md-6">
-                                <div class="input-group">
-                                    <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="ProductName" />
-                                    <input name="Page" value="1" disabled hidden />
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary btn-md">搜尋</button>
-                                    </span>
-                                </div>
-                            </div>*@
+                        @*<form>*@
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="ProductName" />
+                                <input name="Page" value="1" disabled hidden />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary btn-md">搜尋</button>
+                                </span>
+                            </div>
+                        </div>
+                        @*</form>*@
                     }
+                    @*<form action="#" method="post">
+                            <input type="text" name="Search" placeholder="Search..." value="A002">
+                            <input type="submit" value="Send">
+                        </form>*@
                 </div>
             </div>
             <div class="cart box_1">
-                <a href="#">
+                <a href="http://localhost:63184/Customer/Chart">
                     <div class="total">
                         <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
                     </div>
@@ -181,14 +183,14 @@
                     <ul class="address">
                         <li>
                             <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block,
-                            @*<span>New York City.</span>*@
+                            <span>New York City.</span>
                         </li>
                         <li>
                             <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
                             <a href="mailto:info@example.com">info@example.com</a>
                         </li>
                         <li>
-                            <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+0204 88 995
+                            <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567
                         </li>
                     </ul>
                 </div>
@@ -196,19 +198,19 @@
                     <h3>Information</h3>
                     <ul class="info">
                         <li>
-                            <a href="#">About Us</a>
+                            <a href="about.html">About Us</a>
                         </li>
                         <li>
-                            <a href="#">Contact Us</a>
+                            <a href="mail.html">Contact Us</a>
                         </li>
                         <li>
-                            <a href="#">Short Codes</a>
+                            <a href="short-codes.html">Short Codes</a>
                         </li>
                         <li>
-                            <a href="#">FAQ's</a>
+                            <a href="faq.html">FAQ's</a>
                         </li>
                         <li>
-                            <a href="#">Special Products</a>
+                            <a href="products.html">Special Products</a>
                         </li>
                     </ul>
                 </div>
@@ -216,19 +218,19 @@
                     <h3>Category</h3>
                     <ul class="info">
                         <li>
-                            <a href="#">Dresses</a>
+                            <a href="dresses.html">Dresses</a>
                         </li>
                         <li>
-                            <a href="#">Sweaters</a>
+                            <a href="sweaters.html">Sweaters</a>
                         </li>
                         <li>
-                            <a href="#">Shirts</a>
+                            <a href="shirts.html">Shirts</a>
                         </li>
                         <li>
-                            <a href="#">Sarees</a>
+                            <a href="sarees.html">Sarees</a>
                         </li>
                         <li>
-                            <a href="#">Shorts & Skirts</a>
+                            <a href="skirts.html">Shorts & Skirts</a>
                         </li>
                     </ul>
                 </div>

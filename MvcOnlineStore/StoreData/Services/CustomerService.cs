@@ -12,6 +12,7 @@ namespace StoreData.Services
     public class CustomerService
     {
         private CustomersRepository repository = new CustomersRepository();
+        private CartRepository cartrepository = new CartRepository();
         public IEnumerable<Customers> CustomerList(string Search, ForPaging Paging)
         {
             IEnumerable<Customers> Data;
@@ -51,5 +52,15 @@ namespace StoreData.Services
             }
             return Hashresult;
         }
+        //加入購物車
+        public void CartEvent(string customerId,string productId,int quantity)   
+        {
+            var item = cartrepository.FindById(customerId);
+            item.ProductID = productId;
+            item.Quantity = quantity;
+            cartrepository.Create(item);
+        }
+
+
     }
 }

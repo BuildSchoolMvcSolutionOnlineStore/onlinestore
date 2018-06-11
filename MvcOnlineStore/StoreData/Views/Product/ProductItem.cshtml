@@ -63,9 +63,14 @@
                         <i class="item_price">$@Model.UnitPrice</i>
                         @if (Model.Stock != 0)
                         {
+                            using (Html.BeginForm("ProductItem", "Product"))
+                            { 
+                            <input name="productId" type="hidden" value=@Model.ProductID>
+                            <input id="num" name="quantity" type="hidden" value="0" />
                             <p>
                                 <a class="item_add" href="#">Add to cart</a>
                             </p>
+                            }
                         }
                         else
                         {
@@ -84,7 +89,7 @@
                         <div class="quantity-select">
                             <button class="entry value-minus1">&nbsp;</button>
                             <div class="entry value1" style="background-color:#ffffff ;color:#000">
-                                <span>0</span>
+                                <span id="productnum" name="quantity">0</span>
                             </div>
                             <button class="entry value-plus1 active ">&nbsp;</button>
                         </div>
@@ -106,11 +111,13 @@
                                 divUpd.text(@Model.Stock);
                                 }
                             }
+                            $("#num").val($(".value1").text());
                         });
                         $('.value-minus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
                             if (newVal >= 0) divUpd.text(newVal);
+                            $("#num").val($(".value1").text());
                         });
                     </script>
                     <!--quantity-->

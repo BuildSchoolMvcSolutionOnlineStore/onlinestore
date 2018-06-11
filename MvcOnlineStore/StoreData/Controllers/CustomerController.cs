@@ -108,9 +108,21 @@ namespace StoreData.Controllers
             return RedirectToAction("Index","Home");
         }
         //加入購物車
-        //public ActionResult AddChart()
-        //{
+        public ActionResult Chart()
+        {
+            return View();
+        }
 
-        //}
+        [HttpPost]
+        public ActionResult AddChart(string productId,int quantity)
+        {
+            string customerID = "Alison";
+            if(customerID=="Alison")
+            {
+                customerService.CartEvent(customerID, productId, quantity);
+            }
+            TempData["RegisterStatae"] = "成功加入購物車";
+            return RedirectToAction("Product", "ProductItem", productId);
+        }
     }
 }
