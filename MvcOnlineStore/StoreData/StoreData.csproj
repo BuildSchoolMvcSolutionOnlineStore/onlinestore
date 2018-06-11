@@ -284,6 +284,7 @@
     <Content Include="FileUploads\BOSS.jpg" />
     <Content Include="FileUploads\carousel-1.jpg" />
     <Content Include="FileUploads\carousel-2.jpg" />
+    <Content Include="FileUploads\close.png" />
     <Content Include="FileUploads\Employee2.jpg" />
     <Content Include="FileUploads\Homeright.png" />
     <Content Include="FileUploads\img-sp.png" />

@@ -2544,7 +2544,7 @@ td.invert-image a img {
     width: 32px;
     height: 32px;
     position: absolute;
-    right: 15px;
+    right: 40px;
     top: -13px;
     -webkit-transition: color 0.2s ease-in-out;
     -moz-transition: color 0.2s ease-in-out;
