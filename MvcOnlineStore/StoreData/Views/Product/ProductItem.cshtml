@@ -63,11 +63,14 @@
                         <i class="item_price">$@Model.UnitPrice</i>
                         @if (Model.Stock != 0)
                         {
+                            using (Html.BeginForm("ProductItem", "Product"))
+                            { 
                             <input name="productId" type="hidden" value=@Model.ProductID>
                             <input id="num" name="quantity" type="hidden" value="0" />
                             <p>
                                 <a class="item_add" href="#">Add to cart</a>
                             </p>
+                            }
                         }
                         else
                         {
