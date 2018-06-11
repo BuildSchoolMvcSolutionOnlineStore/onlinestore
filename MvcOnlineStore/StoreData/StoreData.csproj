@@ -291,6 +291,7 @@
     <Content Include="FileUploads\left-arrow.png" />
     <Content Include="FileUploads\logo.jpg" />
     <Content Include="FileUploads\Newlogo.jpg" />
+    <Content Include="FileUploads\QRCode.png" />
     <Content Include="FileUploads\right-arrow.png" />
     <Content Include="FileUploads\star-.png" />
     <Content Include="FileUploads\star.png" />

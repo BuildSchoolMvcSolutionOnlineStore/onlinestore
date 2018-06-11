@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-120144619-1');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120144619-1"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Women's Fashion Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
@@ -105,7 +114,10 @@
                 </a>
             </div>
             <div class="w3l_logo" style="position:relative;top:10px;left:0px">
-                <img src="~/FileUploads/Newlogo.jpg" alt=" " />
+                <h1>
+                    <a><img src="~/FileUploads/Newlogo.jpg"/></a>
+                </h1>
+                @*<img src="~/FileUploads/Newlogo.jpg" alt=" " />*@
             </div>
             <div class="search">
                 <input class="search_box" type="checkbox" id="search_box">
@@ -233,16 +245,17 @@
                     </ul>
                 </div>
                 <div class="col-md-3 w3_footer_grid">
-                    <h3>Follow Us</h3>
+                    <h3 style="margin-bottom:37px;">Follow Us</h3>
                     <div class="agileits_social_button">
-                        <ul class="info">
+                        <img src="~/FileUploads/QRCode.png"/>
+                        @*<ul class="info">
                             <li>
                                 <a href="#" class="facebook"> </a>
                             </li>
                             <li>
                                 <a href="#" class="google"> </a>
                             </li>
-                        </ul>
+                        </ul>*@
                     </div>
                 </div>
                 <div class="clearfix"></div>
