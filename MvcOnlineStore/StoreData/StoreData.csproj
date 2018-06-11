@@ -359,7 +359,6 @@
     <Content Include="Views\Product\ProductItem.cshtml" />
     <Content Include="Views\Home\_NavPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Members.cshtml" />
     <Content Include="Views\Admin\Products.cshtml" />
     <Content Include="Views\Admin\CreateProduct.cshtml" />
@@ -377,6 +376,11 @@
     <Content Include="Views\Product\ProductListBYCategories.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Admin\OrderDetail.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Admin\Category.cshtml" />
+    <Content Include="Views\Admin\CreateCategory.cshtml" />
+    <Content Include="Views\Admin\UpdateCategory.cshtml" />
+    <Content Include="Views\Customer\Chart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
