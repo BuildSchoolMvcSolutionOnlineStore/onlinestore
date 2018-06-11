@@ -379,6 +379,7 @@
     <Content Include="Views\Admin\Category.cshtml" />
     <Content Include="Views\Admin\CreateCategory.cshtml" />
     <Content Include="Views\Admin\UpdateCategory.cshtml" />
+    <Content Include="Views\Customer\Chart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
