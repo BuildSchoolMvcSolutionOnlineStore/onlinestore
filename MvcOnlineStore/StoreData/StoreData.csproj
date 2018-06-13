@@ -208,6 +208,7 @@
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
+    <Compile Include="ViewModels\Customer\CustomerView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
     <Compile Include="ViewModels\Login\LoginView.cs" />
