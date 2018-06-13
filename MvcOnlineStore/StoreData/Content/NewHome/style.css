@@ -2828,6 +2828,12 @@ td.invert-image a img {
 	}	
 }
 @media (max-width:991px){
+    .dresses_img_hover img {
+        display: none;
+    }
+    .dresses_img_hover h4 {
+        display: none;
+    }
 	.w3l_logo h1 a {
 		font-size: .9em;
 	}
@@ -3019,6 +3025,7 @@ td.invert-image a img {
 		font-size: 1.4em;
 	}
 	.w3ls_dresses_grid_left_grid_sub {
+        border:none;
 		width: 62%;
 	}
 	.agileinfo_new_products_grid_dresses {

@@ -50,7 +50,7 @@ namespace CoolPenLineBot.Services
             }
             else
             {
-                return "請在檢查您的訂單ID是否有輸入錯誤";
+                return "很抱歉沒有搜尋到有關於您的訂單\n請確認是否有輸入錯誤";
             }
         }
     }
