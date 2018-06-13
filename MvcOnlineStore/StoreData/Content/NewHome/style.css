@@ -8,6 +8,7 @@ html, body{
     font-size: 100%;
 	background:	#fff;
 	font-family:'Open Sans', sans-serif;
+    max-width:100%;
 }
 p{
 	margin:0;
@@ -305,6 +306,7 @@ ul.multi-column-dropdown h6 {
 	-ms-background-size:cover;
 	min-height:700px;
 }
+
 .banner10{
 	background:url(../../FileUploads/1.jpg) no-repeat 0px 0px;
 	background-size:cover;
@@ -1025,7 +1027,7 @@ ul.wmuSliderPagination {
 	margin: 0 auto;
 }
 #counter {
-	height:120px;
+	height:160px;
 	font-size:60px;
 	color: #FFF;
 	overflow: hidden;
@@ -1975,6 +1977,15 @@ h2.typoh2{
     margin: 0 0 10px;
 }
 @media (max-width:768px){
+    .banner-bottom{
+        padding-top:0;
+    }
+    .video-img {
+        display: none;
+    }
+    .banner h3{
+        display:none;
+    }
 	.grid_5 {
 		padding: 0 0 1em;
 	}
@@ -2544,7 +2555,7 @@ td.invert-image a img {
     width: 32px;
     height: 32px;
     position: absolute;
-    right: 15px;
+    right: 40px;
     top: -13px;
     -webkit-transition: color 0.2s ease-in-out;
     -moz-transition: color 0.2s ease-in-out;
@@ -2656,7 +2667,7 @@ td.invert-image a img {
 	.agileinfo_banner_bottom1_grid_right h4 {
 		width: 30%;
 	}
-	.banner-bottom, .team, .checkout, .additional_info, .team-bottom, .single, .mail, .special-deals, .about, .faq, .typo, .new-products, .banner-bottom1, .top-brands, .dresses, .w3l_related_products {
+	 .team, .checkout, .additional_info, .team-bottom, .single, .mail, .special-deals, .about, .faq, .typo, .new-products, .banner-bottom1, .top-brands, .dresses, .w3l_related_products {
 		padding: 4em 0;
 	}
 	.footer-copy-pos {
@@ -2889,7 +2900,7 @@ td.invert-image a img {
 	.agileinfo_banner_bottom1_grid_right {
 		padding: 8.5em 0 0;
 	}
-	.banner-bottom, .team, .checkout, .additional_info, .team-bottom, .single, .mail, .special-deals, .about, .faq, .typo, .new-products, .banner-bottom1, .top-brands, .dresses, .w3l_related_products {
+	 .team, .checkout, .additional_info, .team-bottom, .single, .mail, .special-deals, .about, .faq, .typo, .new-products, .banner-bottom1, .top-brands, .dresses, .w3l_related_products {
 		padding: 3em 0;
 	}
 	.special-deals h2, .new-products h3, .top-brands h3, .w3l_related_products h3, .team h3, .mail h3 {
@@ -2905,9 +2916,10 @@ td.invert-image a img {
 		font-size: 1.8em;
 	}
 	.w3agile_special_deals_grid_right {
-		padding-right: 1em;
+        display:none;
+		/*padding-right: 1em;
 		width: 60%;
-		margin: 2em auto 0;
+		margin: 2em auto 0;*/
 	}
 	.w3agile_special_deals_grid_right_pos h4, .w3agile_special_deals_grid_right_pos h5 {
 		font-size: 1.8em;
@@ -2917,7 +2929,7 @@ td.invert-image a img {
 	}
 	.agileinfo_new_products_grid {
 		float: left;
-		width: 25%;
+		width: 50%;
 	}
 	.w3_hs_bottom_sub ul {
 		padding:5em 0 0 !important;
@@ -3208,6 +3220,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:767px){
+    .banner {
+        min-height: 400px;
+    }
 	.navbar-default .navbar-toggle {
 		border-color: #212121;
 	}
@@ -3273,6 +3288,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:736px){
+    .banner {
+        min-height: 375px;
+    }
 	.modal-dialog {
 		width: 705px;
 	}
@@ -3287,6 +3305,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:667px){
+    .banner {
+        min-height: 350px;
+    }
 	.modal-dialog {
 		width: 630px;
 	}
@@ -3351,6 +3372,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:640px){
+    .banner {
+        min-height: 325px;
+    }
 	.modal-title {
 		font-size: 1.3em;
 		padding-left: 1em;
@@ -3525,6 +3549,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width: 600px){
+    .banner {
+        min-height: 300px;
+    }
 	.modal-dialog {
 		width: 560px;
 	}
@@ -3545,6 +3572,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:568px){
+    .banner {
+        min-height: 265px;
+    }
 	.modal-dialog {
 		width: 535px;
 	}
@@ -3559,6 +3589,7 @@ td.invert-image a img {
 	}
 	.w3l_logo {
 		margin-left: 6em;
+        padding-bottom:15px;
 	}
 	.search {
 		margin: 1.3em 0 0 0em;
@@ -3574,6 +3605,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:480px){
+    .banner {
+        min-height: 240px;
+    }
 	.modal-dialog {
 		width: 435px;
 	}
@@ -3864,6 +3898,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width: 414px){
+    .banner {
+        min-height: 190px;
+    }
 	.modal-dialog {
 		width: 390px;
 	}
@@ -3961,6 +3998,9 @@ td.invert-image a img {
 	}
 }
 @media (max-width:384px){
+    .banner {
+        min-height: 150px;
+    }
 	.modal-dialog {
 		width: 365px;
 	}
@@ -3998,9 +4038,6 @@ td.invert-image a img {
 	}
 	.banner h3 {
 		font-size: 1em;
-	}
-	.banner {
-		min-height: 310px;
 	}
 	.search_box:checked~.search_form {
 		width: 340px;

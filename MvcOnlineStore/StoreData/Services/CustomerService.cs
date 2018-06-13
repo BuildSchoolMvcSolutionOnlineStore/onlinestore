@@ -6,13 +6,13 @@ using System.Text;
 using System.Web;
 using StoreData.Models;
 using StoreData.Repositories;
-using StoreData.ViewModels.Customer;
 
 namespace StoreData.Services
 {
     public class CustomerService
     {
         private CustomersRepository repository = new CustomersRepository();
+        private CartRepository cartrepository = new CartRepository();
         public IEnumerable<Customers> CustomerList(string Search, ForPaging Paging)
         {
             IEnumerable<Customers> Data;
@@ -52,19 +52,15 @@ namespace StoreData.Services
             }
             return Hashresult;
         }
-
-        public CustomerView GetAccountByCustomers(string CustomerID)
+        //加入購物車
+        public void CartEvent(string customerId,string productId,int quantity)   
         {
-            var model = repository.FindById(CustomerID);
-            return new CustomerView()
-            {
-                CustomerID = model.CustomerID,
-                CustomerPassword = model.CustomerPassword,
-                CustomerName = model.CustomerName,
-                Telephone = model.Telephone,
-                Address = model.Address,
-                CustomerMail = model.CustomerMail
-            };
+            var item = cartrepository.FindById(customerId);
+            item.ProductID = productId;
+            item.Quantity = quantity;
+            cartrepository.Create(item);
         }
+
+
     }
 }
