@@ -111,15 +111,15 @@
                 <h1>
                     <a><img src="~/FileUploads/Newlogo.jpg" /></a>
                 </h1>
-                @*<img src="~/FileUploads/Newlogo.jpg" alt=" " />*@
             </div>
             <div class="search">
                 <input class="search_box" type="checkbox" id="search_box">
                 <label class="icon-search" for="search_box">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
+
                 <div class="search_form">
-                    @using (Html.BeginForm("ProductList","Product"))
+                    @using (Html.BeginForm("ProductList", "Product"))
                     {
                         <div class="col-md-6">
                             <div class="input-group">
@@ -131,7 +131,6 @@
                             </div>
                         </div>
                     }
-
                 </div>
             </div>
             <div class="cart box_1">
@@ -163,7 +162,7 @@
                         <!-- Mega Menu -->
                         <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
-                        <li><a href=@Url.RouteUrl(new {Controller="Customer", Action="SelectCustomer"})>會員管理</a></li>
+                        <li><a href=@Url.RouteUrl(new {Controller="Customer", Action="SelectCustomer"})>Member modification</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
                     </ul>
                 </div>
