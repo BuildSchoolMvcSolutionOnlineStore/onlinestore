@@ -10,53 +10,73 @@ using System.Web.Security;
 
 namespace StoreData.Controllers
 {
+    [RoutePrefix("Customer")]
     public class CustomerController : Controller
     {
         private CustomerService customerService = new CustomerService();
+        private LoginService loginservice = new LoginService();
+        
         public ActionResult CustomerLogin()
         {
-            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (cookie == null)
-            {
-                ViewBag.IsAuthenticated = false;
-                return View();
-            }
-            var ticket = FormsAuthentication.Decrypt(cookie.Value);
-            if (ticket.UserData == "abcdefg")
-            {
-                ViewBag.IsAuthenticated = true;
-                ViewBag.Username = "admin";
-            }
-            else
-            {
-                ViewBag.IsAuthenticated = false;
-            }
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CustomerLogin(CustomerLogin model)
-        {
-            if (model.Username == "admin" && model.Password == "adpassword")
-            {
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "admin", DateTime.Now, DateTime.Now.AddMinutes(30), false, "abcdefg");
-                var ticketData = FormsAuthentication.Encrypt(ticket);
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketData);
-                cookie.Expires = ticket.Expiration;
-                Response.Cookies.Add(cookie);
+            if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
+            return View();
+            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            //if (cookie == null)
+            //{
+            //    ViewBag.IsAuthenticated = false;
+            //    return View();
+            //}
+            //var ticket = FormsAuthentication.Decrypt(cookie.Value);
+            //if (ticket.UserData == "abcdefg")
+            //{
+            //    ViewBag.IsAuthenticated = true;
+            //    ViewBag.Username = "admin";
+            //}
+            //else
+            //{
+            //    ViewBag.IsAuthenticated = false;
+            //}
+            //return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerLogin(CustomerView model)
+        {
+            var Validatestr = loginservice.CustomerLoginCheck(model.CustomerID, model.CustomerPassword);
+            if (String.IsNullOrEmpty(Validatestr))
+            {
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "12345", FormsAuthentication.FormsCookiePath);
+                var enTicket = FormsAuthentication.Encrypt(ticket);
+                Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
+                return RedirectToAction("Index", "Home");
+
             }
             else
             {
-                ModelState.AddModelError("model", "使用者名稱或密碼不正確");
-                ViewBag.IsAuthenticated = false;
-                if (model.Username == "admin" && model.Password != "adpassword")
-                    ViewBag.Error = "使用者密碼不正確";
-                if (model.Username == null)
-                    ViewBag.Error = "請輸入使用者帳號";
-                if (model.Username != "admin" && model.Password != "adpassword" && model.Username != null)
-                    ViewBag.Error = "使用者帳號跟密碼不正確";
+                ModelState.AddModelError("", Validatestr);
+                return View(model);
             }
-            return View();
+            //if (model.Username == "admin" && model.Password == "adpassword")
+            //{
+            //    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "admin", DateTime.Now, DateTime.Now.AddMinutes(30), false, "abcdefg");
+            //    var ticketData = FormsAuthentication.Encrypt(ticket);
+            //    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketData);
+            //    cookie.Expires = ticket.Expiration;
+            //    Response.Cookies.Add(cookie);
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("model", "使用者名稱或密碼不正確");
+            //    ViewBag.IsAuthenticated = false;
+            //    if (model.Username == "admin" && model.Password != "adpassword")
+            //        ViewBag.Error = "使用者密碼不正確";
+            //    if (model.Username == null)
+            //        ViewBag.Error = "請輸入使用者帳號";
+            //    if (model.Username != "admin" && model.Password != "adpassword" && model.Username != null)
+            //        ViewBag.Error = "使用者帳號跟密碼不正確";
+            //}
         }
         public ActionResult Logout()
         {
@@ -78,8 +98,19 @@ namespace StoreData.Controllers
             return View();
         }
 
+        public ActionResult SelectCustomer(string CustomerID)
+        {
+            return View(customerService.GetAccountByCustomers(CustomerID));
+        }
+
         //修改客戶資料
         public ActionResult UpdateCustomer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update()
         {
             return View();
         }
@@ -90,10 +121,12 @@ namespace StoreData.Controllers
             return Json(customerService.AccountCheck(RegisterMember.newCustomer.CustomerID), JsonRequestBehavior.AllowGet);
         }
         //註冊一開始顯示頁面
+        [Route("Register")]
         public ActionResult Register()
         {
             return PartialView();
         }
+        [Route("Register")]
         [HttpPost]
         public ActionResult Register(CustomerRegisterView RegisterMember)
         {
@@ -101,11 +134,11 @@ namespace StoreData.Controllers
             {
                 RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
                 TempData["RegisterStatae"] = "註冊成功";
-                return RedirectToAction("RegisterResult");
+                return RedirectToAction("Index", "Home");
             }
             RegisterMember.CustomerPassword = null;
             RegisterMember.PasswordCheck = null;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         //加入購物車
         public ActionResult Chart()
@@ -114,14 +147,14 @@ namespace StoreData.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddChart(string productId,int quantity)
+        public ActionResult AddChart(string productId, int quantity)
         {
-            string customerID = "Alison";
-            if(customerID=="Alison")
-            {
-                customerService.CartEvent(customerID, productId, quantity);
-            }
-            TempData["RegisterStatae"] = "成功加入購物車";
+            //string customerID = "Alison";
+            //if (customerID == "Alison")
+            //{
+            //    customerService.CartEvent(customerID, productId, quantity);
+            //}
+            //TempData["RegisterStatae"] = "成功加入購物車";
             return RedirectToAction("Product", "ProductItem", productId);
         }
     }

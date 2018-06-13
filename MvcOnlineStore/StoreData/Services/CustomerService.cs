@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using StoreData.Models;
 using StoreData.Repositories;
+using StoreData.ViewModels.Customer;
 
 namespace StoreData.Services
 {
@@ -28,7 +29,7 @@ namespace StoreData.Services
                 Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
                 Paging.SetRightPage();
             }
-            return Data.OrderBy(x=>x.CustomerID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
+            return Data.OrderBy(x => x.CustomerID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
         //註冊方法
         public bool AccountCheck(string Account)
@@ -46,21 +47,32 @@ namespace StoreData.Services
             byte[] PasswordData = Encoding.Default.GetBytes(saltAndPassword);
             byte[] HashDate = sha1Hasher.ComputeHash(PasswordData);
             string Hashresult = "";
-            for(int i=0;i<HashDate.Length;i++)
+            for (int i = 0; i < HashDate.Length; i++)
             {
                 Hashresult += HashDate[i].ToString("x2");
             }
             return Hashresult;
         }
         //加入購物車
-        public void CartEvent(string customerId,string productId,int quantity)   
+        //public void CartEvent(string customerId, string productId, int quantity)
+        //{
+        //    var item = cartrepository.FindById(customerId);
+        //    item.ProductID = productId;
+        //    item.Quantity = quantity;
+        //    cartrepository.Create(item);
+        //}
+
+        public CustomerView GetAccountByCustomers(string CustomerID)
         {
-            var item = cartrepository.FindById(customerId);
-            item.ProductID = productId;
-            item.Quantity = quantity;
-            cartrepository.Create(item);
+            var model = repository.FindById(CustomerID);
+            return new CustomerView()
+            {
+                CustomerID = model.CustomerID,
+                CustomerName = model.CustomerName,
+                CustomerMail = model.CustomerMail,
+                Address = model.Address,
+                Telephone = model.Telephone
+            };
         }
-
-
     }
 }

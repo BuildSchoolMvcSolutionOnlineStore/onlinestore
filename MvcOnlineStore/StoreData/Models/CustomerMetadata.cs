@@ -25,7 +25,7 @@ namespace StoreData.Models
             public string CustomerName { get; set; }
 
             [DisplayName("電話")]
-            [RegularExpression(@"^09-[0-9]{8}")]
+            [RegularExpression(@"^0[0-9]{9}")]
             [StringLength(10,ErrorMessage ="輸入電話格式不對")]
             [Required(ErrorMessage ="請輸入電話")]
             public string Telephone { get; set; }

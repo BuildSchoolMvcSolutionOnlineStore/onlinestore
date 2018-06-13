@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@model StoreData.ViewModels.Customer.CustomerView
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <script>
@@ -52,20 +58,23 @@
                                         <div class="tab-pane active" aria-labelledby="tab_item-0" id="login">
                                             <div class="facts">
                                                 <div class="register">
-                                                    <form action="#">
-                                                        <input name="Email" placeholder="帳號" type="text">
-                                                        <input name="Password" placeholder="密碼" type="password">
+                                                    @using (Html.BeginForm("CustomerLogin", "Customer"))
+                                                    {
+                                                        @Html.TextBoxFor(model => model.CustomerID, new { @class = "form-control", @type = "text", @name = "CustomerID", @placeholder = "帳號" })
+                                                        @Html.ValidationMessageFor(model => model.CustomerID, null, new { @class = "text-danger" })
+                                                        @Html.TextBoxFor(model => model.CustomerPassword, new { @class = "form-control", @type = "Password", @name = "CustomerPassword", @placeholder = "密碼" })
+                                                        @Html.ValidationMessageFor(model => model.CustomerPassword, null, new { @class = "text-danger" })
                                                         <div class="sign-up">
-                                                            <input type="submit" value="登入" />
+                                                            <button type="submit">登入</button>
                                                         </div>
-                                                    </form>
+                                                    }
                                                 </div>
                                             </div>
                                         </div><!--登入-->
                                         <div class="tab-pane" aria-labelledby="tab_item-1" id="register">
                                             <div class="facts">
                                                 <div class="register">
-                                                    @*@{ Html.RenderAction("Register", "Customer");}*@
+                                                   @{Html.RenderAction("Register","Customer");}
                                                 </div>
                                             </div>
                                         </div><!--註冊-->
@@ -115,7 +124,7 @@
             </div>
             <div class="w3l_logo" style="position:relative;top:10px;left:0px">
                 <h1>
-                    <a><img src="~/FileUploads/Newlogo.jpg"/></a>
+                    <a><img src="~/FileUploads/Newlogo.jpg" /></a>
                 </h1>
                 @*<img src="~/FileUploads/Newlogo.jpg" alt=" " />*@
             </div>
@@ -125,9 +134,8 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
                 <div class="search_form">
-                    @using (Html.BeginForm(new { Controller = "Product", Action = "ProductList",FormMethod.Post }))
+                    @using (Html.BeginForm("ProductList","Product"))
                     {
-                        @*<form>*@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="ProductName" />
@@ -137,18 +145,14 @@
                                 </span>
                             </div>
                         </div>
-                        @*</form>*@
                     }
-                    @*<form action="#" method="post">
-                            <input type="text" name="Search" placeholder="Search..." value="A002">
-                            <input type="submit" value="Send">
-                        </form>*@
+
                 </div>
             </div>
             <div class="cart box_1">
                 <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
                     <div class="total">
-                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items 
+                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
                     </div>
                     <img src="~/FileUploads/bag.png" alt="" />
                 </a>
@@ -174,7 +178,7 @@
                         <!-- Mega Menu -->
                         <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
-                        <li><a href="#">Short Codes</a></li>
+                        <li><a href=@Url.RouteUrl(new {Controller="Customer", Action="SelectCustomer"})>會員管理</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
                     </ul>
                 </div>
@@ -247,15 +251,15 @@
                 <div class="col-md-3 w3_footer_grid">
                     <h3 style="margin-bottom:37px;">Follow Us</h3>
                     <div class="agileits_social_button">
-                        <img src="~/FileUploads/QRCode.png"/>
+                        <img src="~/FileUploads/QRCode.png" />
                         @*<ul class="info">
-                            <li>
-                                <a href="#" class="facebook"> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="google"> </a>
-                            </li>
-                        </ul>*@
+                                <li>
+                                    <a href="#" class="facebook"> </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="google"> </a>
+                                </li>
+                            </ul>*@
                     </div>
                 </div>
                 <div class="clearfix"></div>

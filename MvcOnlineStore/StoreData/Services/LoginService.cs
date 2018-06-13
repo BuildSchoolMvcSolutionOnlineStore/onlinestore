@@ -35,5 +35,33 @@ namespace StoreData.Services
             bool result = checkmanager.ManagerPassword.Equals(password);
             return result;
         }
+
+
+        public string CustomerLoginCheck(string CustomerID, string CustomerPassword)
+        {
+            var customer = new CustomersRepository();
+            var check = customer.FindById(CustomerID);
+            if(check != null)
+            {
+                if(CustomerPasswordCheck(check, CustomerPassword))
+                {
+                    return "";
+                }
+                else
+                {
+                    return "密碼錯誤";
+                }
+            }
+            else
+            {
+                return "查無此帳號，請去申請";
+            }
+        }
+
+        public bool CustomerPasswordCheck(Customers customers, string password)
+        {
+            bool result = customers.CustomerPassword.Equals(password);
+            return result;
+        }
     }
 }

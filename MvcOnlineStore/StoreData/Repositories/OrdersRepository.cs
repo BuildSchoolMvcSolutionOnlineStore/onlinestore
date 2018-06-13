@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Customer;
 using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace StoreData.Repositories
                     {
                         id = OrderId
                     });
-                foreach(var item in orders)
+                foreach (var item in orders)
                 {
                     if (item.OrderID != null)
                     {
@@ -73,7 +74,7 @@ namespace StoreData.Repositories
             {
                 var orders = connection.Query<Orders>(
                     "SELECT * FROM Orders");
-                foreach(var item in orders)
+                foreach (var item in orders)
                 {
                     orderslist.Add(item);
                 }
@@ -91,7 +92,7 @@ namespace StoreData.Repositories
                     "o.OrderDate,o.ShippedDate," +
                     "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
                     "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
-                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," + 
+                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," +
                     "o.Status," +
                     "(SELECT COUNT (*) FROM [Messages] WHERE OrderID = o.OrderID AND Reply IS NOT NULL ) As Count " +
                     "FROM Orders o"
@@ -121,6 +122,7 @@ namespace StoreData.Repositories
                 return list;
             }
         }
+        //取得新訂單的數量
         public int GetNewOrderCount()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
@@ -138,7 +140,7 @@ namespace StoreData.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 try
-                { 
+                {
                     var amount = connection.Query<int>(
                         "SELECT SUM(od.Quantity * p.UnitPrice ) " +
                         "FROM OrderDetails od " +
@@ -152,7 +154,54 @@ namespace StoreData.Repositories
                 {
                     return 0;
                 }
-                
+
+            }
+        }
+        public string GetNewId()
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var id = connection.Query<string>("SELECT TOP 1 OrderID FROM Orders ORDER BY OrderID DESC");
+                return id.FirstOrDefault();
+            }
+        }
+        public IEnumerable<CustomerOrder> GetAll_Customer(string customerId)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var order = connection.Query<CustomerOrder>(
+                    "SELECT o.OrderID," +
+                    "o.OrderDate,o.ShippedDate," +
+                    "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
+                    "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
+                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," +
+                    "o.Status " +
+                    "FROM Orders o " +
+                    "WHERE o.CustomerID = @CustomerId", new
+                    {
+                        CustomerId = customerId
+                    });
+                return order;
+            }
+        }
+        public IEnumerable<CustomerOrder> SearchById_Customer(string customerId,string orderId)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var order = connection.Query<CustomerOrder>(
+                    "SELECT o.OrderID," +
+                    "o.OrderDate,o.ShippedDate," +
+                    "(SELECT PaymentMethod FROM PaymentMethods WHERE PaymentMethodID = o.PaymentMethodID) AS PaymentMethod," +
+                    "(SELECT DeliveryMethod FROM DeliveryMethods WHERE DeliveryMethodID = o.DeliveryMethodID) AS DeliveryMethod," +
+                    "(SELECT SUM(od.Quantity * p.UnitPrice ) FROM OrderDetails od INNER JOIN Products p ON p.ProductID = od.ProductID WHERE od.OrderID = o.OrderID) AS Amount," +
+                    "o.Status " +
+                    "FROM Orders o " +
+                    "WHERE o.CustomerID = @CustomerId AND o.OrderID = @OrderId", new
+                    {
+                        CustomerId = customerId,
+                        OrderId = orderId
+                    });
+                return order;
             }
         }
     }

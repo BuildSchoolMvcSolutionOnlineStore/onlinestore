@@ -1,4 +1,5 @@
-﻿using StoreData.Repositories;
+﻿using StoreData.Models;
+using StoreData.Repositories;
 using StoreData.ViewModels.Manager;
 using System;
 using System.Collections.Generic;
