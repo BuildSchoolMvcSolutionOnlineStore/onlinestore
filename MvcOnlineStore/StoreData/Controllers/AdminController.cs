@@ -68,7 +68,7 @@ namespace StoreData.Controllers
         }
 
         //新增產品
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("CreateProduct")]
         public ActionResult CreateProduct()
         {
@@ -99,7 +99,7 @@ namespace StoreData.Controllers
         }
 
         //修改產品
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("UpdateProduct")]
         public ActionResult UpdateProduct(string Id)
         {
@@ -150,7 +150,7 @@ namespace StoreData.Controllers
         }
 
         //訂單列表
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("SearchOrder")]
         public ActionResult SearchOrder(string Id, int OrderStatus = -1, int Page = 1)
         {
@@ -192,7 +192,7 @@ namespace StoreData.Controllers
         }
 
         //訂單明細
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("OrderDetail/{orderId}")]
         public ActionResult OrderDetail(string orderId,int status,int OrderStatus)
         {
@@ -213,7 +213,7 @@ namespace StoreData.Controllers
             TempData["message"] = "已回覆留言";
             return RedirectToRoute(new { Controller="Admin",Action= "OrderDetail", orderId, status, OrderStatus });
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Pay")]
         public ActionResult Pay()
         {
@@ -221,7 +221,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("CreatePay")]
         public ActionResult CreatePay()
         {
@@ -259,7 +259,7 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Pay" });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Delivery")]
         public ActionResult Delivery()
         {
@@ -267,7 +267,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("CreateDelivery")]
         public ActionResult CreateDelivery()
         {
@@ -292,7 +292,7 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateDelivery(int Id)
         {
             var Data = deliveryService.FindById(Id);
@@ -307,7 +307,7 @@ namespace StoreData.Controllers
             return RedirectToRoute(new { Controlller = "Admin", Action = "Delivery" });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Category")]
         public ActionResult Category()
         {
@@ -315,7 +315,7 @@ namespace StoreData.Controllers
             return View(Data);
 
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("CreateCategory")]
         public ActionResult CreateCategory()
         {

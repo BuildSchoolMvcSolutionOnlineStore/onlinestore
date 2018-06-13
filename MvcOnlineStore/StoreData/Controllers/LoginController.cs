@@ -28,7 +28,7 @@ namespace StoreData.Controllers
             if(String.IsNullOrEmpty(Validatestr))
             {
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, loginemployee.ManagerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin", FormsAuthentication.FormsCookiePath);
-                var enTicket = FormsAuthentication.Encrypt(ticket);
+                var enTicket = FormsAuthentication.Encrypt(ticket);//把驗證的表單加密
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
                 return RedirectToAction("Dashboard", "Admin");
             }
