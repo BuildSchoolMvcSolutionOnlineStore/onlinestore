@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using StoreData.Models;
 using StoreData.Repositories;
+using StoreData.ViewModels.Customer;
 
 namespace StoreData.Services
 {
@@ -61,6 +62,17 @@ namespace StoreData.Services
         //    cartrepository.Create(item);
         //}
 
-
+        public CustomerView GetAccountByCustomers(string CustomerID)
+        {
+            var model = repository.FindById(CustomerID);
+            return new CustomerView()
+            {
+                CustomerID = model.CustomerID,
+                CustomerName = model.CustomerName,
+                CustomerMail = model.CustomerMail,
+                Address = model.Address,
+                Telephone = model.Telephone
+            };
+        }
     }
 }

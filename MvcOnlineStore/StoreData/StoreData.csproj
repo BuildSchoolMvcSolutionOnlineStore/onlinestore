@@ -210,6 +210,7 @@
     <Compile Include="ViewModels\Customer\CreateOrderView.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
+    <Compile Include="ViewModels\Customer\CustomerView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
     <Compile Include="ViewModels\Login\LoginView.cs" />
@@ -297,6 +298,7 @@
     <Content Include="FileUploads\BOSS.jpg" />
     <Content Include="FileUploads\carousel-1.jpg" />
     <Content Include="FileUploads\carousel-2.jpg" />
+    <Content Include="FileUploads\close.png" />
     <Content Include="FileUploads\Employee2.jpg" />
     <Content Include="FileUploads\Homeright.png" />
     <Content Include="FileUploads\img-sp.png" />

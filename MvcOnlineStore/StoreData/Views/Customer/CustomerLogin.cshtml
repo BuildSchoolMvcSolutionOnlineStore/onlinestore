@@ -1,4 +1,4 @@
-﻿@model StoreData.Models.Customers
+﻿@model StoreData.ViewModels.Customer.CustomerView
 
 @{
     ViewBag.Title = "Index";
@@ -13,18 +13,15 @@
 else
 {
     <h2>會員登入</h2>
-    using (Html.BeginForm())
+    using (Html.BeginForm("CustomerLogin", "Customer"))
     {
         <p>
-            使用者名稱:<input type="text"
-                         class="form-control"
-                         maxlength="25"
-                         name="Username" />
+            使用者名稱:@Html.TextBoxFor(model=>model.CustomerID, new { @class = "form-control", @type = "text", @name = "CustomerID"})<br />
+                      @Html.ValidationMessageFor(model=>model.CustomerID, null, new { @class = "text-danger"})
+                      
 
-            密碼:<input type="Password"
-                      class="form-control"
-                      maxlength="25"
-                      name="Password" />
+            密碼:@Html.TextBoxFor(model=>model.CustomerPassword, new { @class = "form-control", @type = "Password", @name = "CustomerPassword"})<br />
+                @Html.ValidationMessageFor(model=>model.CustomerPassword, null, new { @class = "text-danger"})
 
         </p>
         <p><button type="submit"> 登入</button></p>
