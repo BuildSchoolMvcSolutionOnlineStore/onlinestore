@@ -13,50 +13,68 @@ namespace StoreData.Controllers
     public class CustomerController : Controller
     {
         private CustomerService customerService = new CustomerService();
+        private LoginService loginservice = new LoginService();
+        
         public ActionResult CustomerLogin()
         {
-            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (cookie == null)
-            {
-                ViewBag.IsAuthenticated = false;
-                return View();
-            }
-            var ticket = FormsAuthentication.Decrypt(cookie.Value);
-            if (ticket.UserData == "abcdefg")
-            {
-                ViewBag.IsAuthenticated = true;
-                ViewBag.Username = "admin";
-            }
-            else
-            {
-                ViewBag.IsAuthenticated = false;
-            }
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
+            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            //if (cookie == null)
+            //{
+            //    ViewBag.IsAuthenticated = false;
+            //    return View();
+            //}
+            //var ticket = FormsAuthentication.Decrypt(cookie.Value);
+            //if (ticket.UserData == "abcdefg")
+            //{
+            //    ViewBag.IsAuthenticated = true;
+            //    ViewBag.Username = "admin";
+            //}
+            //else
+            //{
+            //    ViewBag.IsAuthenticated = false;
+            //}
+            //return View();
         }
+
         [HttpPost]
-        public ActionResult CustomerLogin(CustomerLogin model)
+        public ActionResult CustomerLogin(CustomerView model)
         {
-            if (model.Username == "admin" && model.Password == "adpassword")
+            var Validatestr = loginservice.CustomerLoginCheck(model.CustomerID, model.CustomerPassword);
+            if (String.IsNullOrEmpty(Validatestr))
             {
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "admin", DateTime.Now, DateTime.Now.AddMinutes(30), false, "abcdefg");
-                var ticketData = FormsAuthentication.Encrypt(ticket);
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketData);
-                cookie.Expires = ticket.Expiration;
-                Response.Cookies.Add(cookie);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "12345", FormsAuthentication.FormsCookiePath);
+                var enTicket = FormsAuthentication.Encrypt(ticket);
+                Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ModelState.AddModelError("model", "使用者名稱或密碼不正確");
-                ViewBag.IsAuthenticated = false;
-                if (model.Username == "admin" && model.Password != "adpassword")
-                    ViewBag.Error = "使用者密碼不正確";
-                if (model.Username == null)
-                    ViewBag.Error = "請輸入使用者帳號";
-                if (model.Username != "admin" && model.Password != "adpassword" && model.Username != null)
-                    ViewBag.Error = "使用者帳號跟密碼不正確";
+                ModelState.AddModelError("", Validatestr);
+                return View(model);
             }
-            return View();
+            //if (model.Username == "admin" && model.Password == "adpassword")
+            //{
+            //    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "admin", DateTime.Now, DateTime.Now.AddMinutes(30), false, "abcdefg");
+            //    var ticketData = FormsAuthentication.Encrypt(ticket);
+            //    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketData);
+            //    cookie.Expires = ticket.Expiration;
+            //    Response.Cookies.Add(cookie);
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("model", "使用者名稱或密碼不正確");
+            //    ViewBag.IsAuthenticated = false;
+            //    if (model.Username == "admin" && model.Password != "adpassword")
+            //        ViewBag.Error = "使用者密碼不正確";
+            //    if (model.Username == null)
+            //        ViewBag.Error = "請輸入使用者帳號";
+            //    if (model.Username != "admin" && model.Password != "adpassword" && model.Username != null)
+            //        ViewBag.Error = "使用者帳號跟密碼不正確";
+            //}
         }
         public ActionResult Logout()
         {
