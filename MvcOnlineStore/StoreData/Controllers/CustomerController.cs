@@ -78,8 +78,20 @@ namespace StoreData.Controllers
             return View();
         }
 
+        public ActionResult SelectCustomer(string CustomerID)
+        {
+            CustomerService service = new CustomerService();
+            return View(service.GetAccountByCustomers(CustomerID));
+        }
+
         //修改客戶資料
         public ActionResult UpdateCustomer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update()
         {
             return View();
         }

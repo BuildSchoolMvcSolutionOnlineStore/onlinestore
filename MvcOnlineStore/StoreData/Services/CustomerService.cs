@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using StoreData.Models;
 using StoreData.Repositories;
+using StoreData.ViewModels.Customer;
 
 namespace StoreData.Services
 {
@@ -50,6 +51,20 @@ namespace StoreData.Services
                 Hashresult += HashDate[i].ToString("x2");
             }
             return Hashresult;
+        }
+
+        public CustomerView GetAccountByCustomers(string CustomerID)
+        {
+            var model = repository.FindById(CustomerID);
+            return new CustomerView()
+            {
+                CustomerID = model.CustomerID,
+                CustomerPassword = model.CustomerPassword,
+                CustomerName = model.CustomerName,
+                Telephone = model.Telephone,
+                Address = model.Address,
+                CustomerMail = model.CustomerMail
+            };
         }
     }
 }

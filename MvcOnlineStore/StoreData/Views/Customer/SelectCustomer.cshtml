@@ -1,0 +1,92 @@
+﻿@model StoreData.ViewModels.Customer.CustomerView
+
+@{
+    ViewBag.Title = "SelectCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/NewHome/css")
+<div class="banner8" id="home1">
+    <div class="container">
+        <h2>
+            Women Cosmetics
+            <span>up to</span> Flat 40%
+            <i>Discount</i>
+        </h2>
+    </div>
+</div>
+<div class="breadcrumb_dress">
+    <div class="container">
+        <ul>
+            <li>
+                <a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index"})>
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                </a>
+                <i>/</i>
+            </li>
+            <li>MemberManagement</li>
+        </ul>
+    </div>
+</div>
+<div class="dresses">
+    <div class="container">
+        <div class="w3ls_dresses_grids">
+            <div class="col-md-4 w3ls_dresses_grid_left">
+                <div class="w3ls_dresses_grid_left_grid">
+                    <h3>MemberManagement</h3>
+                    <div class="w3ls_dresses_grid_left_grid_sub">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <ul class="panel_bottom">
+                                <li>
+                                    <a href="#One">會員資料修改</a>
+                                </li>
+                                <li>
+                                    <a href="#Two">密碼修改</a>
+                                </li>
+                                <li>
+                                    <a role="tab">訂單資料查詢</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="col-md-8 mt-5 " style="border:1px solid #E1E1E1">
+                <br>
+                <div class="border border-primary ">
+                    <h3>會員資料修改</h3>
+                    <br>
+                    @using (Html.BeginForm("Update", "UpdateCustomer"))
+                    {
+                    <div class="input-group" style="width: 80%">
+                        <input class="form-control mt-3" style="background-color: #F5F5F5" type="text" readonly name="CustomerID" value="@Model.CustomerID"/>
+                    </div>
+                    <div class="input-group " style="width: 80%">
+                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerName" })
+                        @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="input-group " style="width: 80%">
+                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Telephone" })
+                        @Html.ValidationMessageFor(model => model.Telephone, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="input-group " style="width: 80%">
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Address" })
+                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="input-group " style="width: 80%">
+                        @Html.TextBoxFor(model => model.CustomerMail, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerMail" })
+                        @Html.ValidationMessageFor(model => model.CustomerMail, null, new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3">確認修改</button>
+                    <br><br>
+                    }
+                </div>
+
+                <div class="clearfix"> </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
