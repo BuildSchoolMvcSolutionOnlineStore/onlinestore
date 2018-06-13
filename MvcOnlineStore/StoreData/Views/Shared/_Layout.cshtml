@@ -103,9 +103,18 @@
     <div class="header">
         <div class="container">
             <div class="w3l_login">
-                <a href="#" data-toggle="modal" data-target="#myModal88">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Logout", "Customer")">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="#" data-toggle="modal" data-target="#myModal88">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </a>
+                }
             </div>
             <div class="w3l_logo" style="position:relative;top:10px;left:0px">
                 <h1>
@@ -134,16 +143,17 @@
                 </div>
             </div>
             <div class="cart box_1">
-                <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
-                    <div class="total">
-                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
-                    </div>
-                    <img src="~/FileUploads/bag.png" alt="" />
-                </a>
-                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                <div class="clearfix"> </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
+                        <div class="total">
+                            <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
+                        </div>
+                        <img src="~/FileUploads/bag.png" alt="" />
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                }
             </div>
-            <div class="clearfix"> </div>
         </div>
     </div>
     <div class="navigation">

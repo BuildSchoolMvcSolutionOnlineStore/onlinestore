@@ -83,14 +83,18 @@ namespace StoreData.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            cookie.Expires = DateTime.Now;
-            Response.Cookies.Add(cookie);
+            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            //cookie.Expires = DateTime.Now;
+            //Response.Cookies.Add(cookie);
             return RedirectToAction("Index", "Home");
         }
         [Route("SelectCustomer")]
-        public ActionResult SelectCustomer(string CustomerID)
+        public ActionResult SelectCustomer()
         {
+            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            string CustomerID = ticket.Name;
             return View(customerService.GetAccountByCustomers(CustomerID));
         }
 
