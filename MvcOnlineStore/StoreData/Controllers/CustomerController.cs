@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace StoreData.Controllers
 {
+    [RoutePrefix("Customer")]
     public class CustomerController : Controller
     {
         private CustomerService customerService = new CustomerService();
@@ -44,6 +45,7 @@ namespace StoreData.Controllers
                 cookie.Expires = ticket.Expiration;
                 Response.Cookies.Add(cookie);
                 return RedirectToAction("Index", "Home");
+
             }
             else
             {
@@ -90,10 +92,12 @@ namespace StoreData.Controllers
             return Json(customerService.AccountCheck(RegisterMember.newCustomer.CustomerID), JsonRequestBehavior.AllowGet);
         }
         //註冊一開始顯示頁面
+        [Route("Register")]
         public ActionResult Register()
         {
             return PartialView();
         }
+        [Route("Register")]
         [HttpPost]
         public ActionResult Register(CustomerRegisterView RegisterMember)
         {
@@ -101,11 +105,11 @@ namespace StoreData.Controllers
             {
                 RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
                 TempData["RegisterStatae"] = "註冊成功";
-                return RedirectToAction("RegisterResult");
+                return RedirectToAction("Index", "Home");
             }
             RegisterMember.CustomerPassword = null;
             RegisterMember.PasswordCheck = null;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         //加入購物車
         public ActionResult Chart()
@@ -114,14 +118,14 @@ namespace StoreData.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddChart(string productId,int quantity)
+        public ActionResult AddChart(string productId, int quantity)
         {
-            string customerID = "Alison";
-            if(customerID=="Alison")
-            {
-                customerService.CartEvent(customerID, productId, quantity);
-            }
-            TempData["RegisterStatae"] = "成功加入購物車";
+            //string customerID = "Alison";
+            //if (customerID == "Alison")
+            //{
+            //    customerService.CartEvent(customerID, productId, quantity);
+            //}
+            //TempData["RegisterStatae"] = "成功加入購物車";
             return RedirectToAction("Product", "ProductItem", productId);
         }
     }

@@ -30,10 +30,10 @@ namespace StoreData.Repositories.Tests
         public void Cart_2_UpdateTest()
         {
 
-            var Cartdeta = repository.FindById("Test");
+            var Cartdeta = repository.FindById("Test").FirstOrDefault();
             Cartdeta.Quantity = 30;
             repository.Update(Cartdeta);
-            var Newmodel = repository.FindById("Test");
+            var Newmodel = repository.FindById("Test").FirstOrDefault();
             Assert.IsTrue(Newmodel.Quantity == 30);
 
 

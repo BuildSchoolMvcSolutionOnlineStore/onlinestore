@@ -65,7 +65,7 @@
                                         <div class="tab-pane" aria-labelledby="tab_item-1" id="register">
                                             <div class="facts">
                                                 <div class="register">
-                                                    @*@{ Html.RenderAction("Register", "Customer");}*@
+                                                   @{Html.RenderAction("Register","Customer");}
                                                 </div>
                                             </div>
                                         </div><!--註冊-->
@@ -125,9 +125,8 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
                 <div class="search_form">
-                    @using (Html.BeginForm(new { Controller = "Product", Action = "ProductList",FormMethod.Post }))
+                    @using (Html.BeginForm("ProductList","Product"))
                     {
-                        @*<form>*@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="ProductName" />
@@ -137,12 +136,8 @@
                                 </span>
                             </div>
                         </div>
-                        @*</form>*@
                     }
-                    @*<form action="#" method="post">
-                            <input type="text" name="Search" placeholder="Search..." value="A002">
-                            <input type="submit" value="Send">
-                        </form>*@
+
                 </div>
             </div>
             <div class="cart box_1">

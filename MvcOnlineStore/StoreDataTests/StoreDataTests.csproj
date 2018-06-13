@@ -57,6 +57,7 @@
     <Compile Include="Repositories\OrdersRepositoryTests.cs" />
     <Compile Include="Repositories\PaymentMethodsRepositoryTests.cs" />
     <Compile Include="Repositories\ProductsRepositoryTests.cs" />
+    <Compile Include="Services\OrdersServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StoreData\StoreData.csproj">

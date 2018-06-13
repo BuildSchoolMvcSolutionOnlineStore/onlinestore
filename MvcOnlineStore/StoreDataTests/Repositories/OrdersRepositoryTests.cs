@@ -42,5 +42,13 @@ namespace StoreData.Repositories.Tests
             var count = ordersRepository.GetNewOrderCount();
             Assert.IsTrue(count > 0);
         }
+
+        [TestMethod()]
+        public void GetAll_CustomerTest()
+        {
+            OrdersRepository ordersRepository = new OrdersRepository();
+            var data = ordersRepository.GetAll_Customer("liouli");
+            Assert.IsTrue(data.Count()>1);
+        }
     }
 }
