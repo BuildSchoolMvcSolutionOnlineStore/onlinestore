@@ -53,7 +53,6 @@ namespace CoolPenLineBot.Controllers
                             //ret.Entities.FirstOrDefault().Value.FirstOrDefault().Value  是 entities 裡第一個是什麼 第一個是 entity
                             if(ret.TopScoringIntent.Name == "訂單查詢")
                             {
-                                if(LineEvent.message.text.ToLower()=="de")
                                 repmsg = orderService.SearchOrder(ret.Entities.FirstOrDefault().Value.FirstOrDefault().Value);
                             }
                             if(ret.TopScoringIntent.Name == "產品庫存")
