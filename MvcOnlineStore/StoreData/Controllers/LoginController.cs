@@ -27,7 +27,7 @@ namespace StoreData.Controllers
             var Validatestr = LoginService.LoginCheck(loginemployee.ManagerID, loginemployee.ManagerPassword);
             if(String.IsNullOrEmpty(Validatestr))
             {
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, loginemployee.ManagerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "12345", FormsAuthentication.FormsCookiePath);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, loginemployee.ManagerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin", FormsAuthentication.FormsCookiePath);
                 var enTicket = FormsAuthentication.Encrypt(ticket);
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
                 return RedirectToAction("Dashboard", "Admin");

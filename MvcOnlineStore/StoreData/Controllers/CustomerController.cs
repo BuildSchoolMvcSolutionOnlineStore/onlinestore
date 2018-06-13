@@ -15,12 +15,13 @@ namespace StoreData.Controllers
     {
         private CustomerService customerService = new CustomerService();
         private LoginService loginservice = new LoginService();
-        
+
+        [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
         {
-            if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
-            return View();
+            //if (User.Identity.IsAuthenticated)
+            //    return RedirectToAction("Index", "Home");
+            return PartialView();
             //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             //if (cookie == null)
             //{
@@ -39,14 +40,14 @@ namespace StoreData.Controllers
             //}
             //return View();
         }
-
+        [Route("CustomerLogin")]
         [HttpPost]
         public ActionResult CustomerLogin(CustomerView model)
         {
             var Validatestr = loginservice.CustomerLoginCheck(model.CustomerID, model.CustomerPassword);
             if (String.IsNullOrEmpty(Validatestr))
             {
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "12345", FormsAuthentication.FormsCookiePath);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Customer", FormsAuthentication.FormsCookiePath);
                 var enTicket = FormsAuthentication.Encrypt(ticket);
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
                 return RedirectToAction("Index", "Home");
@@ -78,6 +79,7 @@ namespace StoreData.Controllers
             //        ViewBag.Error = "使用者帳號跟密碼不正確";
             //}
         }
+        [Route("Logout")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -86,18 +88,7 @@ namespace StoreData.Controllers
             Response.Cookies.Add(cookie);
             return RedirectToAction("Index", "Home");
         }
-        //客戶登入
-        public ActionResult SingIn()
-        {
-            return View();
-        }
-
-        //新增客戶資料
-        public ActionResult CreateCustomer()
-        {
-            return View();
-        }
-
+        [Route("SelectCustomer")]
         public ActionResult SelectCustomer(string CustomerID)
         {
             return View(customerService.GetAccountByCustomers(CustomerID));

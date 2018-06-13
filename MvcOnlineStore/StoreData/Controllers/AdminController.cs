@@ -24,7 +24,7 @@ namespace StoreData.Controllers
         private MessageService messageService = new MessageService();
         // GET: Admin
         //儀表板
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Dashboard")]
         public ActionResult Dashboard()
         {
@@ -32,7 +32,7 @@ namespace StoreData.Controllers
             return View(Data);
         }
         //會員管理
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Members")]
         public ActionResult Members(string Id, int Page = 1)
         {
@@ -46,7 +46,7 @@ namespace StoreData.Controllers
         }
 
         //產品管理
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Products")]
         public ActionResult Products(string Id, int Page = 1)
         {
