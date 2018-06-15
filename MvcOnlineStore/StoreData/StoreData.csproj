@@ -207,6 +207,7 @@
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Customer\CheckAccount.cs" />
     <Compile Include="ViewModels\Customer\CreateOrderView.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
