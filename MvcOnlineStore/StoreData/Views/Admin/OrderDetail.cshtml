@@ -58,14 +58,68 @@
                         <td>
                             @if (Model.Status == 0)
                             {
-                                <a class="btn btn-success" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                                <a class="btn btn-success" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-@item.ProductID">
+                                    <i class="glyphicon glyphicon-refresh icon-white"></i>
                                     修改數量
                                 </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    移除
+                                <div class="modal fade" id="bs-example-modal-sm-@item.ProductID" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            @using (Html.BeginForm("Update_OrderDeatail_Product_Num", "Admin"))
+                                            {
+                                                <input type="hidden" name="orderId" value=@Model.OrderId />
+                                                <input type="hidden" name="productId" value=@item.ProductID />
+                                                <input type="hidden" name="status" value=@Model.Status />
+                                                <input type="hidden" name="OrderStatus" value=@Model.OrderStatus />
+                                                <div class="modal-body">
+                                                    <h4>產品ID : @item.ProductID</h4>
+                                                    <h4>產品名稱 : @item.ProductName</h4>
+                                                    <h4>目前數量 : @item.Quantity</h4>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label" style="font-size:18px;">修改數量</label>
+                                                        @Html.TextBoxFor(model => model.Num, new { @class = "form-control", @value = @item.Quantity })
+                                                        @Html.ValidationMessageFor(model => model.Num)
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                                                    <button type="submit" class="btn btn-primary">送出</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div><!--stock modal-->
+                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-delete-@item.ProductID">
+                                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                                    刪除
                                 </a>
+                                <div class="modal fade" id="bs-example-modal-sm-delete-@item.ProductID" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">確定要刪除嗎</h4>
+                                            </div>
+                                            @using (Html.BeginForm("Delete_OrderDeatail_Product", "Admin"))
+                                            {
+                                                <input type="hidden" name="orderId" value=@Model.OrderId />
+                                                <input type="hidden" name="productId" value=@item.ProductID />
+                                                <input type="hidden" name="status" value=@Model.Status />
+                                                <input type="hidden" name="OrderStatus" value=@Model.OrderStatus />
+                                                <input type="hidden" name="Num" value=@item.Quantity />
+                                                <div class="modal-body text-center">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                    <button type="submit" class="btn btn-danger">刪除</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div><!--delete modal-->
+                            }
+                            else if (Model.Status >= 4)
+                            {
+                                <span>取消訂單無法修改</span>
                             }
                             else
                             {
@@ -122,14 +176,14 @@
                                                 </div>
                                                 @using (Html.BeginForm("ReplyMessage", "Admin"))
                                                 {
-                                                <div class="modal-body">
-                                                    <input name="orderId" type="hidden" value=@item.OrderID />
-                                                    <input name="time" type="hidden" value=@item.Time />
-                                                    <input name="status" type="hidden" value=@Model.Status />
-                                                    <input name="OrderStatus" type="hidden" value=@Model.OrderStatus />
-                                                    <p>顧客留言: @item.Message</p>
-                                                    <textarea name="reply" class="form-control" rows="3"></textarea>
-                                                </div>
+                                                    <div class="modal-body">
+                                                        <input name="orderId" type="hidden" value=@item.OrderID />
+                                                        <input name="time" type="hidden" value=@item.Time />
+                                                        <input name="status" type="hidden" value=@Model.Status />
+                                                        <input name="OrderStatus" type="hidden" value=@Model.OrderStatus />
+                                                        <p>顧客留言: @item.Message</p>
+                                                        <textarea name="reply" class="form-control" rows="3"></textarea>
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
                                                         <button type="submit" class="btn btn-primary">送出</button>

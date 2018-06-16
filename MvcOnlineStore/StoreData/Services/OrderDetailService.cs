@@ -16,5 +16,17 @@ namespace StoreData.Services
             var list = orderDetailsRepository.FindById_Admin(Id);
             return list;
         }
+        public int UpdateProductQuantity(string orderId,string prdocutId,int quantity)
+        {
+            var data = orderDetailsRepository.FindById(orderId, prdocutId);
+            var diff = quantity - data.Quantity;
+            data.Quantity = quantity;
+            orderDetailsRepository.Update(data);
+            return diff;
+        }
+        public void DeleteOrderProduct(string orderId, string prdocutId)
+        {
+            orderDetailsRepository.Delete(orderId, prdocutId);
+        }
     }
 }

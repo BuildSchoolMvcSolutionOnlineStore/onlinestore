@@ -190,6 +190,15 @@ namespace StoreData.Controllers
             TempData["message"] = "訂單狀態變更為: 已到貨";
             return RedirectToRoute(new { Controller = "Admin", Action = "SearchOrder" });
         }
+        //取消訂單按鈕
+        [Route("Cancel")]
+        [HttpPost]
+        public ActionResult Cancel(string orderId)
+        {
+            ordersService.UpdateStatus(orderId, 4);
+            TempData["message"] = "訂單狀態變更為: 取消訂單";
+            return RedirectToRoute(new { Controller = "Admin", Action = "SearchOrder" });
+        }
 
         //訂單明細
         [Authorize(Roles = "Admin")]
@@ -351,6 +360,23 @@ namespace StoreData.Controllers
             categoryService.UpdateCategory(model);
             TempData["message"] = "成功修改類別";
             return RedirectToRoute(new { Controlller = "Admin", Action = "Category" });
+        }
+        //修改訂單明細的產品數量
+        [HttpPost]
+        public ActionResult Update_OrderDeatail_Product_Num(string orderId,string productId ,int Num,int status,int OrderStatus)
+        {
+            var diff = orderDetailService.UpdateProductQuantity(orderId, productId, Num);
+            productService.UpdateStock_diff(productId, diff);
+            return RedirectToRoute(new { Controlller = "Admin", Action = "OrderDetail", orderId, status, OrderStatus });
+        }
+        //刪除訂單明細的產品
+        [HttpPost]
+        public ActionResult Delete_OrderDeatail_Product(string orderId, string productId, int Num, int status, int OrderStatus)
+        {
+            var diff = -Num;
+            productService.UpdateStock_diff(productId, diff);
+            orderDetailService.DeleteOrderProduct(orderId, productId);
+            return RedirectToRoute(new { Controlller = "Admin", Action = "OrderDetail", orderId, status, OrderStatus });
         }
     }
 }

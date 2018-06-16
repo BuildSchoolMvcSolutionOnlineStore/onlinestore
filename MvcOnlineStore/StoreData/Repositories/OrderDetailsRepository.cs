@@ -24,19 +24,32 @@ namespace StoreData.Repositories
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                connection.Execute("UPDATE OrderDetails SET ProductID = @ProductID, Quantity = @Quantity, Discount =@Discount WHERE OrderID = @OrderID AND ProductID = @ProductID", model);
+                connection.Execute("UPDATE OrderDetails SET Quantity = @Quantity, Discount =@Discount WHERE OrderID = @OrderID AND ProductID = @ProductID", model);
             }
         }
-        public void Delete(string OrderID)
+        public void Delete(string OrderID,string ProductID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
-                    "Delete From OrderDetails WHERE OrderID = @id",
+                    "Delete From OrderDetails WHERE OrderID = @OrderID AND ProductID = @ProductID",
                     new
                     {
-                        id = OrderID
+                        OrderID,
+                        ProductID
                     });
+            }
+        }
+        public OrderDetails FindById(string OrderId,string ProductId)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var data = connection.Query<OrderDetails>(
+                    "SELECT * FROM OrderDetails WHERE OrderID = @OrderId AND ProductID = @ProductId",
+                    new {
+                        OrderId, ProductId
+                    });
+                return data.FirstOrDefault();
             }
         }
         public OrderDetails FindOrderDetaByOrderId(string OrderId)
