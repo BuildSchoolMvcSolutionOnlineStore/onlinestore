@@ -55,27 +55,27 @@
                     <br>
                     @using (Html.BeginForm("Update", "UpdateCustomer"))
                     {
-                    <div class="input-group" style="width: 80%">
-                        <input class="form-control mt-3" style="background-color: #F5F5F5" type="text" readonly name="CustomerID" value="@Model.CustomerID"/>
-                    </div>
-                    <div class="input-group " style="width: 80%">
-                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerName" })
-                        @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="input-group " style="width: 80%">
-                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Telephone" })
-                        @Html.ValidationMessageFor(model => model.Telephone, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="input-group " style="width: 80%">
-                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Address" })
-                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="input-group " style="width: 80%">
-                        @Html.TextBoxFor(model => model.CustomerMail, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerMail" })
-                        @Html.ValidationMessageFor(model => model.CustomerMail, null, new { @class = "text-danger" })
-                    </div>
-                    <button type="submit" class="btn btn-warning mt-3">確認修改</button>
-                    <br><br>
+                        <div class="input-group" style="width: 80%">
+                            @Html.DisplayNameFor(model=>model.CustomerID)<input class="form-control mt-3" style="background-color: #F5F5F5" type="text" readonly name="CustomerID" value="@Model.CustomerID" />
+                        </div>
+                        <div class="input-group " style="width: 80%">
+                            @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerName" })
+                            @Html.ValidationMessageFor(model => model.CustomerName, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group " style="width: 80%">
+                            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Telephone" })
+                            @Html.ValidationMessageFor(model => model.Telephone, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group " style="width: 80%">
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "Address" })
+                            @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group " style="width: 80%">
+                            @Html.TextBoxFor(model => model.CustomerMail, new { @class = "form-control mt-3", @style = "background-color: #F5F5F5", @type = "text", @name = "CustomerMail" })
+                            @Html.ValidationMessageFor(model => model.CustomerMail, null, new { @class = "text-danger" })
+                        </div>
+                        <button type="submit" class="btn btn-warning mt-3">確認修改</button>
+                        <br><br>
                     }
                 </div>
 

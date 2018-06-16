@@ -42,7 +42,7 @@ namespace StoreData.Controllers
         }
         [Route("CustomerLogin")]
         [HttpPost]
-        public ActionResult CustomerLogin(CustomerView model)
+        public ActionResult CustomerLogin(CheckAccount model)
         {
             var Validatestr = loginservice.CustomerLoginCheck(model.CustomerID, model.CustomerPassword);
             if (String.IsNullOrEmpty(Validatestr))
@@ -50,13 +50,15 @@ namespace StoreData.Controllers
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Customer", FormsAuthentication.FormsCookiePath);
                 var enTicket = FormsAuthentication.Encrypt(ticket);
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
+                TempData["Message"] = "登入成功";
                 return RedirectToAction("Index", "Home");
 
             }
             else
             {
                 ModelState.AddModelError("", Validatestr);
-                return View(model);
+                TempData["Message"] = "帳號密碼錯誤";
+                return RedirectToAction("Index", "Home");
             }
             //if (model.Username == "admin" && model.Password == "adpassword")
             //{
@@ -83,9 +85,9 @@ namespace StoreData.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            //cookie.Expires = DateTime.Now;
-            //Response.Cookies.Add(cookie);
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            cookie.Expires = DateTime.Now;
+            Response.Cookies.Add(cookie);
             return RedirectToAction("Index", "Home");
         }
         [Route("SelectCustomer")]

@@ -1,8 +1,7 @@
-﻿@model StoreData.ViewModels.Customer.CustomerView
+﻿@model StoreData.ViewModels.Customer.CheckAccount
 
 @using (Html.BeginForm("CustomerLogin", "Customer"))
 {
-
     @Html.TextBoxFor(model => model.CustomerID, new { @class = "register-margin", @type = "text", @name = "CustomerID", @placeholder = "帳號" })
     @Html.ValidationMessageFor(model => model.CustomerID, null, new { @class = "text-danger" })
     @Html.TextBoxFor(model => model.CustomerPassword, new { @class = "register-margin", @type = "Password", @name = "CustomerPassword", @placeholder = "密碼" })

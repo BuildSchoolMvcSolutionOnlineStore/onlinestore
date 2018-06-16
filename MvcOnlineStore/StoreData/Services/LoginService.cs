@@ -36,7 +36,7 @@ namespace StoreData.Services
             return result;
         }
 
-
+        //前台
         public string CustomerLoginCheck(string CustomerID, string CustomerPassword)
         {
             var customer = new CustomersRepository();
