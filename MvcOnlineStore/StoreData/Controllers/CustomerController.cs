@@ -93,11 +93,19 @@ namespace StoreData.Controllers
         [Route("SelectCustomer")]
         public ActionResult SelectCustomer()
         {
-            //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            FormsIdentity id = (FormsIdentity)User.Identity;
-            FormsAuthenticationTicket ticket = id.Ticket;
-            string CustomerID = ticket.Name;
-            return View(customerService.GetAccountByCustomers(CustomerID));
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                return View(customerService.GetAccountByCustomers(CustomerID));
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //修改客戶資料
