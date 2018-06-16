@@ -109,15 +109,12 @@ namespace StoreData.Controllers
         }
 
         //修改客戶資料
-        public ActionResult UpdateCustomer()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Update()
+        public ActionResult UpdateCustomer(CustomerView model)
         {
-            return View();
+            customerService.UpdateCustomer(model.CustomerID, model.CustomerPassword, model.CustomerName, model.Telephone, model.Address, model.CustomerMail);
+            TempData["Message"] = "修改成功";
+            return RedirectToAction("Index", "Home");
         }
 
         //判斷註冊帳號是否已被註冊過Action

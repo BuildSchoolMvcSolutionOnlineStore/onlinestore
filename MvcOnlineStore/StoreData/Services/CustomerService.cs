@@ -68,11 +68,33 @@ namespace StoreData.Services
             return new CustomerView()
             {
                 CustomerID = model.CustomerID,
+                CustomerPassword = model.CustomerPassword,
                 CustomerName = model.CustomerName,
                 CustomerMail = model.CustomerMail,
                 Address = model.Address,
                 Telephone = model.Telephone
             };
+        }
+
+        public bool UpdateCustomer(string CustomerID, string CustomerPassword, string CustomerName, string Telephone, string Address, string CustomerMail)
+        {
+            if(CustomerID != null)
+            {
+                repository.Update(new Customers
+                {
+                    CustomerID = CustomerID,
+                    CustomerPassword = CustomerPassword,
+                    CustomerName = CustomerName,
+                    Telephone = Telephone,
+                    Address = Address,
+                    CustomerMail = CustomerMail
+                });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
