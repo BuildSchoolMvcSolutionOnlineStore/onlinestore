@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Customer\CustomerView.cs" />
+    <Compile Include="ViewModels\Customer\OrderDetailView.cs" />
     <Compile Include="ViewModels\Customer\OrderView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
@@ -401,6 +402,7 @@
     <Content Include="Views\Customer\SelectCustomer.cshtml" />
     <Content Include="Views\Customer\SideBar.cshtml" />
     <Content Include="Views\Customer\OrderList.cshtml" />
+    <Content Include="Views\Customer\OrderDetailList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

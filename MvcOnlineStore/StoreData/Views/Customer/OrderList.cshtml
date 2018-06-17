@@ -67,7 +67,7 @@
                               @foreach (var item in Model.DataList)
                               {
                                   <tr>
-                                      <td><a href="#">@item.OrderID</a></td>
+                                      <td><a href=@Url.Action("OrderDetailList","Customer",new {orderId=item.OrderID,amount = item.Amount })>@item.OrderID</a></td>
                                       <td>@item.OrderDate</td>
                                       <td>@item.ShippedDate</td>
                                       <td>@item.PaymentMethod</td>

@@ -16,6 +16,8 @@ namespace StoreData.Controllers
         private CustomerService customerService = new CustomerService();
         private LoginService loginservice = new LoginService();
         private OrdersService ordersService = new OrdersService();
+        private OrderDetailService orderDetailService = new OrderDetailService();
+        private MessageService messageService = new MessageService();
 
         [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
@@ -177,6 +179,19 @@ namespace StoreData.Controllers
             };
             data.DataList = ordersService.GetCustomerOrderList(customerId, data.orderId,data.Paging);
 
+            return View(data);
+        }
+        [Route("OrderDetailList/{orderId}")]
+        public ActionResult OrderDetailList(string orderId,int amount)
+        {
+            var data = new OrderDetailView()
+            {
+                CustomerId = Get_CustomerId(),
+                OrderId = orderId,
+                Amount = amount,
+            };
+            data.OrderDetailDataList = orderDetailService.GetAdminOrders(data.OrderId);
+            data.MessageDataList = messageService.GetAdminMessage(data.OrderId);
             return View(data);
         }
     }
