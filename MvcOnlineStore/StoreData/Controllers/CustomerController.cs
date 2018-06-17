@@ -124,5 +124,7 @@ namespace StoreData.Controllers
             TempData["RegisterStatae"] = "成功加入購物車";
             return RedirectToAction("Product", "ProductItem", productId);
         }
+
+
     }
 }
