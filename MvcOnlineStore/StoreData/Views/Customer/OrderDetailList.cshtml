@@ -1,0 +1,124 @@
+﻿@model StoreData.ViewModels.Customer.OrderDetailView
+@{
+    ViewBag.Title = "OrderDetailList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/NewHome/css")
+
+<div class="banner10" id="home1">
+    <div class="container">
+        <h2>Member Modification</h2>
+    </div>
+</div>
+<div class="breadcrumb_dress">
+    <div class="container">
+        <ul>
+            <li>
+                <a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index"})>
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                </a>
+                <i>/</i>
+            </li>
+            <li>Member Modification</li>
+        </ul>
+    </div>
+</div>
+
+<div class="dresses">
+    <div class="container ">
+        <div class="w3ls_dresses_grids">
+            <div class="col-md-4 w3ls_dresses_grid_left">
+                @{ Html.RenderPartial("SideBar");}
+            </div>
+            <br /><br />
+
+            <div class="col-md-8 mt-5 " style="border:1px solid #E1E1E1">
+                <br />
+                <h3>訂單明細 編號:@Model.OrderId</h3>
+                <br />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>產品編號</th>
+                            <th>產品</th>
+                            <th>數量</th>
+                            <th>價錢</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetailDataList)
+                        {
+
+                            <tr>
+                                <td scope="row">@item.ProductID</td>
+                                <td><a href=@Url.Action("ProductItem","Product",new {Id=item.ProductID })>@item.ProductName</a></td>
+                                <td>@item.Quantity</td>
+                                <td>@item.UnitPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <div class="row text-right">
+                    <h3 style="color: red">總金額 : @Model.Amount &nbsp;&nbsp;</h3>
+                </div>
+                <br />
+                <hr>
+                <h3>問與答</h3>
+                <br />
+                @if (Model.MessageDataList.Count() != 0)
+                {
+                    foreach (var item in Model.MessageDataList)
+                    {
+                        <div>
+                            <div>
+                                <strong>
+                                    <span>@Model.CustomerId</span>
+                                </strong>&nbsp;
+                                <span>@item.Time</span>
+                            </div>
+                            <br />
+                            <div>@item.Message</div>
+                            <br />
+                            @if (item.ReplyTime != null)
+                            {
+                                <div>
+                                    <div class="card-body">
+                                        <strong>答覆:</strong>
+                                        <div>
+                                            <div>@item.Reply<span>@item.ReplyTime</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <hr/>
+                    }
+                }
+                else
+                {
+                    <div>尚未有提問</div>
+                }
+                <div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("CreateMessage", "Customer"))
+                        {
+                            <div class="card">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1"></label>
+                                    @Html.TextAreaFor(model => model.Message, new { @class = "form-control", @style = "background-color: #F5F5F5", rows = "3" })
+                                </div>
+                            </div>
+                            <input type="hidden" name="orderId" value=@Model.OrderId />
+                            <input type="hidden" name="amount" value=@Model.Amount />
+                            <button type="submit" class="btn btn-danger">提出問題 </button>
+                            <br /> <br />
+                        }
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -15,6 +15,9 @@ namespace StoreData.Controllers
     {
         private CustomerService customerService = new CustomerService();
         private LoginService loginservice = new LoginService();
+        private OrdersService ordersService = new OrdersService();
+        private OrderDetailService orderDetailService = new OrderDetailService();
+        private MessageService messageService = new MessageService();
 
         [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
@@ -174,7 +177,43 @@ namespace StoreData.Controllers
             
             
         }
+        //取得目前使用者帳號
+        public string Get_CustomerId()
+        {
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            return ticket.Name;
+        }
+        [Route("OrderList")]
+        public ActionResult OrderList(string orderId, int Page = 1)
+        {
+            var customerId = Get_CustomerId();
+            var data = new OrderView() {
+                orderId = orderId,
+                Paging = new ForPaging(Page)
+            };
+            data.DataList = ordersService.GetCustomerOrderList(customerId, data.orderId,data.Paging);
 
-
+            return View(data);
+        }
+        [Route("OrderDetailList/{orderId}")]
+        public ActionResult OrderDetailList(string orderId,int amount)
+        {
+            var data = new OrderDetailView()
+            {
+                CustomerId = Get_CustomerId(),
+                OrderId = orderId,
+                Amount = amount,
+            };
+            data.OrderDetailDataList = orderDetailService.GetAdminOrders(data.OrderId);
+            data.MessageDataList = messageService.GetAdminMessage(data.OrderId);
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult CreateMessage(string orderId, int amount,string Message)
+        {
+            messageService.Create(orderId, Message);
+            return RedirectToAction("OrderDetailList", "Customer", new { orderId, amount });
+        }
     }
 }
