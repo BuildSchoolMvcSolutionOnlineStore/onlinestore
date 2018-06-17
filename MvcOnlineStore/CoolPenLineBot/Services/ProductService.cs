@@ -19,6 +19,7 @@ namespace CoolPenLineBot.Services
                 foreach (var item in data)
                 {
                     str += $"產品名稱: {item.ProductName}\n" +
+                    $"價錢: {item.UnitPrice}\n" +
                     $"剩餘數量: {item.Stock}\n" +
                     $"網址: http://mvconlineshopteam7.azurewebsites.net/Product/ProductItem/" + item.ProductID + "\n\n";
                 }

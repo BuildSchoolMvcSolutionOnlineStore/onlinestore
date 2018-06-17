@@ -27,23 +27,33 @@
             <div class="col-md-4 w3ls_dresses_grid_left">
                 <div class="w3ls_dresses_grid_left_grid">
                     <h3>Categories</h3>
-                    <div class="w3ls_dresses_grid_left_grid_sub"style="margin-left:0px;">
-                        <ul class="panel_bottom" style="padding-top:0px;">
-                            <li><a href=@Url.RouteUrl(new { Controller = "Product", Action = "ProductList" })>全部</a></li>
-                            @foreach (var item in Model.GetAllCategories)
-                            {
-                                <li>
-                                    <a href=@Url.RouteUrl(new {Controller="Product",Action = "ProductListBYCategories",Id = item.CategoryID })>@item.CategoryName</a>
-                                </li>
-                            }
-                        </ul>
+                    <div class="w3ls_dresses_grid_left_grid_sub" style="margin-left:0px;">
+                        <nav class="navbar navbar-default">
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span>MENU</span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs1">
+                                <ul class="panel_bottom" style="padding-top:0px;">
+                                    <li><a href=@Url.RouteUrl(new { Controller = "Product", Action = "ProductList" })>全部</a></li>
+                                    @foreach (var item in Model.GetAllCategories)
+                                    {
+                                        <li>
+                                            <a href=@Url.RouteUrl(new {Controller="Product",Action = "ProductListBYCategories",Id = item.CategoryID })>@item.CategoryName</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
-                </div>
-                <div class="w3ls_dresses_grid_left_grid">
-                    <div class="dresses_img_hover">
-                        <img src="~/FileUploads/26.jpg" alt=" " class="img-responsive" />
-                        <div class="dresses_img_hover_pos">
-                            <h4>For Kids <span style="margin-left:20px;">NO</span><i>Discount</i></h4>
+                    <div class="w3ls_dresses_grid_left_grid">
+                        <div class="dresses_img_hover">
+                            <img src="~/FileUploads/26.jpg" alt=" " class="img-responsive" />
+                            <div class="dresses_img_hover_pos">
+                                <h4>For Kids <span style="margin-left:20px;">NO</span><i>Discount</i></h4>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +61,7 @@
             <div class="col-md-8 w3ls_dresses_grid_right">
                 <div class="col-md-12 w3ls_dresses_grid_right_left">
                     <div class="w3ls_dresses_grid_right_grid1">
-                        <img src="~/FileUploads/12.jpg" alt=" " class="img-responsive" style="height:200px;width:746px;"/>
+                        <img src="~/FileUploads/12.jpg" alt=" " class="img-responsive" style="height:200px;width:746px;" />
                         <div class="w3ls_dresses_grid_right_grid1_pos1">
                             <h3>Printed <span>Pen</span> Top</h3>
                         </div>

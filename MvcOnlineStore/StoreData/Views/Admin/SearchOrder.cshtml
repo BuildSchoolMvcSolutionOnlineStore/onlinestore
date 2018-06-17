@@ -106,9 +106,9 @@
                                 {
                                     <span>已完成</span>
                                 }
-                                else if (item.Status == 4)
+                                else if (item.Status >= 4)
                                 {
-                                    <span>要求取消訂單</span>
+                                    <span>取消訂單</span>
                                 }
                             </td>
                             <td>
@@ -143,10 +143,29 @@
                                             </div>
                                         </div>
                                     </div><!--shipping modal-->
-                                    <a class="btn btn-danger" href="#">
+
+                                    <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#bs-example-modal-sm-cancel-@item.OrderId">
                                         <i class="glyphicon glyphicon-trash icon-white"></i>
                                         取消訂單
                                     </a>
+                                    <div class="modal fade" id="bs-example-modal-sm-cancel-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                        <div class="modal-dialog modal-sm" role="document" style="width: 300px;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">取消訂單確認</h4>
+                                                </div>
+                                                @using (Html.BeginForm("Cancel", "Admin"))
+                                                {
+                                                    <input name="orderId" type="hidden" value=@item.OrderId />
+                                                    <div class="modal-body text-center">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                        <button type="submit" class="btn btn-danger">取消訂單</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div><!--cancel modal-->
                                 }
                                 else if (item.Status == 1)
                                 {
@@ -173,13 +192,6 @@
                                         </div>
                                     </div><!--shipping modal-->
                                 }
-                                else if (item.Status == 4)
-                                {
-                                    <a class="btn btn-success" href="#">
-                                        <i class="glyphicon glyphicon-edit icon-white"></i>
-                                        確認
-                                    </a>
-                                }
                             </td>
                         </tr>
                     }
@@ -201,7 +213,7 @@
                 @if (Model.Paging.NowPage > 1)
                 {
                     <li>
-                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "UnDeliveryOrder", Page = Model.Paging.NowPage - 1, Id = Model.Search }) aria-label="Previous">
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "SearchOrder", Page = Model.Paging.NowPage - 1, Id = Model.Search }) aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -224,14 +236,14 @@
                         }
                         else
                         {
-                            <li><a href=@Url.RouteUrl(new { Controller = "Admin", Action = "UnDeliveryOrder", Page = page, Id = Model.Search })>@page</a></li>
+                            <li><a href=@Url.RouteUrl(new { Controller = "Admin", Action = "SearchOrder", Page = page, Id = Model.Search })>@page</a></li>
                         }
                     }
                 }
                 @if (Model.Paging.NowPage < Model.Paging.MaxPage)
                 {
                     <li>
-                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "UnDeliveryOrder", Page = Model.Paging.NowPage + 1, Id = Model.Search }) aria-label="Next">
+                        <a href=@Url.RouteUrl(new { Controller = "Admin", Action = "SearchOrder", Page = Model.Paging.NowPage + 1, Id = Model.Search }) aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

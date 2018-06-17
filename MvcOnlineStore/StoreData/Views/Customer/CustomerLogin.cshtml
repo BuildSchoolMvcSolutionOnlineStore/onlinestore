@@ -1,36 +1,12 @@
-﻿@model StoreData.Models.Customers
+﻿@model StoreData.ViewModels.Customer.CheckAccount
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@if (ViewBag.IsAuthenticated)
+@using (Html.BeginForm("CustomerLogin", "Customer"))
 {
-    <h2>Hi,@ViewBag.Username</h2>
-    <p><a href="@Url.Action("Logout","Customer")" class="btn">登出</a></p>
+    @Html.TextBoxFor(model => model.CustomerID, new { @class = "register-margin", @type = "text", @name = "CustomerID", @placeholder = "帳號" })
+    @Html.ValidationMessageFor(model => model.CustomerID, null, new { @class = "text-danger" })
+    @Html.TextBoxFor(model => model.CustomerPassword, new { @class = "register-margin", @type = "Password", @name = "CustomerPassword", @placeholder = "密碼" })
+    @Html.ValidationMessageFor(model => model.CustomerPassword, null, new { @class = "text-danger" })
+    <div class="sign-up">
+        <input type="submit" value="登入" />
+    </div>
 }
-else
-{
-    <h2>會員登入</h2>
-    using (Html.BeginForm())
-    {
-        <p>
-            使用者名稱:<input type="text"
-                         class="form-control"
-                         maxlength="25"
-                         name="Username" />
-
-            密碼:<input type="Password"
-                      class="form-control"
-                      maxlength="25"
-                      name="Password" />
-
-        </p>
-        <p><button type="submit"> 登入</button></p>
-        <p style="color:red">@ViewBag.Error</p>
-    }
-
-}
-
-

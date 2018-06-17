@@ -21,6 +21,13 @@ namespace StoreData.Services
             item.Stock = stock;
             productsRepository.Update(item);
         }
+        //修改庫存(加法)
+        public void UpdateStock_diff(string id, int diff)
+        {
+            var item = productsRepository.FindById(id);
+            item.Stock = item.Stock-diff;
+            productsRepository.Update(item);
+        }
         //新增產品
         public void Create(Products model)
         {

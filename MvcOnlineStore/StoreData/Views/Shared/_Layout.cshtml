@@ -22,6 +22,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Glegoo:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            var message = @Html.Raw(Json.Encode(TempData["Message"]));
+            alert(message);
+        </script>
+    }
 </head>
 <body>
     <div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88" aria-hidden="true">
@@ -52,20 +59,14 @@
                                         <div class="tab-pane active" aria-labelledby="tab_item-0" id="login">
                                             <div class="facts">
                                                 <div class="register">
-                                                    <form action="#">
-                                                        <input name="Email" placeholder="帳號" type="text">
-                                                        <input name="Password" placeholder="密碼" type="password">
-                                                        <div class="sign-up">
-                                                            <input type="submit" value="登入" />
-                                                        </div>
-                                                    </form>
+                                                    @{Html.RenderAction("CustomerLogin", "Customer");}
                                                 </div>
                                             </div>
                                         </div><!--登入-->
                                         <div class="tab-pane" aria-labelledby="tab_item-1" id="register">
                                             <div class="facts">
                                                 <div class="register">
-                                                    @*@{ Html.RenderAction("Register", "Customer");}*@
+                                                   @{Html.RenderAction("Register","Customer");}
                                                 </div>
                                             </div>
                                         </div><!--註冊-->
@@ -109,25 +110,33 @@
     <div class="header">
         <div class="container">
             <div class="w3l_login">
-                <a href="#" data-toggle="modal" data-target="#myModal88">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Logout", "Customer")">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="#" data-toggle="modal" data-target="#myModal88">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </a>
+                }
             </div>
             <div class="w3l_logo" style="position:relative;top:10px;left:0px">
                 <h1>
-                    <a><img src="~/FileUploads/Newlogo.jpg"/></a>
+                    <a><img src="~/FileUploads/Newlogo.jpg" /></a>
                 </h1>
-                @*<img src="~/FileUploads/Newlogo.jpg" alt=" " />*@
             </div>
             <div class="search">
                 <input class="search_box" type="checkbox" id="search_box">
                 <label class="icon-search" for="search_box">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </label>
+
                 <div class="search_form">
-                    @using (Html.BeginForm(new { Controller = "Product", Action = "ProductList",FormMethod.Post }))
+                    @using (Html.BeginForm("ProductList", "Product"))
                     {
-                        @*<form>*@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <input type="text" class="form-control input-md" placeholder="輸入產品名稱" name="ProductName" />
@@ -137,25 +146,21 @@
                                 </span>
                             </div>
                         </div>
-                        @*</form>*@
                     }
-                    @*<form action="#" method="post">
-                            <input type="text" name="Search" placeholder="Search..." value="A002">
-                            <input type="submit" value="Send">
-                        </form>*@
                 </div>
             </div>
             <div class="cart box_1">
-                <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
-                    <div class="total">
-                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items 
-                    </div>
-                    <img src="~/FileUploads/bag.png" alt="" />
-                </a>
-                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                <div class="clearfix"> </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
+                        <div class="total">
+                            <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
+                        </div>
+                        <img src="~/FileUploads/bag.png" alt="" />
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                }
             </div>
-            <div class="clearfix"> </div>
         </div>
     </div>
     <div class="navigation">
@@ -165,9 +170,7 @@
                 <div class="navbar-header nav_2">
                     <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span>MENU</span>
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
@@ -176,7 +179,7 @@
                         <!-- Mega Menu -->
                         <li><a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})>Products</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="About"})>About Us</a></li>
-                        <li><a href="#">Short Codes</a></li>
+                        <li id="member"><a href=@Url.RouteUrl(new {Controller="Customer", Action="SelectCustomer"})>Member modification</a></li>
                         <li><a href=@Url.RouteUrl(new {Controller="Home" ,Action="MailUS"})>Mail Us</a></li>
                     </ul>
                 </div>
@@ -249,15 +252,15 @@
                 <div class="col-md-3 w3_footer_grid">
                     <h3 style="margin-bottom:37px;">Follow Us</h3>
                     <div class="agileits_social_button">
-                        <img src="~/FileUploads/QRCode.png"/>
+                        <img src="~/FileUploads/QRCode.png" />
                         @*<ul class="info">
-                            <li>
-                                <a href="#" class="facebook"> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="google"> </a>
-                            </li>
-                        </ul>*@
+                                <li>
+                                    <a href="#" class="facebook"> </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="google"> </a>
+                                </li>
+                            </ul>*@
                     </div>
                 </div>
                 <div class="clearfix"></div>

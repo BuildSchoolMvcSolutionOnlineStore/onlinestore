@@ -57,7 +57,7 @@ namespace CoolPenLineBot.Controllers
                             }
                             if(ret.TopScoringIntent.Name == "產品庫存")
                             {
-                                repmsg = productService.SearchProduct(ret.Entities.FirstOrDefault().Value.FirstOrDefault().Value);
+                                    repmsg = productService.SearchProduct(ret.Entities.FirstOrDefault().Value.FirstOrDefault().Value);
                             }
                             //repmsg = $"OK，你想 '{ret.TopScoringIntent.Name}'，";
                             //if (ret.Entities.Count > 0)

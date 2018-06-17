@@ -15,13 +15,7 @@ namespace StoreData.Repositories
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute("INSERT INTO Cart VALUES(@CustomerID,@ProductID,@Quantity)",
-                new
-                {
-                    customerID = model.CustomerID,
-                    productID=model.ProductID,
-                    Quantity=model.Quantity
-                    
-                });
+                model);
             }
         }
         public void Update(Cart model)
@@ -45,9 +39,8 @@ namespace StoreData.Repositories
                     });
             }
         }
-        public Cart FindById(string CustomerID)
+        public IEnumerable<Cart> FindById(string CustomerID)
         {
-            Cart cart = null;
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 var cartdata = connection.Query<Cart>(
@@ -56,13 +49,8 @@ namespace StoreData.Repositories
                     {
                         id = CustomerID
                     });
-                foreach (var item in cartdata)
-                {
-                    if (item.CustomerID != null)
-                        cart = item;
-                }
+                return cartdata;
             }
-            return cart;
         }
         public IEnumerable<Cart> GetAll()
         {
@@ -79,9 +67,15 @@ namespace StoreData.Repositories
             }
             return Cartlist;
         }
-
-
-
-
+        public void DeleteById(string Id)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                connection.Execute("DELETE Cart WHERE CustomerID = @customerId", new
+                {
+                    customerId = Id
+                });
+            }
+        }
     }
 }
