@@ -207,6 +207,7 @@
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Customer\CartItem.cs" />
     <Compile Include="ViewModels\Customer\CheckAccount.cs" />
     <Compile Include="ViewModels\Customer\CreateOrderView.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
@@ -398,6 +399,7 @@
     <Content Include="Views\Admin\UpdateCategory.cshtml" />
     <Content Include="Views\Customer\Chart.cshtml" />
     <Content Include="Views\Customer\SelectCustomer.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

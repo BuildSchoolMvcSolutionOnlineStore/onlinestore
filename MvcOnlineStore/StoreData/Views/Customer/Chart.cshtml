@@ -1,6 +1,4 @@
-﻿@model StoreData.ViewModels.Customer.ChartItem
-
-
+﻿@model StoreData.ViewModels.Customer.CartItem
 
 @{
     ViewBag.Title = "Chart";
@@ -42,28 +40,28 @@
                     </tr>
                 </thead>
                 @foreach (var item in Model.GetAllChartList)
-                {
-                    <tr class="rem1">
-                        <td class="invert">1</td>
-                        <td class="invert-image"><a href="single.html"><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
-                        <td class="invert">
-                            <div class="quantity">
-                                <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
-                                    <div class="entry value"><span></span></div>
-                                    <div class="entry value-plus active">&nbsp;</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="invert">@item.ProductName</td>
-                        <td class="invert">@item.UnitPrice</td>
-                        <td class="invert">
-                            <div class="rem">
-                                <div class="close1">@item.Quantity</div>
-                            </div>
-                        </td>
-                    </tr>
-                }
+            {
+            <tr class="rem1">
+                <td class="invert">1</td>
+                <td class="invert-image"><a href="single.html"><img src="~/FileUploads/" alt=" " class="img-responsive" /></a></td>
+                <td class="invert">
+                    <div class="quantity">
+                        <div class="quantity-select">
+                            <div class="entry value-minus">&nbsp;</div>
+                            <div class="entry value"><span>@item.Quantity</span></div>
+                            <div class="entry value-plus active">&nbsp;</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="invert">@Model.ProductName</td>
+                <td class="invert">@Model.UnitPrice</td>
+                <td class="invert">
+                    <div class="rem">
+                        <div class="close1"></div>
+                    </div>
+                </td>
+            </tr>
+        }
             </table>
 
 
