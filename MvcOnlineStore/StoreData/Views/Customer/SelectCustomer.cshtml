@@ -7,7 +7,7 @@
 @Styles.Render("~/NewHome/css")
 <div class="banner10" id="home1">
     <div class="container">
-        <h2>About Us</h2>
+        <h2>Member Modification</h2>
     </div>
 </div>
 <div class="breadcrumb_dress">
@@ -27,24 +27,7 @@
     <div class="container">
         <div class="w3ls_dresses_grids">
             <div class="col-md-4 w3ls_dresses_grid_left">
-                <div class="w3ls_dresses_grid_left_grid">
-                    <h3>Member Modification</h3>
-                    <div class="w3ls_dresses_grid_left_grid_sub">
-                        <div class="list-group" id="list-tab" role="tablist">
-                            <ul class="panel_bottom">
-                                <li>
-                                    <a href="#One">會員資料修改</a>
-                                </li>
-                                <li>
-                                    <a href="#Two">密碼修改</a>
-                                </li>
-                                <li>
-                                    <a role="tab">訂單資料查詢</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                @{ Html.RenderPartial("SideBar");}
             </div>
             <br><br>
 

@@ -71,6 +71,7 @@ namespace StoreData.Services
             ordersRepository.Update(item);
         }
 
+        #region 新增訂單
         //判斷是否可以新增訂單
         public string Create(string CustomerId,CreateOrderView model)
         {
@@ -170,6 +171,25 @@ namespace StoreData.Services
                 product.Stock = product.Stock - item.Quantity;
                 productsRepository.Update(product);
             }
+        }
+        #endregion
+
+        public IEnumerable<CustomerOrder> GetCustomerOrderList(string customerId,string orderId, ForPaging Paging)
+        {
+            IEnumerable<CustomerOrder> Data;
+            if (String.IsNullOrEmpty(orderId))
+            {
+                Data = ordersRepository.GetAll_Customer(customerId);
+            }
+            else
+            {
+                Data = ordersRepository.SearchById_Customer(customerId,orderId);
+            }
+
+            Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Data.Count()) / Paging.ItemNum));
+            Paging.SetRightPage();
+
+            return Data.OrderByDescending(x => x.OrderDate).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
     }
 }
