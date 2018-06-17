@@ -194,5 +194,11 @@ namespace StoreData.Controllers
             data.MessageDataList = messageService.GetAdminMessage(data.OrderId);
             return View(data);
         }
+        [HttpPost]
+        public ActionResult CreateMessage(string orderId, int amount,string Message)
+        {
+            messageService.Create(orderId, Message);
+            return RedirectToAction("OrderDetailList", "Customer", new { orderId, amount });
+        }
     }
 }
