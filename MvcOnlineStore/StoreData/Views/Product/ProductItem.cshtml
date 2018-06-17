@@ -63,12 +63,12 @@
                         <i class="item_price">$@Model.UnitPrice</i>
                         @if (Model.Stock != 0)
                         {
-                            using (Html.BeginForm("ProductItem", "Product"))
+                            using (Html.BeginForm("Customers", "AddChart"))
                             { 
-                            <input name="productId" type="hidden" value=@Model.ProductID>
-                            <input id="num" name="quantity" type="hidden" value="0" />
+                            <input name="Id"  value=@Model.ProductID>
+                            <input id="num" name="quantity"  value="0" />
                             <p>
-                                <a class="item_add" href="#">Add to cart</a>
+                                <input class="item_add"  type="submit" value="Add to cart"/> 
                             </p>
                             }
                         }
@@ -111,7 +111,7 @@
                                 divUpd.text(@Model.Stock);
                                 }
                             }
-                            $("#num").val($(".value1").text());
+                           $("#num").val($(".value1").text())=@Model.Quantity;
                         });
                         $('.value-minus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),

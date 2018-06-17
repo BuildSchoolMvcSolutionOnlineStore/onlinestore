@@ -16,5 +16,6 @@ namespace StoreData.ViewModels.Home
         public string Color { get; set; }
         public string Instructions { get; set; }
         public string Path { get; set; }
+        public int Quantity { get; set; }
     }
 }

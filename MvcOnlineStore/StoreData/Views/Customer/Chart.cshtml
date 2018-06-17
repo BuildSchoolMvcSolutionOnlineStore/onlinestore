@@ -1,8 +1,11 @@
-﻿@model StoreData.ViewModels.Customer.CustomerRegisterView
+﻿@model StoreData.ViewModels.Customer.ChartItem
+
+
 
 @{
     ViewBag.Title = "Chart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 @Styles.Render("~/NewHome/css");
 
@@ -14,7 +17,7 @@
 <div class="breadcrumb_dress">
     <div class="container">
         <ul>
-            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+            <li><a href=@Url.RouteUrl(new { Controller = "Home", Action = "Index" })><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
             <li>Checkout</li>
         </ul>
     </div>
@@ -24,79 +27,46 @@
         <h3>Your shopping cart contains: <span>3 Products</span></h3>
 
         <div class="checkout-right">
+
+
+
             <table class="timetable_sub">
                 <thead>
                     <tr>
                         <th>SL No.</th>
                         <th style="width:300px">Product</th>
                         <th>Quality</th>
-                        <th>Product Name</th>                
+                        <th>Product Name</th>
                         <th>Price</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
-                <tr class="rem1">
-                    <td class="invert">1</td>
-                    <td class="invert-image"><a href="single.html"><img src="~/FileUploads/A002.jpg" alt=" " class="img-responsive" /></a></td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value"><span>1</span></div>
-                                <div class="entry value-plus active">&nbsp;</div>
+                @foreach (var item in Model.GetAllChartList)
+                {
+                    <tr class="rem1">
+                        <td class="invert">1</td>
+                        <td class="invert-image"><a href="single.html"><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
+                        <td class="invert">
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span></span></div>
+                                    <div class="entry value-plus active">&nbsp;</div>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td class="invert">Beige solid Chinos</td>
-                    <td class="invert">$200.00</td>
-                    <td class="invert">
-                        <div class="rem">
-                            <div class="close1"> </div>
-                        </div>                   
-                    </td>
-                </tr>
-                <tr class="rem2">
-                    <td class="invert">2</td>
-                    <td class="invert-image"><a href="single.html"><img src="~/FileUploads/A001.jpg" alt=" " class="img-responsive" /></a></td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value"><span>1</span></div>
-                                <div class="entry value-plus active">&nbsp;</div>
+                        </td>
+                        <td class="invert">@item.ProductName</td>
+                        <td class="invert">@item.UnitPrice</td>
+                        <td class="invert">
+                            <div class="rem">
+                                <div class="close1">@item.Quantity</div>
                             </div>
-                        </div>
-                    </td>
-                    <td class="invert">Floral Border Skirt</td>
-                    <td class="invert">$270.00</td>
-                    <td class="invert">
-                        <div class="rem">
-                            <div class="close2"> </div>
-                        </div>
-                        
-                    </td>
-                </tr>
-                <tr class="rem3">
-                    <td class="invert">3</td>
-                    <td class="invert-image"><a href="single.html"><img src="~/FileUploads/A004.jpg" alt=" " class="img-responsive" /></a></td>
-                    <td class="invert">
-                        <div class="quantity">
-                            <div class="quantity-select">
-                                <div class="entry value-minus">&nbsp;</div>
-                                <div class="entry value"><span>1</span></div>
-                                <div class="entry value-plus active">&nbsp;</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="invert">Beige Sandals</td>
-                    <td class="invert">$212.00</td>
-                    <td class="invert">
-                        <div class="rem">
-                            <div class="close3"> </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                }
             </table>
+
+
             <script>
                 $('.value-plus').on('click', function () {
                     var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
@@ -114,23 +84,7 @@
                             $('.rem1').remove();
                         });
                     });
-                });
-                //2
-                    $(document).ready(function (c) {
-                        $('.close2').on('click', function (c) {
-                            $('.rem2').fadeOut('slow', function (c) {
-                                $('.rem2').remove();
-                            });
-                        });
-                    });
-                //3
-                $(document).ready(function (c) {
-                $('.close3').on('click', function (c) {
-                    $('.rem3').fadeOut('slow', function (c) {
-                        $('.rem3').remove();
-                    });
-                });
-                   });
+                });                                           
             </script>
         </div>
         <div class="checkout-left">
