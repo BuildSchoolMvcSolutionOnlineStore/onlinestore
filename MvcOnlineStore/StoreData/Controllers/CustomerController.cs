@@ -174,19 +174,34 @@ namespace StoreData.Controllers
         //加入購物車
         public ActionResult Chart()
         {
-            return View();
+            CartItem data = new CartItem();
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            string CustomerID = ticket.Name;
+            data.GetAllChartList = customerService.GetItemforcart(CustomerID);
+            return View(data);
         }
 
         [HttpPost]
-        public ActionResult AddChart(string productId, int quantity)
+        public ActionResult AddChart(string ProductId, int Quantity)
         {
-            //string customerID = "Alison";
-            //if (customerID == "Alison")
-            //{
-            //    customerService.CartEvent(customerID, productId, quantity);
-            //}
-            //TempData["RegisterStatae"] = "成功加入購物車";
-            return RedirectToAction("Product", "ProductItem", productId);
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                customerService.CartEvent(CustomerID, ProductId, Quantity);
+                TempData["RegisterStatae"] = "成功加入購物車";
+                return RedirectToAction("ProductItem", "Product", ProductId);
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
+            
+            
         }
         //取得目前使用者帳號
         public string Get_CustomerId()
