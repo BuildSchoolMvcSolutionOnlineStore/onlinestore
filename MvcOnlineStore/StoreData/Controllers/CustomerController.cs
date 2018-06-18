@@ -18,6 +18,7 @@ namespace StoreData.Controllers
         private OrdersService ordersService = new OrdersService();
         private OrderDetailService orderDetailService = new OrderDetailService();
         private MessageService messageService = new MessageService();
+        private Customers customermodel = new Customers();
 
         [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
@@ -141,9 +142,18 @@ namespace StoreData.Controllers
         [HttpPost]
         public ActionResult ChangeCustomerPassword(CustomerView model)
         {
-            customerService.UpdatePassword(model.CustomerID, model.CustomerPassword);
+            customerService.UpdatePassword(model.CustomerID, model.newpassword);
             TempData["Message"] = "修改成功";
             return RedirectToAction("Index", "Home");
+            //if (model.CustomerPassword == customermodel.CustomerPassword)
+            //{
+            //    customerService.UpdatePassword(model.CustomerID, model.newpassword);
+            //    TempData["Message"] = "修改成功";
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //model.CustomerPassword = null;
+            //model.checknewpassword= null;
+            //return RedirectToAction("Index", "Home");
         }
 
         //判斷註冊帳號是否已被註冊過Action
@@ -200,8 +210,6 @@ namespace StoreData.Controllers
                 TempData["Message"] = "尚未登入會員";
                 return RedirectToAction("Index", "Home");
             }
-            
-            
         }
         //取得目前使用者帳號
         public string Get_CustomerId()
