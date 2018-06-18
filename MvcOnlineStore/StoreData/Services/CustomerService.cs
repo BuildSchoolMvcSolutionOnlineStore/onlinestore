@@ -96,5 +96,22 @@ namespace StoreData.Services
                 return false;
             }
         }
+
+        public bool UpdatePassword(string CustomerID, string CustomerPassword)
+        {
+            if(CustomerID != null)
+            {
+                repository.UpdatePassword(new Customers
+                {
+                    CustomerID = CustomerID,
+                    CustomerPassword = CustomerPassword
+                });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

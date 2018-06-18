@@ -119,6 +119,32 @@ namespace StoreData.Controllers
             TempData["Message"] = "修改成功";
             return RedirectToAction("Index", "Home");
         }
+        //修改密碼
+        [Route("UpdatePassword")]
+        public ActionResult ChangePassword()
+        {
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                return View(customerService.GetAccountByCustomers(CustomerID));
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeCustomerPassword(CustomerView model)
+        {
+            customerService.UpdatePassword(model.CustomerID, model.CustomerPassword);
+            TempData["Message"] = "修改成功";
+            return RedirectToAction("Index", "Home");
+        }
 
         //判斷註冊帳號是否已被註冊過Action
         public JsonResult AccountCheck(CustomerRegisterView RegisterMember)
