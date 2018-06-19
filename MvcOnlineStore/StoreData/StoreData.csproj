@@ -207,10 +207,14 @@
     <Compile Include="Services\OrdersService.cs" />
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="ViewModels\Customer\CartItem.cs" />
+    <Compile Include="ViewModels\Customer\CheckAccount.cs" />
     <Compile Include="ViewModels\Customer\CreateOrderView.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
     <Compile Include="ViewModels\Customer\CustomerRegisterView.cs" />
     <Compile Include="ViewModels\Customer\CustomerView.cs" />
+    <Compile Include="ViewModels\Customer\OrderDetailView.cs" />
+    <Compile Include="ViewModels\Customer\OrderView.cs" />
     <Compile Include="ViewModels\Home\HomeIndexTop.cs" />
     <Compile Include="ViewModels\Home\ProductsItem.cs" />
     <Compile Include="ViewModels\Login\LoginView.cs" />
@@ -396,6 +400,11 @@
     <Content Include="Views\Admin\CreateCategory.cshtml" />
     <Content Include="Views\Admin\UpdateCategory.cshtml" />
     <Content Include="Views\Customer\Chart.cshtml" />
+    <Content Include="Views\Customer\SelectCustomer.cshtml" />
+    <Content Include="Views\Customer\SideBar.cshtml" />
+    <Content Include="Views\Customer\OrderList.cshtml" />
+    <Content Include="Views\Customer\OrderDetailList.cshtml" />
+    <Content Include="Views\Customer\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

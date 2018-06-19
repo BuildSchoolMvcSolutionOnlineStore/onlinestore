@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreData.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,10 +10,12 @@ namespace StoreData.ViewModels.Customer
 {
     public class CustomerView
     {
-        [DisplayName("會員編號")]
+        [DisplayName("帳號")]
+        [Required(ErrorMessage = "請輸入帳號")]
         public string CustomerID { get; set; }
 
         [DisplayName("密碼")]
+        [Required(ErrorMessage = "請輸入密碼")]
         public string CustomerPassword { get; set; }
 
         [DisplayName("姓名")]
@@ -30,5 +33,16 @@ namespace StoreData.ViewModels.Customer
         [DisplayName("電子郵件")]
         [Required(ErrorMessage = "請輸入電子郵件")]
         public string CustomerMail { get; set; }
+
+        public Customers modelpassword { get; set; }
+
+        [DisplayName("密碼")]
+        [Required(ErrorMessage = "請輸入密碼")]
+        public string newpassword { get; set; }
+
+        [DisplayName("確認密碼")]
+        [Compare("newpassword", ErrorMessage = "兩次密碼輸入不一致")]
+        [Required(ErrorMessage = "請輸入確認密碼")]
+        public string checknewpassword { get; set; }
     }
 }

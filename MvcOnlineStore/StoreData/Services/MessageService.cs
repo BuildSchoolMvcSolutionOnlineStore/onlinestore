@@ -22,5 +22,15 @@ namespace StoreData.Services
             item.ReplyTime = DateTime.Now;
             messagesRepository.Update(item);
         }
+        public void Create(string orderId,string Message)
+        {
+            var item = new Messages()
+            {
+                OrderID = orderId,
+                Message = Message,
+                Time = DateTime.Now
+            };
+            messagesRepository.Create(item);
+        }
     }
 }

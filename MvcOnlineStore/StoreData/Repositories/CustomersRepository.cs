@@ -109,5 +109,15 @@ namespace StoreData.Repositories
                 return count.FirstOrDefault();
             }
         }
+
+        public void UpdatePassword(Customers model)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                connection.Execute(
+                    "UPDATE Customers SET " +
+                    "CustomerPassword = @CustomerPassword WHERE CustomerID = @CustomerID", model);
+            }
+        }
     }
 }

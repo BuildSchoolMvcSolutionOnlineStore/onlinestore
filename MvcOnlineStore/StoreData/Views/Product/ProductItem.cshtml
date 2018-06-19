@@ -2,6 +2,7 @@
 
 @{ 
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 @Styles.Render("~/NewHome/css")
 
@@ -58,26 +59,28 @@
                         </li>
                     </ul>
                     <br />
-                    <div class="simpleCart_shelfItem">
-                        <h5>UnitPrice : </h5>
-                        <i class="item_price">$@Model.UnitPrice</i>
-                        @if (Model.Stock != 0)
-                        {
-                            using (Html.BeginForm("ProductItem", "Product"))
-                            { 
-                            <input name="productId" type="hidden" value=@Model.ProductID>
-                            <input id="num" name="quantity" type="hidden" value="0" />
-                            <p>
-                                <a class="item_add" href="#">Add to cart</a>
-                            </p>
+                    <div class="simpleCart_shelfItem">                       
+                            <h5>UnitPrice : </h5>
+                            <i class="item_price">$@Model.UnitPrice</i>
+                            @if (Model.Stock != 0)
+                            {
+                                using (Html.BeginForm("AddChart", "Customer"))
+                                {
+                            <form method="post">
+                                <input name="ProductID" type="hidden"value=@Model.ProductID>
+                                <input id="num" name="Quantity"type="hidden" value="0" />
+                                <p>
+                                    <a class="item_add" href="#">Add to cart</a>             
+                                </p>
+                            </form>             
+                                }
                             }
-                        }
-                        else
-                        {
-                            <p>
-                                <h3 style="color:red">No stock</h3>
-                            </p>
-                        }
+                            else
+                            {
+                                <p>
+                                    <h3 style="color:red">No stock</h3>
+                                </p>
+                            }
                     </div>
                 </div>
                 <div class="color-quality-right">
@@ -111,7 +114,7 @@
                                 divUpd.text(@Model.Stock);
                                 }
                             }
-                            $("#num").val($(".value1").text());
+                           $("#num").val($(".value1").text())=@Model.Quantity;
                         });
                         $('.value-minus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
@@ -119,6 +122,7 @@
                             if (newVal >= 0) divUpd.text(newVal);
                             $("#num").val($(".value1").text());
                         });
+                        
                     </script>
                     <!--quantity-->
                 </div>

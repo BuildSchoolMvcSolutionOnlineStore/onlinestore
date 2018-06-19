@@ -54,13 +54,27 @@ namespace StoreData.Services
             return Hashresult;
         }
         //加入購物車
-        //public void CartEvent(string customerId, string productId, int quantity)
-        //{
-        //    var item = cartrepository.FindById(customerId);
-        //    item.ProductID = productId;
-        //    item.Quantity = quantity;
-        //    cartrepository.Create(item);
-        //}
+        public void CartEvent(string CustomerId, string ProductId, int Quantity)
+        {
+           var cartdate = cartrepository.FindById(CustomerId);
+            foreach (var item in cartdate)
+            {
+                var newData = new Cart()
+                {
+                    CustomerID = CustomerId,
+                    ProductID = item.ProductID,
+                    Quantity = item.Quantity,
+                   
+                };
+                cartrepository.Create(newData);
+            }
+
+        }
+        //取得購物車內的資料
+        public IEnumerable<Cart> GetItemforcart(string CustomerID)
+        {
+            return cartrepository.GetAll();
+        }
 
         public CustomerView GetAccountByCustomers(string CustomerID)
         {
@@ -68,11 +82,50 @@ namespace StoreData.Services
             return new CustomerView()
             {
                 CustomerID = model.CustomerID,
+                CustomerPassword = model.CustomerPassword,
                 CustomerName = model.CustomerName,
                 CustomerMail = model.CustomerMail,
                 Address = model.Address,
                 Telephone = model.Telephone
             };
+        }
+
+        public bool UpdateCustomer(string CustomerID, string CustomerPassword, string CustomerName, string Telephone, string Address, string CustomerMail)
+        {
+            if(CustomerID != null)
+            {
+                repository.Update(new Customers
+                {
+                    CustomerID = CustomerID,
+                    CustomerPassword = CustomerPassword,
+                    CustomerName = CustomerName,
+                    Telephone = Telephone,
+                    Address = Address,
+                    CustomerMail = CustomerMail
+                });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool UpdatePassword(string CustomerID, string CustomerPassword)
+        {
+            if(CustomerID != null)
+            {
+                repository.UpdatePassword(new Customers
+                {
+                    CustomerID = CustomerID,
+                    CustomerPassword = CustomerPassword
+                });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -15,12 +15,17 @@ namespace StoreData.Controllers
     {
         private CustomerService customerService = new CustomerService();
         private LoginService loginservice = new LoginService();
-        
+        private OrdersService ordersService = new OrdersService();
+        private OrderDetailService orderDetailService = new OrderDetailService();
+        private MessageService messageService = new MessageService();
+        private Customers customermodel = new Customers();
+
+        [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
         {
-            if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
-            return View();
+            //if (User.Identity.IsAuthenticated)
+            //    return RedirectToAction("Index", "Home");
+            return PartialView();
             //var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             //if (cookie == null)
             //{
@@ -39,23 +44,25 @@ namespace StoreData.Controllers
             //}
             //return View();
         }
-
+        [Route("CustomerLogin")]
         [HttpPost]
-        public ActionResult CustomerLogin(CustomerView model)
+        public ActionResult CustomerLogin(CheckAccount model)
         {
             var Validatestr = loginservice.CustomerLoginCheck(model.CustomerID, model.CustomerPassword);
             if (String.IsNullOrEmpty(Validatestr))
             {
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "12345", FormsAuthentication.FormsCookiePath);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, model.CustomerID, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Customer", FormsAuthentication.FormsCookiePath);
                 var enTicket = FormsAuthentication.Encrypt(ticket);
                 Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, enTicket));
+                TempData["Message"] = "登入成功";
                 return RedirectToAction("Index", "Home");
 
             }
             else
             {
                 ModelState.AddModelError("", Validatestr);
-                return View(model);
+                TempData["Message"] = "帳號密碼錯誤";
+                return RedirectToAction("Index", "Home");
             }
             //if (model.Username == "admin" && model.Password == "adpassword")
             //{
@@ -78,6 +85,7 @@ namespace StoreData.Controllers
             //        ViewBag.Error = "使用者帳號跟密碼不正確";
             //}
         }
+        [Route("Logout")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -86,33 +94,66 @@ namespace StoreData.Controllers
             Response.Cookies.Add(cookie);
             return RedirectToAction("Index", "Home");
         }
-        //客戶登入
-        public ActionResult SingIn()
+        [Route("SelectCustomer")]
+        public ActionResult SelectCustomer()
         {
-            return View();
-        }
-
-        //新增客戶資料
-        public ActionResult CreateCustomer()
-        {
-            return View();
-        }
-
-        public ActionResult SelectCustomer(string CustomerID)
-        {
-            return View(customerService.GetAccountByCustomers(CustomerID));
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                return View(customerService.GetAccountByCustomers(CustomerID));
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //修改客戶資料
-        public ActionResult UpdateCustomer()
+        [HttpPost]
+        public ActionResult UpdateCustomer(CustomerView model)
         {
-            return View();
+            customerService.UpdateCustomer(model.CustomerID, model.CustomerPassword, model.CustomerName, model.Telephone, model.Address, model.CustomerMail);
+            TempData["Message"] = "修改成功";
+            return RedirectToAction("Index", "Home");
+        }
+        //修改密碼
+        [Route("UpdatePassword")]
+        public ActionResult ChangePassword()
+        {
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                return View(customerService.GetAccountByCustomers(CustomerID));
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
-        public ActionResult Update()
+        public ActionResult ChangeCustomerPassword(CustomerView model)
         {
-            return View();
+            customerService.UpdatePassword(model.CustomerID, model.newpassword);
+            TempData["Message"] = "修改成功";
+            return RedirectToAction("Index", "Home");
+            //if (model.CustomerPassword == customermodel.CustomerPassword)
+            //{
+            //    customerService.UpdatePassword(model.CustomerID, model.newpassword);
+            //    TempData["Message"] = "修改成功";
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //model.CustomerPassword = null;
+            //model.checknewpassword= null;
+            //return RedirectToAction("Index", "Home");
         }
 
         //判斷註冊帳號是否已被註冊過Action
@@ -143,19 +184,70 @@ namespace StoreData.Controllers
         //加入購物車
         public ActionResult Chart()
         {
-            return View();
+            CartItem data = new CartItem();
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            string CustomerID = ticket.Name;
+            data.GetAllChartList = customerService.GetItemforcart(CustomerID);
+            return View(data);
         }
 
         [HttpPost]
-        public ActionResult AddChart(string productId, int quantity)
+        public ActionResult AddChart(string ProductId, int Quantity)
         {
-            //string customerID = "Alison";
-            //if (customerID == "Alison")
-            //{
-            //    customerService.CartEvent(customerID, productId, quantity);
-            //}
-            //TempData["RegisterStatae"] = "成功加入購物車";
-            return RedirectToAction("Product", "ProductItem", productId);
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                customerService.CartEvent(CustomerID, ProductId, Quantity);
+                TempData["RegisterStatae"] = "成功加入購物車";
+                return RedirectToAction("ProductItem", "Product", ProductId);
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        //取得目前使用者帳號
+        public string Get_CustomerId()
+        {
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            return ticket.Name;
+        }
+        [Route("OrderList")]
+        public ActionResult OrderList(string orderId, int Page = 1)
+        {
+            var customerId = Get_CustomerId();
+            var data = new OrderView() {
+                orderId = orderId,
+                Paging = new ForPaging(Page)
+            };
+            data.DataList = ordersService.GetCustomerOrderList(customerId, data.orderId,data.Paging);
+
+            return View(data);
+        }
+        [Route("OrderDetailList/{orderId}")]
+        public ActionResult OrderDetailList(string orderId,int amount)
+        {
+            var data = new OrderDetailView()
+            {
+                CustomerId = Get_CustomerId(),
+                OrderId = orderId,
+                Amount = amount,
+            };
+            data.OrderDetailDataList = orderDetailService.GetAdminOrders(data.OrderId);
+            data.MessageDataList = messageService.GetAdminMessage(data.OrderId);
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult CreateMessage(string orderId, int amount,string Message)
+        {
+            messageService.Create(orderId, Message);
+            return RedirectToAction("OrderDetailList", "Customer", new { orderId, amount });
         }
     }
 }
