@@ -42,7 +42,7 @@
                 @foreach (var item in Model.GetAllChartList)
             {
             <tr class="rem1">                
-                <td class="invert-image"><a href="single.html"><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
+                <td class="invert-image"><a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
                 <td class="invert">
                     <div class="quantity">
                         <div class="quantity-select">
@@ -87,7 +87,7 @@
         </div>
         <div class="checkout-left">
             <div class="checkout-left-basket">
-                <h4>Continue to basket</h4>
+                <h4>Total Amount</h4>
                 <ul>
                    
                     @foreach (var item in Model.GetAllChartList)
@@ -101,7 +101,7 @@
             </div>
            
             <div class="checkout-right-basket">
-                <a href="products.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+                <a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
             </div>
             <div class="clearfix"> </div>
         </div>
