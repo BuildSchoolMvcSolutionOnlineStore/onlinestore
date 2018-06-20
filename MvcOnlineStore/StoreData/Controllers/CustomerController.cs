@@ -174,7 +174,8 @@ namespace StoreData.Controllers
             if (ModelState.IsValid)
             {
                 RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
-                TempData["RegisterStatae"] = "註冊成功";
+                customerService.CreateCustomer(RegisterMember.newCustomer);
+                TempData["Message"] = "註冊成功";
                 return RedirectToAction("Index", "Home");
             }
             RegisterMember.CustomerPassword = null;
@@ -182,7 +183,7 @@ namespace StoreData.Controllers
             return RedirectToAction("Index", "Home");
         }
         //加入購物車
-        public ActionResult Chart()
+         public ActionResult Chart()
         {
             CartItem data = new CartItem();
             FormsIdentity id = (FormsIdentity)User.Identity;

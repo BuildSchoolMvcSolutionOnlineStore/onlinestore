@@ -19,7 +19,7 @@ namespace StoreData.Repositories
             else
             {
                 //return ConfigurationManager.ConnectionStrings["db"].ConnectionString;
-                return "Server=192.168.0.102;Database=Shopping;User Id=linker;Password=19960705;";
+                return "Server=192.168.43.140;Database=Shopping;User Id=linker;Password=19960705;";
             }
         }
     }

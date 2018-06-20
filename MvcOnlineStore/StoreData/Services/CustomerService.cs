@@ -127,5 +127,10 @@ namespace StoreData.Services
                 return false;
             }
         }
+        //新增會員
+        public void CreateCustomer(Customers model)
+        {
+            repository.Create(model);
+        }
     }
 }
