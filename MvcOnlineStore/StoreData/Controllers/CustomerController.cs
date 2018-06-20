@@ -18,6 +18,7 @@ namespace StoreData.Controllers
         private OrdersService ordersService = new OrdersService();
         private OrderDetailService orderDetailService = new OrderDetailService();
         private MessageService messageService = new MessageService();
+        private Customers customermodel = new Customers();
         private ProductService productService = new ProductService();
 
         [Route("CustomerLogin")]
@@ -119,6 +120,41 @@ namespace StoreData.Controllers
             customerService.UpdateCustomer(model.CustomerID, model.CustomerPassword, model.CustomerName, model.Telephone, model.Address, model.CustomerMail);
             TempData["Message"] = "修改成功";
             return RedirectToAction("Index", "Home");
+        }
+        //修改密碼
+        [Route("UpdatePassword")]
+        public ActionResult ChangePassword()
+        {
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                return View(customerService.GetAccountByCustomers(CustomerID));
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeCustomerPassword(CustomerView model)
+        {
+            customerService.UpdatePassword(model.CustomerID, model.newpassword);
+            TempData["Message"] = "修改成功";
+            return RedirectToAction("Index", "Home");
+            //if (model.CustomerPassword == customermodel.CustomerPassword)
+            //{
+            //    customerService.UpdatePassword(model.CustomerID, model.newpassword);
+            //    TempData["Message"] = "修改成功";
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //model.CustomerPassword = null;
+            //model.checknewpassword= null;
+            //return RedirectToAction("Index", "Home");
         }
 
         //判斷註冊帳號是否已被註冊過Action
