@@ -22,7 +22,7 @@
 </div>
 <div class="checkout">
     <div class="container">
-        <h3>Your shopping cart contains: <span>3 Products</span></h3>
+        
 
         <div class="checkout-right">
 
@@ -30,20 +30,19 @@
 
             <table class="timetable_sub">
                 <thead>
-                    <tr>
-                        <th>SL No.</th>
+                    <tr>                      
                         <th style="width:300px">Product</th>
-                        <th>Quality</th>
+                        <th>Quantity</th>
                         <th>Product Name</th>
                         <th>Price</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
+
                 @foreach (var item in Model.GetAllChartList)
             {
-            <tr class="rem1">
-                <td class="invert">1</td>
-                <td class="invert-image"><a href="single.html"><img src="~/FileUploads/" alt=" " class="img-responsive" /></a></td>
+            <tr class="rem1">                
+                <td class="invert-image"><a href="single.html"><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
                 <td class="invert">
                     <div class="quantity">
                         <div class="quantity-select">
@@ -53,8 +52,8 @@
                         </div>
                     </div>
                 </td>
-                <td class="invert">@Model.ProductName</td>
-                <td class="invert">@Model.UnitPrice</td>
+                <td class="invert">@item.ProductName</td>
+                <td class="invert">@item.UnitPrice</td>
                 <td class="invert">
                     <div class="rem">
                         <div class="close1"></div>
@@ -82,20 +81,25 @@
                             $('.rem1').remove();
                         });
                     });
-                });                                           
+                });      
+                
             </script>
         </div>
         <div class="checkout-left">
             <div class="checkout-left-basket">
                 <h4>Continue to basket</h4>
                 <ul>
-                    <li>Product1 <i>-</i> <span>$200.00 </span></li>
-                    <li>Product2 <i>-</i> <span>$270.00 </span></li>
-                    <li>Product3 <i>-</i> <span>$212.00 </span></li>
-                    <li>Total Service Charges <i>-</i> <span>$15.00</span></li>
-                    <li>Total <i>-</i> <span>$697.00</span></li>
-                </ul>
+                   
+                    @foreach (var item in Model.GetAllChartList)
+                    {
+                       
+                        <li>@item.ProductName <i>-</i> <span>@(item.Quantity*item.UnitPrice) </span></li>
+                        
+                        @*<li>Total <i>-</i> <span>@(item.Quantity * item.UnitPrice)</span></li>*@
+                    }
+                    </ul>
             </div>
+           
             <div class="checkout-right-basket">
                 <a href="products.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
             </div>
