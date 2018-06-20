@@ -16,7 +16,7 @@ namespace StoreData.ViewModels.Customer
         public int UnitPrice { get; set; }
         public string Path { get; set; }
         public string ProductName { get; set; }
-        public IEnumerable<Cart> GetAllChartList { get; set; }
+        public IEnumerable<ProductsItem> GetAllChartList { get; set; }
 
     }
 }

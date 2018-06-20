@@ -61,7 +61,9 @@ namespace StoreData.Repositories
                 return product;
             }
         }
-
+        
+        
+        
         public ProductsItem FindByProductItemId(string ProductID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
@@ -116,6 +118,7 @@ namespace StoreData.Repositories
                 return products;
             }
         }
+        
         public IEnumerable<Products> FindTopByQuantity()
         {
             var productlist = new List<Products>();
@@ -207,8 +210,24 @@ namespace StoreData.Repositories
                 return products;
             }
         }
-        //取得最新的產品ID
-        public string GetNewId()
+        public IEnumerable<ProductsItem> FindByIdCart(string ID)
+        {
+            using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
+            {
+                var products = connection.Query<ProductsItem>("SELECT p.ProductName, p.UnitPrice, p.Path, Quantity, CustomerID " +
+                    " FROM Products p INNER JOIN Cart c ON c.ProductID = p.ProductID " +
+                    " Where CustomerID = @ID ",
+                    new
+                    {
+                        ID,
+                        
+                    });               
+                return products;
+            }
+        }
+        
+            //取得最新的產品ID
+            public string GetNewId()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {

@@ -17,5 +17,6 @@ namespace StoreData.Models
         public string Color { get; set; }
         public string Instructions { get; set; }
         public string Path { get; set; }
+        
     }
 }

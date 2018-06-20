@@ -54,27 +54,24 @@ namespace StoreData.Services
             return Hashresult;
         }
         //加入購物車
-        public void CartEvent(string CustomerId, string ProductId, int Quantity)
-        {
-           var cartdate = cartrepository.FindById(CustomerId);
-            foreach (var item in cartdate)
-            {
-                var newData = new Cart()
-                {
-                    CustomerID = CustomerId,
-                    ProductID = item.ProductID,
-                    Quantity = item.Quantity,
+        //public void CartEvent(string CustomerId, string ProductId, int Quantity)
+        //{
+        //   var cartdate = cartrepository.FindById(CustomerId);
+        //    foreach (var item in cartdate)
+        //    {
+        //        var newData = new Cart()
+        //        {
+        //            CustomerID = CustomerId,
+        //            ProductID = item.ProductID,
+        //            Quantity = item.Quantity,
                    
-                };
-                cartrepository.Create(newData);
-            }
+        //        };
+        //        cartrepository.Create(newData);
+        //    }
 
-        }
+        //}
         //取得購物車內的資料
-        public IEnumerable<Cart> GetItemforcart(string CustomerID)
-        {
-            return cartrepository.GetAll();
-        }
+        
 
         public CustomerView GetAccountByCustomers(string CustomerID)
         {
@@ -126,6 +123,11 @@ namespace StoreData.Services
             {
                 return false;
             }
+        }
+        //新增會員
+        public void CreateCustomer(Customers model)
+        {
+            repository.Create(model);
         }
     }
 }

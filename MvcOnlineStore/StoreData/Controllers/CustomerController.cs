@@ -19,6 +19,7 @@ namespace StoreData.Controllers
         private OrderDetailService orderDetailService = new OrderDetailService();
         private MessageService messageService = new MessageService();
         private Customers customermodel = new Customers();
+        private ProductService productService = new ProductService();
 
         [Route("CustomerLogin")]
         public ActionResult CustomerLogin()
@@ -174,43 +175,43 @@ namespace StoreData.Controllers
             if (ModelState.IsValid)
             {
                 RegisterMember.newCustomer.CustomerPassword = RegisterMember.CustomerPassword;
-                TempData["RegisterStatae"] = "註冊成功";
+                customerService.CreateCustomer(RegisterMember.newCustomer);
+                TempData["Message"] = "註冊成功";
                 return RedirectToAction("Index", "Home");
             }
             RegisterMember.CustomerPassword = null;
             RegisterMember.PasswordCheck = null;
             return RedirectToAction("Index", "Home");
         }
-        //加入購物車
-        public ActionResult Chart()
+        [Route("Chart/{Id}")]
+        public ActionResult Chart(string Id)
         {
-            CartItem data = new CartItem();
-            FormsIdentity id = (FormsIdentity)User.Identity;
-            FormsAuthenticationTicket ticket = id.Ticket;
-            string CustomerID = ticket.Name;
-            data.GetAllChartList = customerService.GetItemforcart(CustomerID);
+            CartItem data = new CartItem();           
+            data.GetAllChartList =productService.GetCartsList(Id);
             return View(data);
         }
+        
+        //[HttpPost]
+        //public ActionResult AddChart(string ProductId, int Quantity)
+        //{
+        //    var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+        //    if (cookie != null)
+        //    {
+        //        FormsIdentity id = (FormsIdentity)User.Identity;
+        //        FormsAuthenticationTicket ticket = id.Ticket;
+        //        string CustomerID = ticket.Name;
+        //        customerService.CartEvent(CustomerID, ProductId, Quantity);
+        //        TempData["RegisterStatae"] = "成功加入購物車";
+        //        return RedirectToAction("ProductItem", "Product", ProductId);
+        //    }
+        //    else
+        //    {
+        //        TempData["Message"] = "尚未登入會員";
+        //        return RedirectToAction("Index", "Home");
+        //    }
 
-        [HttpPost]
-        public ActionResult AddChart(string ProductId, int Quantity)
-        {
-            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (cookie != null)
-            {
-                FormsIdentity id = (FormsIdentity)User.Identity;
-                FormsAuthenticationTicket ticket = id.Ticket;
-                string CustomerID = ticket.Name;
-                customerService.CartEvent(CustomerID, ProductId, Quantity);
-                TempData["RegisterStatae"] = "成功加入購物車";
-                return RedirectToAction("ProductItem", "Product", ProductId);
-            }
-            else
-            {
-                TempData["Message"] = "尚未登入會員";
-                return RedirectToAction("Index", "Home");
-            }
-        }
+
+        //}
         //取得目前使用者帳號
         public string Get_CustomerId()
         {
