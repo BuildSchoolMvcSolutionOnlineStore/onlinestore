@@ -23,27 +23,55 @@ namespace StoreData.Controllers
         }
         ////商品列表
         [Route("ProductList")]
-        public ActionResult ProductList(string ProductName, int Page = 1)
+        public ActionResult ProductList(string ProductName, string sormet, int Page = 1)
         {
+            //ViewBag.low = sortOrder = "low";
+            //ViewBag.high = sortOrder = "high";
             var list = new HomeIndexTop
             {
                 Search = ProductName,
                 Paging = new ForPaging(Page)
             };
-            list.GetAllProductsList = productservice.GetSearchProductName(list.Search,list.Paging);
-            list.GetAllCategories = categoryservice.GetCategoryList();
+            switch (sormet)
+            {
+                case "low":
+                    list.GetAllProductsList = productservice.GetSearchProductName(list.Search, list.Paging).OrderBy(x=>x.UnitPrice);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+                case "high":
+                    list.GetAllProductsList = productservice.GetSearchProductName(list.Search, list.Paging).OrderByDescending(x=>x.UnitPrice);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+                default:
+                    list.GetAllProductsList = productservice.GetSearchProductName(list.Search, list.Paging);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+            }
             return View(list);
         }
         ////商品列表內的商品
         [Route("ProductListBYCategories/{Id}")]
-        public ActionResult ProductListBYCategories(int Id, int Page = 1)
+        public ActionResult ProductListBYCategories(int Id, string sormet,int Page = 1)
         {
             var list = new HomeIndexTop
             {
                 Paging = new ForPaging(Page)
             };
-            list.GetAllCategories = categoryservice.GetCategoryList();
-            list.GetAllProductsList = productservice.GetAllproduct(Id,list.Paging);
+            switch (sormet)
+            {
+                case "low":
+                    list.GetAllProductsList = productservice.GetAllproduct(Id, list.Paging).OrderBy(x => x.UnitPrice);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+                case "high":
+                    list.GetAllProductsList = productservice.GetAllproduct(Id, list.Paging).OrderByDescending(x => x.UnitPrice);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+                default:
+                    list.GetAllProductsList = productservice.GetAllproduct(Id, list.Paging);
+                    list.GetAllCategories = categoryservice.GetCategoryList();
+                    break;
+            }
             return PartialView(list);
         }
         //public ActionResult _ProductListPartial()
