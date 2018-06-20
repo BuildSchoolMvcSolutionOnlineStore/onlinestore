@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreData.ViewModels.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,5 +18,6 @@ namespace StoreData.ViewModels.Home
         public string Instructions { get; set; }
         public string Path { get; set; }
         public int Quantity { get; set; }
+        public IEnumerable <CartItem> GetList { get; set; }
     }
 }

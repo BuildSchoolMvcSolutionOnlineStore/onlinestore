@@ -15,7 +15,7 @@
     <meta name="keywords" content="Women's Fashion Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
-
+    
     @Styles.Render("~/NewHome/css")
     @Scripts.Render("~/NewHome/JavaScript")
 
@@ -152,13 +152,16 @@
             <div class="cart box_1">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
-                        <div class="total">
-                            <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
-                        </div>
-                        <img src="~/FileUploads/bag.png" alt="" />
+                    
+                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart",Id="Alison" })>
+                    
+                    <div class="total">
+                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
+                    </div>
+                    <img src="~/FileUploads/bag.png" alt="" />
                     </a>
                     <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+
                 }
             </div>
         </div>

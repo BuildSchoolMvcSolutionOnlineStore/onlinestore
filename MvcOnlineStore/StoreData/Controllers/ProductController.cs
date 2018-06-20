@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using StoreData.Services;
 using StoreData.ViewModels.Home;
 using StoreData.Models;
+using System.Web.Security;
 
 namespace StoreData.Controllers
 {
@@ -15,6 +16,7 @@ namespace StoreData.Controllers
     {
         private ProductService productservice = new ProductService();
         private CategoryService categoryservice = new CategoryService();
+        private CustomerService customerService = new CustomerService();
         // GET: Product
         [Route("")]
         public ActionResult Index()
@@ -55,15 +57,35 @@ namespace StoreData.Controllers
         //單一商品頁面
         public ActionResult ProductItem(string Id)
         {
+
             //var list = new HomeIndexTop();
             //list.ProductsList = productservice.FindproductById(Id);
             var item = productservice.FindproductById(Id);
             return View(item);
         }
+
         //側邊分類欄
         public ActionResult CategoriesList()
         {
             return View();
+        }
+        public ActionResult AddChart(string ProductID, int Quantity)
+        {
+            var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsIdentity id = (FormsIdentity)User.Identity;
+                FormsAuthenticationTicket ticket = id.Ticket;
+                string CustomerID = ticket.Name;
+                productservice.CartEvent(CustomerID, ProductID, Quantity);
+                TempData["RegisterStatae"] = "成功加入購物車";
+                return RedirectToAction("ProductItem", "Product", ProductID);
+            }
+            else
+            {
+                TempData["Message"] = "尚未登入會員";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

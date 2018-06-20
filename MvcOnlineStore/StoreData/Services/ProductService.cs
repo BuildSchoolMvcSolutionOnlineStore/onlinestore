@@ -14,8 +14,9 @@ namespace StoreData.Services
     {
         private ProductsRepository productsRepository = new ProductsRepository();
         private CategoryService categoryservice = new CategoryService();
+        private CartRepository cartrepository = new CartRepository();
         //修改庫存
-        public void UpdateStock(string id,int stock)
+        public void UpdateStock(string id, int stock)
         {
             var item = productsRepository.FindById(id);
             item.Stock = stock;
@@ -25,7 +26,7 @@ namespace StoreData.Services
         public void UpdateStock_diff(string id, int diff)
         {
             var item = productsRepository.FindById(id);
-            item.Stock = item.Stock-diff;
+            item.Stock = item.Stock - diff;
             productsRepository.Update(item);
         }
         //新增產品
@@ -34,7 +35,7 @@ namespace StoreData.Services
             string Id = productsRepository.GetNewId();
             var split = Id.Split('A');
             string numner = (Convert.ToInt32(split[1]) + 1).ToString();
-            while(numner.Length<3)
+            while (numner.Length < 3)
             {
                 numner = "0" + numner;
             }
@@ -75,6 +76,11 @@ namespace StoreData.Services
             var Data = productsRepository.FindById_Home();
             return Data;
         }
+        public IEnumerable<ProductsItem> GetCartsList(string CustomerID )
+        {
+            var Data = productsRepository.FindByIdCart(CustomerID);
+            return Data;
+        }
 
         // 搜尋產品
         public IEnumerable<ProductsItem> GetSearchProductName(string Search, ForPaging Paging)
@@ -100,6 +106,8 @@ namespace StoreData.Services
             var Data = productsRepository.FindById(Id);
             return Data;
         }
+        
+
         //尋找產品ID
         public ProductsItem FindproductById(string Id)
         {
@@ -109,11 +117,28 @@ namespace StoreData.Services
         //所有產品
         public IEnumerable<ProductsItem> GetAllproduct(int Id, ForPaging Paging)
         {
-            var result = productsRepository.GetAll().Where((x)=>x.CategoryID == Id);
+            var result = productsRepository.GetAll().Where((x) => x.CategoryID == Id);
             Paging.MaxPage = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(result.Count()) / Paging.ItemNum));
             Paging.SetRightPage();
             return result.OrderBy(x => x.ProductID).Skip((Paging.NowPage - 1) * Paging.ItemNum).Take(Paging.ItemNum);
         }
+        //產品加入購物車
+        public void CartEvent(string CustomerID, string ProductID, int Quantity)
+        {
+            var cartdate = cartrepository.FindById(CustomerID);
+            foreach (var item in cartdate)
+            {
+                var newData = new Cart()
+                {
+                    CustomerID = CustomerID,
+                    ProductID = item.ProductID,
+                    Quantity = item.Quantity,
+
+                };
+                cartrepository.Create(newData);
+            }
+        }
+
 
     }
 }

@@ -18,7 +18,7 @@ namespace StoreData.Repositories.Tests
         {
             var model = new Cart();
             model.CustomerID = "Test";
-            model.ProductID = "A003";
+            model.ProductID = "A005";
             model.Quantity = 5;
             repository.Create(model);
             var text = repository.FindById("Test");
