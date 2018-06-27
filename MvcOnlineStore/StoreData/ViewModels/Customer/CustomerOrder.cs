@@ -9,7 +9,7 @@ namespace StoreData.ViewModels.Customer
     {
         public string OrderID { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime ShippedDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
         public string PaymentMethod { get; set; }
         public string DeliveryMethod { get; set; }
         public int Amount { get; set; }

@@ -10,13 +10,10 @@ namespace StoreData.ViewModels.Customer
 {
     public class CartItem
     {
-        public string CustomerID { get; set; }
         public string ProductID { get; set; }
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
         public int UnitPrice { get; set; }
         public string Path { get; set; }
-        public string ProductName { get; set; }
-        public IEnumerable<ProductsItem> GetAllChartList { get; set; }
-
     }
 }

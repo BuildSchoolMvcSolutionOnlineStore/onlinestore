@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using StoreData.Models;
+using StoreData.ViewModels.Customer;
 using StoreData.ViewModels.Home;
 using StoreData.ViewModels.Manager;
 using System;
@@ -61,9 +62,9 @@ namespace StoreData.Repositories
                 return product;
             }
         }
-        
-        
-        
+
+
+
         public ProductsItem FindByProductItemId(string ProductID)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
@@ -118,7 +119,7 @@ namespace StoreData.Repositories
                 return products;
             }
         }
-        
+
         public IEnumerable<Products> FindTopByQuantity()
         {
             var productlist = new List<Products>();
@@ -210,24 +211,23 @@ namespace StoreData.Repositories
                 return products;
             }
         }
-        public IEnumerable<ProductsItem> FindByIdCart(string ID)
+        public IEnumerable<CartItem> FindByIdCart(string customerId)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
-                var products = connection.Query<ProductsItem>("SELECT p.ProductName, p.UnitPrice, p.Path, Quantity, CustomerID " +
-                    " FROM Products p INNER JOIN Cart c ON c.ProductID = p.ProductID " +
-                    " Where CustomerID = @ID ",
+                var products = connection.Query<CartItem>("SELECT p.ProductId, p.ProductName, p.UnitPrice, p.Path, Quantity " +
+                    "FROM Products p INNER JOIN Cart c ON c.ProductID = p.ProductID " +
+                    "Where CustomerID = @customerId ",
                     new
                     {
-                        ID,
-                        
-                    });               
+                        customerId,
+                    });
                 return products;
             }
         }
-        
-            //取得最新的產品ID
-            public string GetNewId()
+
+        //取得最新的產品ID
+        public string GetNewId()
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {

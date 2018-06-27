@@ -64,14 +64,13 @@
                         <i class="item_price">$@Model.UnitPrice</i>
                         @if (Model.Stock != 0)
                         {
-                            using (Html.BeginForm("AddChart", "Product"))
+                            using (Html.BeginForm("AddCart", "Product"))
                             {
                                 <input name="ProductID" type="hidden" value=@Model.ProductID>
-                                <input id="num" name="Quantity" value="0" type="hidden" />                                
-                                    <p>
-                                        <a class="item_add" href= "#" >Add to cart</a>
-                                    </p>
-                               
+                                <input id="num" name="Quantity" value="1" type="hidden" />                                
+                                <p>
+                                    <button class="btn item_add btn-warning" type="submit">Add to cart</button>
+                                </p>
                             }
                         }
                         else
@@ -91,14 +90,19 @@
                         <div class="quantity-select">
                             <button class="entry value-minus1">&nbsp;</button>
                             <div class="entry value1" style="background-color:#ffffff ;color:#000">
-                                <span id="productnum" name="quantity">0</span>
+                                <span id="productnum" name="quantity">1</span>
                             </div>
                             <button class="entry value-plus1 active ">&nbsp;</button>
                         </div>
                     </div>
                     <!--quantity-->
                     <script>
-
+                        function Loading() {
+                            if (@Model.Stock == 0) {
+                                $('#productnum').text("0");
+                            }
+                        };
+                        Loading();
                         $('.value-plus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) + 1;
@@ -118,7 +122,7 @@
                         $('.value-minus1').on('click', function () {
                             var divUpd = $(this).parent().find('.value1'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
-                            if (newVal >= 0) divUpd.text(newVal);
+                            if (newVal > 0) divUpd.text(newVal);
                             $("#num").val($(".value1").text());
                         });
                         

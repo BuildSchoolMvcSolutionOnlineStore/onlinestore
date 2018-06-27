@@ -208,6 +208,7 @@
     <Compile Include="Services\PayService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Customer\CartItem.cs" />
+    <Compile Include="ViewModels\Customer\CartView.cs" />
     <Compile Include="ViewModels\Customer\CheckAccount.cs" />
     <Compile Include="ViewModels\Customer\CreateOrderView.cs" />
     <Compile Include="ViewModels\Customer\CustomerOrder.cs" />
@@ -405,6 +406,7 @@
     <Content Include="Views\Customer\OrderList.cshtml" />
     <Content Include="Views\Customer\OrderDetailList.cshtml" />
     <Content Include="Views\Customer\ChangePassword.cshtml" />
+    <Content Include="Views\Customer\ProductCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

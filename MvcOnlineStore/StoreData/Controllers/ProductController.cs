@@ -97,7 +97,9 @@ namespace StoreData.Controllers
         {
             return View();
         }
-        public ActionResult AddChart(string ProductID, int Quantity)
+        [Route("AddCart")]
+        [HttpPost]
+        public ActionResult AddCart(string ProductID, int Quantity)
         {
             var cookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             if (cookie != null)
@@ -106,8 +108,8 @@ namespace StoreData.Controllers
                 FormsAuthenticationTicket ticket = id.Ticket;
                 string CustomerID = ticket.Name;
                 productservice.CartEvent(CustomerID, ProductID, Quantity);
-                TempData["RegisterStatae"] = "成功加入購物車";
-                return RedirectToAction("ProductItem", "Product", ProductID);
+                TempData["Message"] = "成功加入購物車";
+                return RedirectToAction("ProductItem", "Product",new { Id = ProductID });
             }
             else
             {

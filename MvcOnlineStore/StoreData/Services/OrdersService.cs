@@ -130,6 +130,7 @@ namespace StoreData.Services
                 OrderID = "DE" + numner,
                 CustomerID = CustomerId,
                 OrderDate = DateTime.Now,
+                ShippedDate = null,
                 PaymentMethodID = model.PaymentMethodID,
                 DeliveryMethodID = model.DeliveryMethodID,
                 Status = 0

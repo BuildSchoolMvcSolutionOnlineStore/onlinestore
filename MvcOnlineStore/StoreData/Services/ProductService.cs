@@ -7,6 +7,7 @@ using StoreData.Repositories;
 using StoreData.ViewModels.Manager;
 using System.IO;
 using StoreData.ViewModels.Home;
+using StoreData.ViewModels.Customer;
 
 namespace StoreData.Services
 {
@@ -76,7 +77,7 @@ namespace StoreData.Services
             var Data = productsRepository.FindById_Home();
             return Data;
         }
-        public IEnumerable<ProductsItem> GetCartsList(string CustomerID )
+        public IEnumerable<CartItem> GetCartsList(string CustomerID)
         {
             var Data = productsRepository.FindByIdCart(CustomerID);
             return Data;
@@ -125,20 +126,20 @@ namespace StoreData.Services
         //產品加入購物車
         public void CartEvent(string CustomerID, string ProductID, int Quantity)
         {
-            var cartdate = cartrepository.FindById(CustomerID);
-            foreach (var item in cartdate)
+            var newData = new Cart()
             {
-                var newData = new Cart()
-                {
-                    CustomerID = CustomerID,
-                    ProductID = item.ProductID,
-                    Quantity = item.Quantity,
+                CustomerID = CustomerID,
+                ProductID = ProductID,
+                Quantity = Quantity
 
-                };
-                cartrepository.Create(newData);
-            }
+            };
+            cartrepository.Create(newData);
         }
-
+        //產品移除購物車
+        public void RemoveCart(string customerId, string productId)
+        {
+            cartrepository.Delete(customerId, productId);
+        }
 
     }
 }

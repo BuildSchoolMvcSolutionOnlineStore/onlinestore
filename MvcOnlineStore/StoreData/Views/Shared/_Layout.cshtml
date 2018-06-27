@@ -152,15 +152,15 @@
             <div class="cart box_1">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    
-                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart",Id="Alison" })>
+
+                    <a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })>
                     
                     <div class="total">
-                        <span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
+                        @*<span id="simpleCart_quantity" class="simpleCart_quantity"></span>*@
+                        @{Html.RenderAction("ProductCount", "Customer");} items
                     </div>
                     <img src="~/FileUploads/bag.png" alt="" />
                     </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 
                 }
             </div>

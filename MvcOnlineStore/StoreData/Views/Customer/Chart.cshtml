@@ -1,9 +1,9 @@
-﻿@model StoreData.ViewModels.Customer.CartItem
+﻿@model StoreData.ViewModels.Customer.CartView
 
 @{
     ViewBag.Title = "Chart";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    var total = 0;
 }
 @Styles.Render("~/NewHome/css");
 
@@ -22,47 +22,55 @@
 </div>
 <div class="checkout">
     <div class="container">
-        
-
         <div class="checkout-right">
-
-
-
             <table class="timetable_sub">
                 <thead>
-                    <tr>                      
-                        <th style="width:300px">Product</th>
-                        <th>Quantity</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Remove</th>
+                    <tr>
+                        <th style="width:300px">圖片</th>
+                        <th>數量</th>
+                        <th>產品名稱</th>
+                        <th>單價</th>
+                        <th>移除</th>
                     </tr>
                 </thead>
-
-                @foreach (var item in Model.GetAllChartList)
-            {
-            <tr class="rem1">                
-                <td class="invert-image"><a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
-                <td class="invert">
-                    <div class="quantity">
-                        <div class="quantity-select">
-                            <div class="entry value-minus">&nbsp;</div>
-                            <div class="entry value"><span>@item.Quantity</span></div>
-                            <div class="entry value-plus active">&nbsp;</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="invert">@item.ProductName</td>
-                <td class="invert">@item.UnitPrice</td>
-                <td class="invert">
-                    <div class="rem">
-                        <div class="close1"></div>
-                    </div>
-                </td>
-            </tr>
-        }
+                @if (Model.DataList.Count() > 0)
+                {
+                    foreach (var item in Model.DataList)
+                    {
+                        <tr class="rem1">
+                            <td class="invert-image"><a href=@Url.RouteUrl(new { Controller = "Customer", Action = "Chart" })><img src="~/FileUploads/@item.Path" alt=" " class="img-responsive" /></a></td>
+                            <td class="invert">
+                                <div class="quantity">
+                                    <div class="quantity-select">
+                                        <div class="entry value-minus">&nbsp;</div>
+                                        <div class="entry value"><span>@item.Quantity</span></div>
+                                        <div class="entry value-plus active"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="invert">@item.ProductName</td>
+                            <td class="invert">@item.UnitPrice</td>
+                            <td class="invert">
+                                @using (Html.BeginForm("RemoveCart", "Customer"))
+                                {
+                                    <input type="hidden" name="productId" value=@item.ProductID />
+                                    <button class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">
+                            尚未有產品加入購物車
+                        </td>
+                    </tr>
+                }
             </table>
-
 
             <script>
                 $('.value-plus').on('click', function () {
@@ -81,29 +89,41 @@
                             $('.rem1').remove();
                         });
                     });
-                });      
-                
+                });
             </script>
         </div>
         <div class="checkout-left">
             <div class="checkout-left-basket">
-                <h4>Total Amount</h4>
+                <h4>總金額</h4>
                 <ul>
-                   
-                    @foreach (var item in Model.GetAllChartList)
+                    @foreach (var item in Model.DataList)
                     {
-                       
-                        <li>@item.ProductName <i>-</i> <span>@(item.Quantity*item.UnitPrice) </span></li>
-                        
-                        @*<li>Total <i>-</i> <span>@(item.Quantity * item.UnitPrice)</span></li>*@
+
+                        <li>@item.ProductName <i>-</i> <span>@(item.Quantity * item.UnitPrice) </span></li>
+                        total += item.Quantity * item.UnitPrice;
                     }
-                    </ul>
+                    <li>&nbsp;</li>
+                    <li style="color:black;">總金額 <i>-</i> <span>@total</span></li>
+                </ul>
             </div>
-           
-            <div class="checkout-right-basket">
-                <a href=@Url.RouteUrl(new {Controller="Product" ,Action="ProductList"})><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+            <div class="checkout-right-basket ">
+                @using (Html.BeginForm("Chart", "Customer"))
+                {
+                    <div class="form-group">
+                        <label>付款方式</label>
+                        @Html.DropDownListFor(model => model.PaymentMethodID, (IEnumerable<SelectListItem>)ViewBag.PaymenyMethod, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>運送方式</label>
+                        @Html.DropDownListFor(model => model.DeliveryMethodID, (IEnumerable<SelectListItem>)ViewBag.DeliveryMethod, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <div class="text-right">
+                        <button class="btn btn-warning btn-lg">結帳</button>
+                    </div>
+                }
             </div>
-            <div class="clearfix"> </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>

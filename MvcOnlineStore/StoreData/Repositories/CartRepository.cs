@@ -27,15 +27,16 @@ namespace StoreData.Repositories
                     "ProductID = @ProductID, Quantity = @Quantity WHERE CustomerID = @CustomerID AND ProductID = @ProductID", model);
             }
         }
-        public void Delete(String CustomerID)
+        public void Delete(string customerId,string productId)
         {
             using (var connection = new SqlConnection(SqlConnectionString.ConnectionString()))
             {
                 connection.Execute(
-                    "Delete From Cart WHERE CustomerID = @id",
+                    "Delete From Cart WHERE CustomerID = @customerId AND ProductId =@productId ",
                     new
                     {
-                        id = CustomerID
+                        customerId,
+                        productId
                     });
             }
         }
